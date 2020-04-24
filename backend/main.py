@@ -61,12 +61,12 @@ def adjust_challenge(challenge: Challenge) -> Tuple[dict, int]:
     """
     client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}\
         :{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')
-    client["challenges"].update_one({})
+    client["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge})
     return {}, 200
 
 
 @app.get("/users")
-def get_users() -> Tuple[dict, int]:
+def get_users() -> Tuple[List, int]:
     """
     Lists all users.
     :return: response data and status code
@@ -86,6 +86,7 @@ def create_user(user: User) -> Tuple[dict, int]:
     """
     client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}\
         :{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')
+    client["users"].insert_one(user)
     return {}, 200
 
 
@@ -98,6 +99,7 @@ def get_individual_user(user_id: int) -> Tuple[dict, int]:
     """
     client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}\
         :{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')
+    client["users"].find({"user_id": user_id})
     return {}, 200
 
 
@@ -110,4 +112,5 @@ def adjust_user(user: User) -> Tuple[dict, int]:
     """
     client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}\
         :{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')
+    client["users"].update_one({"user_id": user.user_id}, {"$set": user})
     return {}, 200

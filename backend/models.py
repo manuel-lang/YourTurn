@@ -4,7 +4,9 @@ from pydantic import BaseModel
 class Challenge(BaseModel):
     name: str
     owner_id: int
+    challenge_id: int = None
     description: str = None
+    private: bool = False
 
 
 class User(BaseModel):
