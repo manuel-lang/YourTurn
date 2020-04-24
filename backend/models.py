@@ -11,3 +11,4 @@ class User(BaseModel):
     name: str
     user_id: int = None
     friends_ids: list = None
+    bookmarks: list = None
