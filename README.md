@@ -1,5 +1,7 @@
 # YourTurn
 
+The global platform where friends can challenge each other.
+
 ## Start frontend
 * Run `npm install` in the frontend folder to install the required node modules.
 * Run `npm start` to start the application with expo. Additional flags are `--android`, `--ios` or `--web` for the corresponding sources.
