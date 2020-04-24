@@ -7,6 +7,10 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import OwnScreen from '../screens/OwnScreen';
+import Nils from '../screens/Nils';
+import Marius from '../screens/Marius';
+import Malte from '../screens/Malte';
+import Minhkha from '../screens/Minhkha';
 import AnotherScreen from '../screens/AnotherScreen';
 
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
@@ -55,8 +59,8 @@ export default function BottomTabNavigator({ navigation, route }) {
       initialRouteName={INITIAL_ROUTE_NAME}
     >
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="nils"
+        component={Nils}
         options={{
           title: 'Get Started',
           tabBarIcon: ({ focused }) => 
@@ -71,16 +75,17 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
 
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="malte"
+        component={Malte}
         options={{
           title: 'Resources',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
+
       <BottomTab.Screen
-        name="Fitness"
-        component={OwnScreen}
+        name="marius"
+        component={Marius}
         options={{
           title: 'blabla',
           tabBarIcon: ({ focused }) => 
@@ -93,10 +98,10 @@ export default function BottomTabNavigator({ navigation, route }) {
           ,
         }}
       />
-
+ 
       <BottomTab.Screen
-        name="another"
-        component={AnotherScreen}
+        name="minhkha"
+        component={Minhkha}
         options={{
           title: 'another screen',
           tabBarIcon: ({ focused }) => 
@@ -109,6 +114,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           ,
         }}
       />
+
 
       <BottomTab.Screen
         name="notifications"
