@@ -7,6 +7,11 @@ class Challenge(BaseModel):
     challenge_id: int = None
     description: str = None
     private: bool = False
+    participants: list = None
+    tags: list = None
+    likes: list = None
+    costs: int = None
+    completed_users: list = None
 
 
 class User(BaseModel):
@@ -14,3 +19,5 @@ class User(BaseModel):
     user_id: int = None
     friends_ids: list = None
     bookmarks: list = None
+    challenges: list = None
+    completed_challenges: list = None
