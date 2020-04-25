@@ -1,120 +1,155 @@
+from bson.json_util import dumps
 from dotenv import load_dotenv
-from fastapi import FastAPI
-from models import Challenge, User
+from fastapi import FastAPI, status
+from fastapi.responses import JSONResponse
+from models import Challenge, Notification, User
 import os
 from pymongo import MongoClient
 import random
-from typing import Tuple
 
 app = FastAPI()
 load_dotenv()
 
 
+def _get_db():
+    return MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
+                       f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
+
+
 @app.get("/challenges")
-def get_challenges(user_id: int = None) -> list:
+def get_challenges(user_id: int) -> JSONResponse:
     """
     Lists all challenges.
     :param user_id: the id of the user
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
+    db = _get_db()
     all_challenges = list(db["challenges"].find())
     if not user_id:
-        return all_challenges
+        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(all_challenges))
     else:
-        bookmarked_challenges = list(db["users"].find({"user_id": user_id})["bookmarks"])
-        ordered_challenges = [x for x in all_challenges if x["owner_id" == user_id]] + [x for x in all_challenges if x[
-            "challenge_id"] in bookmarked_challenges] + random.shuffle(
-            [x for x in all_challenges if x["owner_id"] != user_id and x["challenge_id"] not in bookmarked_challenges])
-        return ordered_challenges
+        bookmarked_challenges = [x["bookmarks"] for x in list(db["users"].find({"user_id": user_id}))][0]
+        print(bookmarked_challenges)
+        other_challenges = [x for x in all_challenges if
+                            x["owner"]["id"] != user_id and x["challenge_id"] not in bookmarked_challenges]
+        random.shuffle(other_challenges)
+        ordered_challenges = [x for x in all_challenges if x["owner"]["id"] == user_id] + [x for x in all_challenges if x[
+            "challenge_id"] in bookmarked_challenges] + other_challenges
+        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(ordered_challenges))
 
 
 @app.post("/challenges")
-def create_challenge(challenge: Challenge) -> Tuple[dict, int]:
+def create_challenge(challenge: Challenge) -> JSONResponse:
     """
     Adds a new challenge.
     :param challenge: the challenge information
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    db["challenges"].insert_one(challenge)
-    return {}, 200
+    db = _get_db()
+    challenge.challenge_id = db["challenges"].find().count() + 1
+    db["challenges"].insert_one(challenge.to_dict())
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
 
 
 @app.put("/challenges")
-def adjust_challenge(challenge: Challenge) -> Tuple[dict, int]:
+def update_challenge(challenge: Challenge) -> JSONResponse:
     """
-    Adjusts a challenge.
+    Updates a challenge.
     :param challenge: the challenge information
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    db["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge})
-    return {}, 200
+    _get_db()["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge.to_dict()})
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=dumps([]))
 
 
 @app.get("/challenges/{challenge_id}")
-def get_individual_challenge(challenge_id: int) -> Tuple[Challenge, int]:
+def get_individual_challenge(challenge_id: int) -> JSONResponse:
     """
     Lists the information for a specific challenge.
     :param challenge_id: the id of the challenge
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    challenge = db["challenges"].find_one({"challenge_id": challenge_id})
-    return challenge, 200
+    challenge = _get_db()["challenges"].find_one({"challenge_id": challenge_id})
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(challenge))
 
 
 @app.get("/users")
-def get_users() -> Tuple[list, int]:
+def get_users() -> JSONResponse:
     """
     Lists all users.
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    users = list(db["users"].find())
-    return users, 200
+    users = list(_get_db()["users"].find())
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(users))
 
 
 @app.post("/users")
-def create_user(user: User) -> Tuple[dict, int]:
+def create_user(user: User) -> JSONResponse:
     """
     Adds a new user.
     :param user: the update information
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    db["users"].insert_one(user)
-    return {}, 200
+    db = _get_db()
+    user.user_id = db["users"].find().count() + 1
+    db["users"].insert_one(user.to_dict())
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
 
 
 @app.put("/users")
-def adjust_user(user: User) -> Tuple[dict, int]:
+def update_user(user: User) -> JSONResponse:
     """
-    Lists all information belonging to one user.
+    Updates the information belong to a given user.
     :param user: the update information
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    db["users"].update_one({"user_id": user.user_id}, {"$set": user})
-    return {}, 200
+    print(user.to_dict())
+    _get_db()["users"].update_one({"user_id": user.user_id}, {"$set": user.to_dict()})
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=dumps([]))
 
 
 @app.get("/users/{user_id}")
-def get_individual_user(user_id: int) -> Tuple[dict, int]:
+def get_individual_user(user_id: int) -> JSONResponse:
     """
     Lists all information belonging to one user.
     :param user_id: the id of the user
-    :return: response data and status code
+    :return: status code and response data
     """
-    db = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                     f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
-    db["users"].find({"user_id": user_id})
-    return {}, 200
+    user = _get_db()["users"].find_one({"user_id": user_id})
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps([user]))
+
+
+@app.get("/notifications")
+def get_user_notifications(user_id: int = None) -> JSONResponse:
+    """
+    Lists all notifications for a certain user.
+    :param user_id: the id of the user
+    :return: status code and response data
+    """
+    notifications = list(_get_db()["notifications"].find({"user_id": user_id}))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(notifications))
+
+
+@app.post("/notifications")
+def create_notification(notification: Notification) -> JSONResponse:
+    """
+    Adds a new notification.
+    :param notification: the notification to add
+    :return: status code and response data
+    """
+    db = _get_db()
+    notification.notification_id = db["notifications"].find().count() + 1
+    _get_db()["notifications"].insert_one(notification.to_dict())
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
+
+
+@app.put("/notifications")
+def update_notification(notification: Notification) -> JSONResponse:
+    """
+    Updates a notification.
+    :param notification: the update information
+    :return: status code and response data
+    """
+    _get_db()["notifications"].update_one({"notification_id": notification.notification_id},
+                                          {"$set": notification.to_dict()})
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
