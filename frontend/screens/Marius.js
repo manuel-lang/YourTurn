@@ -12,12 +12,29 @@ const CustomButton = (props) => {
     const [isActive, setIsActive] = useState(false)
 
     const onPressCustomButton = () => {
-        // activeTagsFunc
-        // activeTags
 
+        // enthält alle aktiven Tags
+        // activeTags={activeTags}
+        // zum setzen der Tags
+        // activeTagsFunc={setActiveTags}
+
+        if (!isActive) {
+            props.activeTags.push(props.tag)
+        } else {
+            let i;
+            for (i = 0; i < props.activeTags.length; ++i) {
+                if (props.activeTags[i] === props.tag) {
+                    props.activeTags.splice(i, 1);
+                }
+            }
+        }
 
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
-        url += "&tag=" + props.tag;
+        let i;
+        for (i = 0; i < props.activeTags.length; ++i) {
+            url += "&tag=" + props.activeTags[i];
+        }
+
         fetch(url, {
                         method: 'GET',
                         headers: new Headers({
@@ -27,8 +44,7 @@ const CustomButton = (props) => {
                 .then((response) => response.json())
                 .then((json) => props.func(JSON.parse(json)))
                 .then(() => setIsActive(!isActive))
-                  .catch((error) => console.error(error))
-                  // .finally(() => setLoading(false));
+                .catch((error) => console.error(error))
     }
 
     return (
@@ -58,21 +74,18 @@ function Marius() {
             })
             .then((response) => response.json())
             .then((json) => setfetchedData(JSON.parse(json)))
-          .catch((error) => console.error(error))
-          // .finally(() => setLoading(false));
+            .catch((error) => console.error(error))
     }, []);
 
 
-    // here <Minhkha display=true /> mit einbauen
     return (
         <View style={{flex: 1}}>
             {!showDetails &&
             <View style={styles.wrapper}>
-                {/* <Text style={{flex: 1, color: '#000000', textAlign: 'center', fontSize: 20}}>Challenges Feed</Text>*/}
                 <View style={styles.orderButtons}>
-                    <CustomButton tag="Health" func={setfetchedData} activeTags={activeTags} activeTagsFunc={setActiveTags}/>
-                    <CustomButton tag="Social" func={setfetchedData} activeTags={activeTags}/>
-                    <CustomButton tag="Lifestyle" func={setfetchedData} activeTags={activeTags}/>
+                    <CustomButton tag="Health" func={setfetchedData} activeTags={activeTags} />
+                    <CustomButton tag="Social" func={setfetchedData} activeTags={activeTags} />
+                    <CustomButton tag="Lifestyle" func={setfetchedData} activeTags={activeTags} />
                 </View>
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <FlatList
@@ -95,7 +108,7 @@ function Marius() {
             </View>
             }
 
-            {showDetails && <Minhkha />}
+            {showDetails && <Minhkha setShowDetails={setShowDetails} />}
         </View>
     );
 }
@@ -105,6 +118,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
+        fontFamily: 'Arial'
     },
     orderButtons: {
         flex: 1,
