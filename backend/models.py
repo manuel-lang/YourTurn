@@ -21,3 +21,9 @@ class User(BaseModel):
     bookmarks: list = None
     challenges: list = None
     completed_challenges: list = None
+
+
+class Notification(BaseModel):
+    content: str
+    user_id: int
+    new: bool = True
