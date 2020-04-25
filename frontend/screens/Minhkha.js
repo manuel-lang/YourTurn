@@ -16,14 +16,14 @@ import { Text } from 'galio-framework';
 import { Card as GCard } from 'galio-framework';
 import { Button } from 'galio-framework';
 import { Icon } from 'galio-framework';
-import { NavBar } from 'galio-framework';
+// import { NavBar } from 'galio-framework';
 import { Slider, Block } from 'galio-framework';
 
 import { Card } from 'react-native-material-ui';
 
 const primaryColor = "#00bcd4"
 const backgroundColor1 = '#242424'
-const backgroundColor2 = "#3d3d3d"
+const backgroundColor2 = "#000000"
 
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
@@ -31,9 +31,6 @@ const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:
 const ChallengeDetails = (props) => {
   return (
     <View>
-    <View style={styles.descriptionContainer}>
-        <Text p color="#fff">{props.description}</Text>
-      </View>
 
       <View style={styles.tagContainer}>
         {
@@ -126,7 +123,9 @@ const ChallengeDetails = (props) => {
           iconSize={30} 
           color={primaryColor}
           iconColor="#fff" 
-          style={{ width: 100, height: 50 }} />
+          style={{ width: 100, height: 50 }} 
+          onPress={props.onPressDone}
+        />
 
         <Button 
           onlyIcon 
@@ -157,7 +156,9 @@ const AddUser = (props) => {
   return (
     <View>
 
-        <Text p color="#fff">Select your friends you would like to add</Text>
+        <View style={{marginTop: 40}}>
+          <Text p bold color="#fff">Select your friends you would like to add</Text>
+        </View>
 
         <UserCard
           title={props.friendList[0].name}
@@ -196,24 +197,62 @@ const AddUser = (props) => {
 }
 
 const UserCard = (props) => {
+
+  const [buttonPressed, setButtonPressed] = React.useState(false);
+
+  const onPressUserCard = () => {
+    setButtonPressed(!buttonPressed)
+    console.log("pressed user card")
+  }
+
   return (
     <View style={{backgroundColor: backgroundColor2}}>
-      <View style={styles.ownerCard}>
+      
+      <View style={styles.ownerCard} >
+      <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
           <GCard
           flex
           borderless
-          style={styles.ownerInnerCard}
+          style={!buttonPressed ? styles.ownerInnerCard : styles.ownerInnerCardPressed}
           title={props.title}
           caption={props.subtitle}
           location="Frankfurt, Germany"
           avatar="http://i.pravatar.cc/100?id=skater"
         />
+        </Button>
       </View>
     </View>
   )
 }
 
-export default function Minhkha() {
+const Done = (props) => {
+
+  return (
+    <View style={styles.center}>
+          <Icon 
+            name="check-circle" 
+            family="Feather" 
+            color={primaryColor} 
+            size={200} 
+            style={{marginTop: 40}}
+          />
+
+        <View style={{marginTop: 40}}>
+          <Text p bold color="#fff">Congrats! You mastered this challenge.</Text>
+        </View>
+
+        <View style={{alignItems: "center", marginTop: 40}}>
+          <Button 
+            color={primaryColor}
+            style={{ width: 100, height: 50 }} 
+            onPress={props.onPressDoneFinished}  
+          > Back </Button>
+      </View>
+    </View>
+  )
+}
+
+export default function Minhkha(props) {
 
   const onPressAddUser = (event) => {
     // console.log(event);
@@ -230,6 +269,12 @@ export default function Minhkha() {
   const onPressAddUserFinished = (event) => {
     // console.log(event);
     setAddUserOpen(false);
+    setChallengeDetailsOpen(true);
+  }
+
+  const onPressDoneFinished = (event) => {
+    // console.log(event);
+    setDoneOpen(false);
     setChallengeDetailsOpen(true);
   }
 
@@ -357,18 +402,25 @@ const parseDate = (date) => {
 
     dataLoaded && <ScrollView style={styles.container}>
 
+        <View style={styles.imageContainer}>
+          <Image 
+            source={require('../assets/images/profile_picture.jpg') }
+            style={styles.image}
+          />
+        </View>
+
         <View
          style={styles.card}
         >
           <Card
             // onPress={() => setCollapseOpen(!collapseOpen)}
           >
-            <View style={styles.imageContainer}>
+            {/* <View style={styles.imageContainer}>
               <Image 
                 source={require('../assets/images/profile_picture.jpg') }
                 style={styles.image}
               />
-            </View>
+            </View> */}
 
             <View style={styles.feedbackContainer}>
               <View style={styles.feedback}>
@@ -402,9 +454,12 @@ const parseDate = (date) => {
                 <Text bold h3 color="#fff">{name}</Text>
               </View>
 
+              <View style={styles.descriptionContainer}>
+                <Text p color="#fff">{description}</Text>
+              </View>
+
               {challengeDetailsOpen &&
               <ChallengeDetails 
-                description={description}
                 tagList={tagList}
                 proof={proof}
                 voting={voting}
@@ -436,7 +491,9 @@ const parseDate = (date) => {
               }
 
               {doneOpen &&
-              <Text>Tschüss</Text>
+              <Done 
+                onPressDoneFinished={onPressDoneFinished}
+              />
               }
 
             </View>
@@ -467,6 +524,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#ebebeb",
   }, 
 
+  ownerInnerCardPressed: {
+    width: "100%",
+    padding: 0,
+    margin: 0,
+    backgroundColor: "#bad3d6",
+  }, 
+
   ownerCard: {
     marginTop: 20,
     flex: 1,
@@ -487,10 +551,10 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    marginTop: 20,
+    marginTop: 0,
     width: '100%',
     height: 300,
-    borderRadius: 30,
+    borderRadius: 0,
   },
 
   contentContainer: {
@@ -561,4 +625,12 @@ const styles = StyleSheet.create({
     width: 55,
     height: 50,
   },
+
+  center: {
+    // flex: 1,
+    // flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
 });
