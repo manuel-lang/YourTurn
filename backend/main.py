@@ -89,7 +89,9 @@ def create_user(user: User) -> JSONResponse:
     :param user: the update information
     :return: status code and response data
     """
-    _get_db()["users"].insert_one(user)
+    db = _get_db()
+    user.user_id = db["users"].find().count()+1
+    db["users"].insert_one(user.to_dict())
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
 
 
