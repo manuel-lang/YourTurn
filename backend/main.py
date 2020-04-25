@@ -28,11 +28,12 @@ def get_challenges(user_id: int) -> JSONResponse:
     if not user_id:
         return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(all_challenges))
     else:
-        bookmarked_challenges = [x["bookmarks"] for x in list(db["users"].find({"user_id": user_id}))]
+        bookmarked_challenges = [x["bookmarks"] for x in list(db["users"].find({"user_id": user_id}))][0]
+        print(bookmarked_challenges)
         other_challenges = [x for x in all_challenges if
-                            x["owner_id"] != user_id and x["challenge_id"] not in bookmarked_challenges]
+                            x["owner"]["id"] != user_id and x["challenge_id"] not in bookmarked_challenges]
         random.shuffle(other_challenges)
-        ordered_challenges = [x for x in all_challenges if x["owner_id" == user_id]] + [x for x in all_challenges if x[
+        ordered_challenges = [x for x in all_challenges if x["owner"]["id"] == user_id] + [x for x in all_challenges if x[
             "challenge_id"] in bookmarked_challenges] + other_challenges
         return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(ordered_challenges))
 
@@ -69,7 +70,7 @@ def get_individual_challenge(challenge_id: int) -> JSONResponse:
     :return: status code and response data
     """
     challenge = _get_db()["challenges"].find_one({"challenge_id": challenge_id})
-    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps([challenge]))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(challenge))
 
 
 @app.get("/users")

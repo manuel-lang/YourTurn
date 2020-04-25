@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Challenge(BaseModel):
     name: str
-    owner_id: int
+    owner: dict
     challenge_id: int = None
     description: str = ""
     private: bool = False
@@ -13,7 +13,7 @@ class Challenge(BaseModel):
     likes: list = []
     costs: int = 0
     completed_users: list = []
-    deadline: datetime
+    deadline: datetime = datetime.now()
     proof: str = ""
     picture_id: int = 0
     bet: str = ""
@@ -38,7 +38,7 @@ class User(BaseModel):
 
 class Notification(BaseModel):
     content: str
-    notification_id: int
+    notification_id: int = None
     user_id: int
     new: bool = True
 
