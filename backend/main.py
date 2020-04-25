@@ -52,13 +52,13 @@ def create_challenge(challenge: Challenge) -> JSONResponse:
 
 
 @app.put("/challenges")
-def adjust_challenge(challenge: Challenge) -> JSONResponse:
+def update_challenge(challenge: Challenge) -> JSONResponse:
     """
     Adjusts a challenge.
     :param challenge: the challenge information
     :return: status code and response data
     """
-    _get_db()["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge})
+    _get_db()["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge.to_dict()})
     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
 
 
@@ -97,13 +97,13 @@ def create_user(user: User) -> JSONResponse:
 
 
 @app.put("/users")
-def adjust_user(user: User) -> JSONResponse:
+def update_user(user: User) -> JSONResponse:
     """
     Lists all information belonging to one user.
     :param user: the update information
     :return: status code and response data
     """
-    _get_db()["users"].update_one({"user_id": user.user_id}, {"$set": user})
+    _get_db()["users"].update_one({"user_id": user.user_id}, {"$set": user.to_dict()})
     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
 
 
