@@ -15,6 +15,7 @@ import { Block } from 'galio-framework';
 import { Button } from 'galio-framework';
 import Colors from '../constants/Colors';
 
+
 export default function Malte() {
 
   const [deleteNotification1, setDeleteNotification1] = React.useState(false);
@@ -24,6 +25,7 @@ export default function Malte() {
   const [deleteNotification5, setDeleteNotification5] = React.useState(false);
   const [deleteNotification6, setDeleteNotification6] = React.useState(false);
   const API_URL_NOTIFICATION = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/notifications"
+  
   /*
   var result;
   const [content, setContent] = React.useState([]);
@@ -200,7 +202,7 @@ export default function Malte() {
       <Block style={styles.notificationContainer}>
         <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
         <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Adidas started a new challengehat eine neue Challenge gestartet</Text>
+          <Text style={{color: 'white'}}p>Adidas started a new challenge</Text>
         </Block>
         <Block style={{marginTop: 10, marginRight: 10}}>
         <Button 

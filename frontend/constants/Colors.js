@@ -12,7 +12,7 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
   highlightColor: '#00bcd4',
-  tabColor: '#5b6b78',
+  tabColor: '#4f4f4f',
   textColor: 'white',
   tabBackroundColor: '#242424'
 
