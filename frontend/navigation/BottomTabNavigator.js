@@ -1,24 +1,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-
 import { View, Text } from 'react-native';
-
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import OwnScreen from '../screens/OwnScreen';
 import Nils from '../screens/Nils';
 import Marius from '../screens/Marius';
 import Malte from '../screens/Malte';
 import Minhkha from '../screens/Minhkha';
 import AnotherScreen from '../screens/AnotherScreen';
 
-import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'marius';
 
 function IconWithBadge({ name, badgeCount, color, size }) {
   return (
@@ -30,7 +24,7 @@ function IconWithBadge({ name, badgeCount, color, size }) {
             // On React Native < 0.57 overflow outside of parent will not work on Android, see https://git.io/fhLJ8
             position: 'absolute',
             right: -6,
-            top: -3,
+            top: -1,
             backgroundColor: 'red',
             borderRadius: 6,
             width: 12,
@@ -57,17 +51,23 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator 
       initialRouteName={INITIAL_ROUTE_NAME}
+      tabBarOptions={{
+        activeBackgroundColor: Colors.tabColor,
+        inactiveBackgroundColor: Colors.tabColor,
+        activeTintColor: Colors.highlightColor,
+        inactiveTintColor: Colors.textColor,
+      }}
     >
       <BottomTab.Screen
         name="nils"
         component={Nils}
         options={{
-          title: 'Get Started',
+          title: 'Profile',
           tabBarIcon: ({ focused }) => 
-            <Ionicons
-              name="md-home"
+            <MaterialIcons
+              name="person"
               size={30}
-              style={{ marginBottom: -3 }}
+              style={{ marginBottom: -3}}
               color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
             />
           ,
@@ -75,11 +75,18 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
 
       <BottomTab.Screen
-        name="malte"
-        component={Malte}
+        name="minhkha"
+        component={Minhkha}
         options={{
-          title: 'Resources',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: 'Friends',
+          tabBarIcon: ({ focused }) => 
+            <FontAwesome 
+              name="group"
+              size={30}
+              style={{ marginBottom: -3 }}
+              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            />
+          ,
         }}
       />
 
@@ -87,26 +94,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="marius"
         component={Marius}
         options={{
-          title: 'blabla',
+          title: 'Feed',
           tabBarIcon: ({ focused }) => 
-            <MaterialCommunityIcons
-              name="dumbbell"
-              size={30}
-              style={{ marginBottom: -3 }}
-              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-            />
-          ,
-        }}
-      />
- 
-      <BottomTab.Screen
-        name="minhkha"
-        component={Minhkha}
-        options={{
-          title: 'another screen',
-          tabBarIcon: ({ focused }) => 
-            <FontAwesome5 
-              name="money-bill-alt"
+            <Entypo
+              name="menu"
               size={30}
               style={{ marginBottom: -3 }}
               color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
@@ -115,21 +106,36 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
 
-
       <BottomTab.Screen
-        name="notifications"
+        name="challenges"
         component={AnotherScreen}
         options={{
-          title: 'notifications',
+          title: 'Challenges',
           tabBarIcon: ({ focused }) => 
-            <IconWithBadge 
-              name="ios-notifications-outline" 
-              badgeCount={3} 
-              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-              size={30} />
+            <MaterialCommunityIcons
+            name="flag-checkered"
+            size={30}
+            style={{ marginBottom: -3 }}
+            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            />
           ,
         }}
-      />     
+      />
+
+
+      <BottomTab.Screen
+        name="malte"
+        component={Malte}
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ focused }) => 
+          <IconWithBadge 
+          name="ios-notifications" 
+          badgeCount={6} 
+          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+          size={30} />,
+        }}
+      />
 
     </BottomTab.Navigator>
   );
@@ -139,9 +145,16 @@ function getHeaderTitle(route) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+    case 'nils':
+      return 'Profile';
+    case 'minhkha':
+      return 'Friends & Groups';
+    case 'marius':
+      return 'New Challenges Feed';
+    case 'challenges':
+      return 'Your Active Challenges';
+    case 'malte':
+      return 'Notifications';
+    
   }
 }
