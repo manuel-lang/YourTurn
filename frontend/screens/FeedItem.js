@@ -11,9 +11,10 @@ function FeedItem({
     description,
     favorit,
     privateChallenge,
-    coopetition
+    coopetition,
+    setShowDetails,
+    showDetails
 }) {
-
   function renderFavoriteIcon() {
     if (!favorit) return null;
     return (
@@ -58,7 +59,7 @@ function FeedItem({
         <View style={styles.wrapper}>
             <TouchableOpacity
                 style={styles.infopart}
-                onPress={() => {setIsCollapsed(!isCollapsed);}}
+                onPress={() => setShowDetails(!showDetails)}
             >
                 <View style={styles.imagepart}>
                     <ImageBackground
