@@ -6,7 +6,6 @@ from models import Challenge, Notification, User
 import os
 from pymongo import MongoClient
 import random
-from typing import Tuple
 
 app = FastAPI()
 load_dotenv()
@@ -54,7 +53,7 @@ def create_challenge(challenge: Challenge) -> JSONResponse:
 @app.put("/challenges")
 def update_challenge(challenge: Challenge) -> JSONResponse:
     """
-    Adjusts a challenge.
+    Updates a challenge.
     :param challenge: the challenge information
     :return: status code and response data
     """
@@ -91,7 +90,7 @@ def create_user(user: User) -> JSONResponse:
     :return: status code and response data
     """
     db = _get_db()
-    user.user_id = db["users"].find().count()+1
+    user.user_id = db["users"].find().count() + 1
     db["users"].insert_one(user.to_dict())
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
 
@@ -99,10 +98,11 @@ def create_user(user: User) -> JSONResponse:
 @app.put("/users")
 def update_user(user: User) -> JSONResponse:
     """
-    Lists all information belonging to one user.
+    Updates the information belong to a given user.
     :param user: the update information
     :return: status code and response data
     """
+    print(user.to_dict())
     _get_db()["users"].update_one({"user_id": user.user_id}, {"$set": user.to_dict()})
     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
 
@@ -121,7 +121,7 @@ def get_individual_user(user_id: int) -> JSONResponse:
 @app.get("/notifications")
 def get_user_notifications(user_id: int = None) -> JSONResponse:
     """
-    Lists all notifications for a certain user
+    Lists all notifications for a certain user.
     :param user_id: the id of the user
     :return: status code and response data
     """
@@ -131,7 +131,24 @@ def get_user_notifications(user_id: int = None) -> JSONResponse:
 
 @app.post("/notifications")
 def create_notification(notification: Notification) -> JSONResponse:
+    """
+    Adds a new notification.
+    :param notification: the notification to add
+    :return: status code and response data
+    """
     db = _get_db()
     notification.notification_id = db["notifications"].find().count() + 1
     _get_db()["notifications"].insert_one(notification.to_dict())
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
+
+
+@app.put("/notifications")
+def update_notification(notification: Notification) -> JSONResponse:
+    """
+    Updates a notification.
+    :param notification: the update information
+    :return: status code and response data
+    """
+    _get_db()["notifications"].update_one({"notification_id": notification.notification_id},
+                                          {"$set": notification.to_dict()})
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
