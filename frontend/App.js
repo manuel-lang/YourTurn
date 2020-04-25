@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View, Image, TouchableHighlight } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,7 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'montserrat': require('./assets/fonts/Montserrat-Regular.ttf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -80,7 +82,7 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
   },
   splash: {
     backgroundColor: 'black',
