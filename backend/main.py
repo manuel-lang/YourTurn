@@ -100,6 +100,7 @@ def get_users() -> Tuple[any, list]:
 
 
 @app.post("/users")
+@jsonify
 def create_user(user: User) -> Tuple[any, list]:
     """
     Adds a new user.
