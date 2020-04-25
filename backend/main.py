@@ -1,6 +1,6 @@
+from bson.json_util import dumps
 from dotenv import load_dotenv
 from fastapi import FastAPI, status
-from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from models import Challenge, Notification, User
 import os
@@ -26,7 +26,7 @@ def get_challenges(user_id: int) -> JSONResponse:
     db = _get_db()
     all_challenges = list(db["challenges"].find())
     if not user_id:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(all_challenges))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(all_challenges))
     else:
         bookmarked_challenges = [x["bookmarks"] for x in list(db["users"].find({"user_id": user_id}))]
         other_challenges = [x for x in all_challenges if
@@ -34,7 +34,7 @@ def get_challenges(user_id: int) -> JSONResponse:
         random.shuffle(other_challenges)
         ordered_challenges = [x for x in all_challenges if x["owner_id" == user_id]] + [x for x in all_challenges if x[
             "challenge_id"] in bookmarked_challenges] + other_challenges
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(ordered_challenges))
+        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(ordered_challenges))
 
 
 @app.post("/challenges")
@@ -47,7 +47,7 @@ def create_challenge(challenge: Challenge) -> JSONResponse:
     db = _get_db()
     challenge.challenge_id = db["challenges"].find().count() + 1
     db["challenges"].insert_one(challenge.to_dict())
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
 
 
 @app.put("/challenges")
@@ -58,7 +58,7 @@ def update_challenge(challenge: Challenge) -> JSONResponse:
     :return: status code and response data
     """
     _get_db()["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge.to_dict()})
-    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=dumps([]))
 
 
 @app.get("/challenges/{challenge_id}")
@@ -69,7 +69,7 @@ def get_individual_challenge(challenge_id: int) -> JSONResponse:
     :return: status code and response data
     """
     challenge = _get_db()["challenges"].find_one({"challenge_id": challenge_id})
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder([challenge]))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps([challenge]))
 
 
 @app.get("/users")
@@ -79,7 +79,7 @@ def get_users() -> JSONResponse:
     :return: status code and response data
     """
     users = list(_get_db()["users"].find())
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(users))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(users))
 
 
 @app.post("/users")
@@ -92,7 +92,7 @@ def create_user(user: User) -> JSONResponse:
     db = _get_db()
     user.user_id = db["users"].find().count() + 1
     db["users"].insert_one(user.to_dict())
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
 
 
 @app.put("/users")
@@ -104,7 +104,7 @@ def update_user(user: User) -> JSONResponse:
     """
     print(user.to_dict())
     _get_db()["users"].update_one({"user_id": user.user_id}, {"$set": user.to_dict()})
-    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=dumps([]))
 
 
 @app.get("/users/{user_id}")
@@ -115,7 +115,7 @@ def get_individual_user(user_id: int) -> JSONResponse:
     :return: status code and response data
     """
     user = _get_db()["users"].find_one({"user_id": user_id})
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder([user]))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps([user]))
 
 
 @app.get("/notifications")
@@ -126,7 +126,7 @@ def get_user_notifications(user_id: int = None) -> JSONResponse:
     :return: status code and response data
     """
     notifications = list(_get_db()["notifications"].find({"user_id": user_id}))
-    return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(notifications))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(notifications))
 
 
 @app.post("/notifications")
@@ -139,7 +139,7 @@ def create_notification(notification: Notification) -> JSONResponse:
     db = _get_db()
     notification.notification_id = db["notifications"].find().count() + 1
     _get_db()["notifications"].insert_one(notification.to_dict())
-    return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_201_CREATED, content=dumps([]))
 
 
 @app.put("/notifications")

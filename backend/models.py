@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-import json
+from datetime import datetime
 
 
 class Challenge(BaseModel):
@@ -13,6 +13,11 @@ class Challenge(BaseModel):
     likes: list = []
     costs: int = 0
     completed_users: list = []
+    deadline: datetime
+    proof: str = ""
+    picture_id: int = 0
+    bet: str = ""
+    voting: bool = False
 
     def to_dict(self):
         return self.__dict__
