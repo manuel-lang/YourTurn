@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Image, TouchableHighlight } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,11 +11,29 @@ import useLinking from './navigation/useLinking';
 
 const Stack = createStackNavigator();
 
+const Splash = (props) => {
+  return (
+    <View style={styles.splash} >
+      <TouchableHighlight onPress={props.onPressSplash}>
+      <Image 
+        source={require('./assets/images/Logo.png')} 
+        style={{width: 300, height: 120}}   
+      />
+      </TouchableHighlight>
+    </View>
+  )
+}
+
 export default function App(props) {
+  const [loadApp, setLoadApp] = React.useState(false);
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
   const { getInitialState } = useLinking(containerRef);
+
+  const onPressSplash = () => {
+    setLoadApp(true);
+  }
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -47,7 +65,7 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
+      !loadApp ? <Splash onPressSplash={onPressSplash} /> : <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
@@ -64,4 +82,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  splash: {
+    backgroundColor: 'black',
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%"
+  }
 });
