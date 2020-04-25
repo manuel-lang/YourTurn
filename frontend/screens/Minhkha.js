@@ -1,8 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, View, Image, TextInput, Dimensions } from 'react-native';
+import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground } from 'react-native';
+// import { Divider } from 'react-native-elements';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import Colors from "../constants/Colors"
 
 import Collapsible from 'react-native-collapsible';
 
@@ -19,11 +20,13 @@ import { Icon } from 'galio-framework';
 // import { NavBar } from 'galio-framework';
 import { Slider, Block } from 'galio-framework';
 
+import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
+
 import { Card } from 'react-native-material-ui';
 
 const primaryColor = "#00bcd4"
 const backgroundColor1 = '#242424'
-const backgroundColor2 = "#000000"
+const backgroundColor2 = Colors.tabBackroundColor
 
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
@@ -252,6 +255,113 @@ const Done = (props) => {
   )
 }
 
+const FeedItem = () => {
+
+  const name = "Manu"
+  const friends = ["1", "2", "3"]
+  const likes = ["Arne", "Malte", "Minh-Kha"]
+  const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
+  const description = "This is a description. Make a kick flip "
+  const favorit = true
+  const privateChallenge = true
+  const coopetition = true
+  // const setShowDetails
+  // const showDetails
+
+  function renderFavoriteIcon() {
+    if (!favorit) return null;
+    return (
+        <Ionicons name="ios-bookmark" size={26} color={Colors.tabIconDefault} style={{marginLeft: 20}}/>
+    );
+  }
+
+  function renderPrivateIcon() {
+    if (!privateChallenge) return null;
+    return (
+        <Entypo name="mask" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+    );
+  }
+
+  function renderCoopetitionIcon() {
+    if (!coopetition) return null;
+    return (
+        <Ionicons name="md-people" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+    );
+  }
+
+  return (
+
+    <View style={styles.wrapper}>
+
+      <View style={styles.headerFeedItem}>
+        <Image source={require('../assets/images/users/user0.png')} style={styles.descimage}/>
+        <View style={styles.headerFeedItemText}>
+          <Text color={Colors.textColor} bold h5>{name}</Text>
+          <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
+        </View>
+      </View>
+
+      <View style={styles.titleFeedItem}>
+        <Text color={Colors.textColor} h5 bold >{description}</Text>
+      </View>
+
+      <View style={styles.imagepart}>
+        <ImageBackground
+          style={styles.backgroundimage}
+          imageStyle={{ borderRadius: 20 }}
+          source={require('../assets/images/challenges/challenge1.png') }
+        >
+        </ImageBackground>
+
+        <View style={styles.challengeIcons}>
+          {renderFavoriteIcon()}
+          {renderPrivateIcon()}
+          {renderCoopetitionIcon()}
+        </View>
+
+      </View>
+
+      <View style={styles.footerFeedItemWrapper}>
+
+        <View style={styles.footerFeedItemContainer}>
+          <View style={styles.footerFeedItemElement}>
+            <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+            <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+              {likes.length}
+            </Text>
+          </View>
+        </View>
+
+        <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
+          {/* {
+            friends.map( friendId => {
+              <Image source={require('../assets/images/users/user.png')} style={styles.friendsImage}/>
+            })
+          } */}
+          <Image source={require('../assets/images/users/user1.png')} style={styles.friendsImage}/>
+          <Image source={require('../assets/images/users/user3.png')} style={styles.friendsImage}/>
+          <Image source={require('../assets/images/users/user6.png')} style={styles.friendsImage}/>
+        </View>
+
+        <View style={styles.footerFeedItemContainer}>
+          <View style={styles.footerFeedItemElement}>
+            <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+            <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+              {comments.length}
+            </Text>
+          </View>
+        </View>     
+
+      </View>
+      
+      <View style={styles.footerDivider}></View>
+
+    </View>
+
+  )
+
+}
+
 export default function Minhkha(props) {
 
   const onPressAddUser = (event) => {
@@ -401,6 +511,8 @@ const parseDate = (date) => {
   return (
 
     dataLoaded && <ScrollView style={styles.container}>
+
+        <FeedItem />
 
         <View style={styles.imageContainer}>
           <Image 
@@ -633,4 +745,104 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
+
+
+
+descimage: {
+  height: 60,
+  width: 60,
+  marginRight: 10,
+  borderRadius: 50
+},
+wrapper: {
+  flex: 1,
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  padding: 20,
+},
+headerFeedItem: {
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+},
+headerFeedItemText: {
+  flex: 1,
+  flexDirection: 'column',
+  justifyContent: 'center',
+
+},
+imagepart: {
+  flex: 1,
+  flexDirection: 'column',
+  marginTop: 20,
+},
+backgroundimage: {
+  width: '100%',
+  height: 200,
+  opacity: 0.7,
+  borderRadius: 20,
+
+  flex: 1,
+  flexDirection: "row",
+},
+imagetext: {
+  marginTop: -34,
+  marginLeft: 8,
+  fontSize: 24,
+},
+challengeIcons: {
+  marginTop: -200,
+  marginLeft: 10,
+  flex: 1,
+  flexDirection: "row",
+  justifyContent: "flex-start"
+},
+shortdesc: {
+  flex: 6
+},
+descbutton: {
+  flex: 3
+},
+footerFeedItemWrapper: {
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: "center",
+  marginTop: 190
+},
+
+footerFeedItemContainer: {
+  height: 30,
+  width: 80,
+  marginRight: 10,
+}, 
+footerFeedItemElement: {
+  backgroundColor: Colors.tabColor,
+  paddingLeft: 12,
+  paddingTop: 0,
+  borderRadius: 12,
+  flex: 1,
+  flexDirection: "row",
+},
+friendsImage: {
+  height: 40,
+  width: 40,
+  borderRadius: 50,
+  borderWidth: 2,
+  borderColor: Colors.tabColor,
+},
+titleFeedItem: {
+  flex: 1,
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  marginTop: 20
+},
+footerDivider: {
+  flex: 1,
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  margin: 20,
+  borderBottomColor: Colors.tabColor,
+  borderBottomWidth: 2,
+},
 });
