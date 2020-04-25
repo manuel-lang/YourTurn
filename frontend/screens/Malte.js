@@ -6,14 +6,16 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
 import Collapsible from 'react-native-collapsible';
 
-import { Checkbox } from 'react-native-material-ui'
+import { Checkbox } from 'react-native-material-ui';
 import { Badge, Icon, Avatar } from 'react-native-material-ui';
 import { RadioButton } from 'react-native-material-ui';
 import { ActionButton } from 'react-native-material-ui';
-import { Text } from 'galio-framework';
+
 import { Block } from 'galio-framework';
 import { Button } from 'galio-framework';
 import Colors from '../constants/Colors';
+//import {Text} from 'galio-framework';
+import Text from '../constants/Text';
 
 
 export default function Malte() {

@@ -59,12 +59,12 @@ function FeedItem({
         <View style={styles.wrapper}>
             <TouchableOpacity
                 style={styles.infopart}
-                onPress={() => setShowDetails(!showDetails)}
+                // onPress={() => setShowDetails(!showDetails)}
             >
                 <View style={styles.imagepart}>
                     <ImageBackground
                         style={styles.backgroundimage}
-                        source={require('../assets/images/profile_picture.jpg') }
+                        source={require('../assets/images/challenges/challenge1.png') }
                     >
                         {renderFavoriteIcon()}
                         {renderPrivateIcon()}
@@ -75,7 +75,7 @@ function FeedItem({
 
 
                 <View style={{flexDirection: 'row', margin: 5}}>
-                    <Image source={require('../assets/images/robot-dev.png')} style={styles.descimage}/>
+                    <Image source={require('../assets/images/users/user0.png')} style={styles.descimage}/>
                     <Text style={styles.shortdesc}>{description}</Text>
                     <View style={{flexDirection: 'column'}}>
                         <Button round style={{width: 100, height: 20}} color="blue" >Join</Button>

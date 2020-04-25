@@ -14,6 +14,7 @@ export default {
   highlightColor: '#00bcd4',
   tabColor: '#4f4f4f',
   textColor: 'white',
+  secondaryTextColor: 'grey',
   tabBackroundColor: '#242424'
 
 };
