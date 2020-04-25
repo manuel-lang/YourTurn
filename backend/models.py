@@ -6,13 +6,13 @@ class Challenge(BaseModel):
     name: str
     owner_id: int
     challenge_id: int = None
-    description: str = None
+    description: str = ""
     private: bool = False
-    participants: list = None
-    tags: list = None
-    likes: list = None
-    costs: int = None
-    completed_users: list = None
+    participants: list = []
+    tags: list = []
+    likes: list = []
+    costs: int = 0
+    completed_users: list = []
 
     def to_dict(self):
         return self.__dict__
@@ -25,6 +25,7 @@ class User(BaseModel):
     bookmarks: list = []
     challenges: list = []
     completed_challenges: list = []
+    notifications = []
 
     def to_dict(self):
         return self.__dict__
@@ -32,6 +33,7 @@ class User(BaseModel):
 
 class Notification(BaseModel):
     content: str
+    notification_id: int
     user_id: int
     new: bool = True
 

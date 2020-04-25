@@ -45,7 +45,9 @@ def create_challenge(challenge: Challenge) -> JSONResponse:
     :param challenge: the challenge information
     :return: status code and response data
     """
-    _get_db()["challenges"].insert_one(challenge)
+    db = _get_db()
+    challenge.challenge_id = db["challenges"].find().count() + 1
+    db["challenges"].insert_one(challenge.to_dict())
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
 
 
@@ -58,7 +60,6 @@ def adjust_challenge(challenge: Challenge) -> JSONResponse:
     """
     _get_db()["challenges"].update_one({"challenge_id": challenge.challenge_id}, {"$set": challenge})
     return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
-
 
 
 @app.get("/challenges/{challenge_id}")
@@ -130,5 +131,7 @@ def get_user_notifications(user_id: int = None) -> JSONResponse:
 
 @app.post("/notifications")
 def create_notification(notification: Notification) -> JSONResponse:
-    _get_db()["notifications"].insert_one(notification)
+    db = _get_db()
+    notification.notification_id = db["notifications"].find().count() + 1
+    _get_db()["notifications"].insert_one(notification.to_dict())
     return JSONResponse(status_code=status.HTTP_201_CREATED, content=jsonable_encoder([]))
