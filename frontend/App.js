@@ -82,7 +82,7 @@ export default function App(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#fff',
   },
   splash: {
     backgroundColor: 'black',
