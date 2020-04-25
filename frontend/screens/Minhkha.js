@@ -261,7 +261,7 @@ const FeedItem = () => {
   const friends = ["1", "2", "3"]
   const likes = ["Arne", "Malte", "Minh-Kha"]
   const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
-  const description = "This is a description. Make a kick flip "
+  const title = "This is the challenge title. Make a kick flip you noob"
   const favorit = true
   const privateChallenge = true
   const coopetition = true
@@ -301,10 +301,6 @@ const FeedItem = () => {
         </View>
       </View>
 
-      <View style={styles.titleFeedItem}>
-        <Text color={Colors.textColor} h5 bold >{description}</Text>
-      </View>
-
       <View style={styles.imagepart}>
         <ImageBackground
           style={styles.backgroundimage}
@@ -319,6 +315,9 @@ const FeedItem = () => {
           {renderCoopetitionIcon()}
         </View>
 
+        <View style={styles.titleFeedItem}>
+          <Text color={Colors.textColor} h5 bold >{title}</Text>
+        </View>
       </View>
 
       <View style={styles.footerFeedItemWrapper}>
@@ -779,7 +778,7 @@ imagepart: {
 backgroundimage: {
   width: '100%',
   height: 200,
-  opacity: 0.7,
+  opacity: 0.4,
   borderRadius: 20,
 
   flex: 1,
@@ -808,7 +807,7 @@ footerFeedItemWrapper: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: "center",
-  marginTop: 190
+  marginTop: 60
 },
 
 footerFeedItemContainer: {
@@ -835,7 +834,9 @@ titleFeedItem: {
   flex: 1,
   flexDirection: 'column',
   justifyContent: 'space-between',
-  marginTop: 20
+  marginTop: 40,
+  padding: 20,
+  textAlign: "center",
 },
 footerDivider: {
   flex: 1,
