@@ -52,8 +52,6 @@ const images = {
     challenge25: require('../assets/images/challenges/challenge25.png'),
 }
 
-let background = Color.backgroundColorLight; // backgrounddark Color.
-
 const CustomButton = (props) => {
     const [isActive, setIsActive] = useState(false)
 
@@ -141,7 +139,7 @@ function Marius() {
     }
 
     return (
-        <View style={{flex: 1, backgroundColor: background}}>
+        <View style={{flex: 1, backgroundColor: Color.backgroundColorLight}}>
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
