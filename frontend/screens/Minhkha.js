@@ -1,6 +1,6 @@
 // import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, Button as B } from 'react-native';
 // import { Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
@@ -128,7 +128,8 @@ const ChallengeDetails = (props) => {
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle}
           onPress={props.onPressAddUser}
-          />
+        />
+
 
         <Button
           onlyIcon
@@ -140,8 +141,6 @@ const ChallengeDetails = (props) => {
           style={{ width: 100, height: 50 }}
           onPress={props.onPressDone}
         />
-
-
 
         <Button
           onlyIcon

@@ -81,6 +81,7 @@ const CustomButton = (props) => {
                 })
                 .then((response) => response.json())
                 .then((json) => props.func(JSON.parse(json)))
+                // .then(json => console.log(JSON.parse(json)))
                 .then(() => setIsActive(!isActive))
                 .catch((error) => console.error(error))
     }
@@ -143,12 +144,11 @@ function Marius() {
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
-                        <CustomButton tag="Health" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Sustainable" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton tag="Social" func={setfetchedData} activeTags={activeTags} />
                         <CustomButton tag="Sport" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Creativity" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton tag="Creative" func={setfetchedData} activeTags={activeTags} />
                         <CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="International" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton tag="Sustainability" func={setfetchedData} activeTags={activeTags} />
                     </ScrollView>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                         <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Local</Text>

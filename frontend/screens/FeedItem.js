@@ -65,22 +65,22 @@ export default function FeedItem (props) {
     // voting
     // bet
     // deadline
-    
-  
+
+
     function renderFavoriteIcon() {
       if (!props.favorit) return null;
       return (
           <Ionicons name="ios-bookmark" size={26} color={Colors.elementWhite} style={{marginLeft: 20}}/>
       );
     }
-  
+
     function renderPrivateIcon() {
       if (!props.privateChallenge) return null;
       return (
           <Entypo name="mask" size={26} color={Colors.elementWhite} style={{marginLeft: 10}} />
       );
     }
-  
+
     function renderCoopetitionIcon() {
       if (!props.coopetition) return null;
       return (
@@ -94,16 +94,16 @@ export default function FeedItem (props) {
     }
 
     const [showDetails, setShowDetails] = React.useState(false);
-  
+
     return (
-  
+
       <View style={styles.wrapperFeedItem}>
 
         <TouchableOpacity
             style={styles.infopart}
             onPress={onPressDetails}
         >
-  
+
             <View style={styles.headerFeedItem}>
                 <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
                 <View style={styles.headerFeedItemText}>
@@ -111,28 +111,27 @@ export default function FeedItem (props) {
                     <Text color={Colors.textSecondary} p>Challenge owner</Text>
                 </View>
             </View>
-    
+
             <View style={styles.imagepart}>
-            <ImageBackground
-                style={styles.backgroundimage}
-                imageStyle={{ borderRadius: 20 }}
-                source={props.challengeImage}
-            >
-            </ImageBackground>
-    
-            <View style={styles.challengeIcons}>
-                {renderFavoriteIcon()}
-                {renderPrivateIcon()}
-                {renderCoopetitionIcon()}
+                <ImageBackground
+                    style={styles.backgroundimage}
+                    imageStyle={{ borderRadius: 20 }}
+                    source={props.challengeImage}
+                >
+                </ImageBackground>
+
+                <View style={styles.challengeIcons}>
+                    {renderFavoriteIcon()}
+                    {renderPrivateIcon()}
+                    {renderCoopetitionIcon()}
+                </View>
+                <View style={styles.titleFeedItem}>
+                    <Text color={Colors.textPrimary} h5 bold >{props.challengeTitle}</Text>
+                </View>
             </View>
-    
-            <View style={styles.titleFeedItem}>
-                <Text color={Colors.textPrimary} h5 bold >{props.challengeTitle}</Text>
-            </View>
-            </View>
-    
+
             <View style={styles.footerFeedItemWrapper}>
-    
+
             <View style={styles.footerFeedItemContainer}>
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
@@ -141,7 +140,7 @@ export default function FeedItem (props) {
                 </Text>
                 </View>
             </View>
-    
+
             <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
                 {/* {
                 friends.map( friendId => {
@@ -152,7 +151,7 @@ export default function FeedItem (props) {
                 <Image source={props.friendsImages[1]} style={styles.friendsImage}/>
                 <Image source={props.friendsImages[2]} style={styles.friendsImage}/>
             </View>
-    
+
             <View style={styles.footerFeedItemContainer}>
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
@@ -160,19 +159,19 @@ export default function FeedItem (props) {
                     {props.comments}
                 </Text>
                 </View>
-            </View>     
-    
             </View>
-            
+
+            </View>
+
             <View style={styles.footerDivider}></View>
 
-            {/* <Collapsible 
+            {/* <Collapsible
                 collapsed={!showDetails}
                 onAnimationEnd={() => {
                     setShowDetails(showDetails)
                 }}
             > */}
-                {showDetails && <Minhkha 
+                {showDetails && <Minhkha
                     description={props.description}
                     tagList={props.tags}
                     proof={props.proof}
@@ -186,9 +185,9 @@ export default function FeedItem (props) {
             {/* </Collapsible> */}
 
         </TouchableOpacity>
-  
+
       </View>
-  
+
     )
   }
 
@@ -226,7 +225,7 @@ const styles = StyleSheet.create({
         height: 200,
         opacity: 0.4,
         borderRadius: 20,
-      
+
         flex: 1,
         flexDirection: "row",
       },
@@ -253,14 +252,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "center",
-        marginTop: 60
+        marginTop: -40
       },
-      
+
       footerFeedItemContainer: {
         height: 30,
         width: 80,
         marginRight: 10,
-      }, 
+      },
       footerFeedItemElement: {
         backgroundColor: Colors.tabColor,
         paddingLeft: 12,
@@ -280,9 +279,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginTop: 40,
+        marginTop: 120,
         padding: 20,
-        textAlign: "center",
+        // textAlign: "center",
         height: 100,
       },
       footerDivider: {
