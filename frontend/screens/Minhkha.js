@@ -86,7 +86,7 @@ const ChallengeDetails = (props) => {
         </Button>
       </View>
 
-      <View style={styles.rowContainer}>
+      {/* <View style={styles.rowContainer}>
         <Text h5 bold color={Colors.textPrimary}>Progress</Text>
         <Block style={styles.progressContainer}>
           <Slider
@@ -96,7 +96,7 @@ const ChallengeDetails = (props) => {
             activeColor={Colors.highlightColor}
           />
         </Block>
-      </View>
+      </View> */}
 
       <View style={styles.buttonContainer}>
           {/*
@@ -301,7 +301,7 @@ const Done = (props) => {
 
         <Button
           onlyIcon
-          icon="check"
+          icon="upload"
           iconFamily="Entypo"
           iconSize={30}
           color={Colors.highlightColor}
@@ -315,6 +315,46 @@ const Done = (props) => {
   )
 }
 
+const AddUserDone = (props) => {
+
+  return (
+    <View style={styles.center}>
+          <Icon
+            name="check-circle"
+            family="Feather"
+            color={Colors.highlightColor}
+            size={200}
+            style={{marginTop: 40}}
+          />
+
+        <View style={{marginTop: 40}}>
+          <Text p bold color={Colors.textPrimary}>Your friends have been invited!</Text>
+        </View>
+
+        <View style={styles.buttonContainer}>
+
+          <Button
+            color={Colors.highlightColor}
+            style={{ width: 100, height: 50 }}
+            onPress={props.onPressAddUserDoneFinished}
+          > Back </Button>
+
+        {/* <Button
+          onlyIcon
+          icon="upload"
+          iconFamily="Entypo"
+          iconSize={30}
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite}
+          style={{ width: 100, height: 50, margin: 10  }}
+          onPress={props.onPressDoneFinished}
+        /> */}
+
+      </View>
+    </View>
+  )
+}
+
 export default function Minhkha(props) {
 
   const onPressAddUser = (event) => {
@@ -322,6 +362,7 @@ export default function Minhkha(props) {
     setAddUserOpen(true);
     setChallengeDetailsOpen(false);
   }
+  
 
   const onPressDone = (event) => {
     // console.log(event);
@@ -332,6 +373,12 @@ export default function Minhkha(props) {
   const onPressAddUserFinished = (event) => {
     // console.log(event);
     setAddUserOpen(false);
+    setAddUserDoneOpen(true);
+  }
+
+  const onPressAddUserDoneFinished = (event) => {
+    console.log("helloooooo");
+    setAddUserDoneOpen(false);
     setChallengeDetailsOpen(true);
   }
 
@@ -433,6 +480,7 @@ const parseDate = (date) => {
   const [challengeDetailsOpen, setChallengeDetailsOpen] = React.useState(true);
   const [doneOpen, setDoneOpen] = React.useState(false);
   const [addUserOpen, setAddUserOpen] = React.useState(false);
+  const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
 
 
   // Get values for chart and table data as well as meta data - ONLY ONCE
@@ -469,7 +517,7 @@ const parseDate = (date) => {
         <View
          style={styles.card}
         >
-          <Card>
+          {/* <Card> */}
 
             <View style={styles.contentContainer}>
 
@@ -497,6 +545,14 @@ const parseDate = (date) => {
               />
               }
 
+              {addUserDoneOpen &&
+              <AddUserDone
+                friendsNames={props.friendsNames}
+                friendsImages={props.friendsImages}
+                onPressAddUserDoneFinished={onPressAddUserDoneFinished}
+              />
+              }
+
               {doneOpen &&
               <Done
                 onPressDoneFinished={onPressDoneFinished}
@@ -519,7 +575,7 @@ const parseDate = (date) => {
               <View style={styles.footerDivider}></View>
 
             </View>
-          </Card>
+          {/* </Card> */}
       </View>
 
     </ScrollView>
