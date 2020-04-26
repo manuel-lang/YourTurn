@@ -53,26 +53,20 @@ const images = {
 }
 
 const CustomButton = (props) => {
-    const [isActive, setIsActive] = useState(false)
 
     const onPressCustomButton = () => {
-        if (!isActive) {
-            props.activeTags.push(props.tag)
-        } else {
-            let i;
-            for (i = 0; i < props.activeTags.length; ++i) {
-                if (props.activeTags[i] === props.tag) {
-                    props.activeTags.splice(i, 1);
-                }
-            }
-        }
-
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
-        let i;
-        for (i = 0; i < props.activeTags.length; ++i) {
-            url += "&tag=" + props.activeTags[i];
+        let tmp = props.func_me_isActive; // workaround: old isActive state of the button, need in the fetch part
+        if (props.func_me_isActive) {
+            props.func_me(false);
         }
-
+        else {
+            let c;
+            for (c = 0; c < props.funcs.length; ++c) {
+                props.funcs[c](false);
+            }
+            url += "&tag=" + props.tag;
+        }
         fetch(url, {
                         method: 'GET',
                         headers: new Headers({
@@ -82,7 +76,10 @@ const CustomButton = (props) => {
                 .then((response) => response.json())
                 .then((json) => props.func(JSON.parse(json)))
                 // .then(json => console.log(JSON.parse(json)))
-                .then(() => setIsActive(!isActive))
+                .then(() => {
+                    if (!tmp)
+                        props.func_me(true)
+                    })
                 .catch((error) => console.error(error))
     }
 
@@ -94,7 +91,7 @@ const CustomButton = (props) => {
         <Button
             upperCase={false}
             text={props.name}
-            style={(isActive ? style_button_active : style_button_inactive)}
+            style={(props.func_me_isActive ? style_button_active : style_button_inactive)}
             onPress = {onPressCustomButton}
             onLongPress= {onPressCustomButton}
         />
@@ -104,9 +101,13 @@ const CustomButton = (props) => {
 function Marius() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
-    const [activeTags, setActiveTags] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+    const [isActive1, setIsActive1] = useState(false)
+    const [isActive2, setIsActive2] = useState(false)
+    const [isActive3, setIsActive3] = useState(false)
+    const [isActive4, setIsActive4] = useState(false)
 
     useEffect(() => {
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
@@ -144,11 +145,10 @@ function Marius() {
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
-                        <CustomButton name="Sport" tag="Sport" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton name="Green" tag="Sustainability" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton name="Social" tag="Social" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton name="Creative" tag="Creative" func={setfetchedData} activeTags={activeTags} />
-                        {/*<CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />*/}
+                        <CustomButton name="Sport" tag="Sport" func={setfetchedData} funcs={[setIsActive2, setIsActive3, setIsActive4]} func_me={setIsActive1} func_me_isActive={isActive1} />
+                        <CustomButton name="Green" tag="Sustainability" func={setfetchedData} funcs={[setIsActive1, setIsActive3, setIsActive4]} func_me={setIsActive2} func_me_isActive={isActive2}/>
+                        <CustomButton name="Social" tag="Social" func={setfetchedData} funcs={[setIsActive1, setIsActive2, setIsActive4]} func_me={setIsActive3} func_me_isActive={isActive3}/>
+                        <CustomButton name="Creative" tag="Creative" func={setfetchedData} funcs={[setIsActive1, setIsActive2, setIsActive3]} func_me={setIsActive4} func_me_isActive={isActive4}/>
                     </ScrollView>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
                         <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
