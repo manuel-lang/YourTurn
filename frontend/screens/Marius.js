@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Switch, Text } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
-import Minhkha from './Minhkha';
+import Color from '../constants/Colors';
 
 const images = {
     user0: '../assets/images/users/user0.png',
@@ -22,15 +22,29 @@ const images = {
     challenge3: require('../assets/images/challenges/challenge3.png'),
     challenge4: require('../assets/images/challenges/challenge4.png'),
     challenge5: require('../assets/images/challenges/challenge5.png'),
+    challenge6: require('../assets/images/challenges/challenge6.png'),
+    challenge7: require('../assets/images/challenges/challenge7.png'),
+    challenge8: require('../assets/images/challenges/challenge8.png'),
+    challenge9: require('../assets/images/challenges/challenge9.png'),
+    challenge10: require('../assets/images/challenges/challenge10.png'),
+    challenge11: require('../assets/images/challenges/challenge11.png'),
+    challenge12: require('../assets/images/challenges/challenge12.png'),
+    challenge13: require('../assets/images/challenges/challenge13.png'),
+    challenge14: require('../assets/images/challenges/challenge14.png'),
+    challenge15: require('../assets/images/challenges/challenge15.png'),
+    challenge16: require('../assets/images/challenges/challenge16.png'),
+    challenge17: require('../assets/images/challenges/challenge17.png'),
+    challenge18: require('../assets/images/challenges/challenge18.png'),
+    challenge19: require('../assets/images/challenges/challenge19.png'),
+    challenge20: require('../assets/images/challenges/challenge20.png'),
+    challenge21: require('../assets/images/challenges/challenge21.png'),
+    challenge22: require('../assets/images/challenges/challenge22.png'),
+    challenge23: require('../assets/images/challenges/challenge23.png'),
+    challenge24: require('../assets/images/challenges/challenge24.png'),
+    challenge25: require('../assets/images/challenges/challenge25.png'),
 }
 
-
-let color_button_inactive = '#ababab';
-let color_button_active = '#443f3c';
-let background = '#2d2d2d';
-let bc_button_active = '#ffc491';
-let bc_button_inactive = background
-let font = '#ebebeb'
+let background = Color.backgroundColorLight; // backgrounddark Color.
 
 const CustomButton = (props) => {
     const [isActive, setIsActive] = useState(false)
@@ -65,10 +79,10 @@ const CustomButton = (props) => {
                 .catch((error) => console.error(error))
     }
 
-    let style_button_inactive = {container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: bc_button_inactive},
-                                 text:      {fontSize: 18, color: color_button_inactive}};
-    let style_button_active   = {container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: bc_button_active},
-                                 text:      {fontSize: 18, color: color_button_active}};
+    let style_button_inactive = {container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Color.backgroundColorLight},
+                                 text:      {fontSize: 18, color: Color.textPrimary}};
+    let style_button_active   = {container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: Color.highlightColor},
+                                 text:      {fontSize: 18, color: Color.textPrimary}};
     return (
         <Button
             upperCase={false}
@@ -84,6 +98,8 @@ function Marius() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [activeTags, setActiveTags] = useState([])
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     useEffect(() => {
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
@@ -128,6 +144,16 @@ function Marius() {
                         <CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />
                         <CustomButton tag="International" func={setfetchedData} activeTags={activeTags} />
                     </ScrollView>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                        <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Local</Text>
+                        <Switch
+                            trackColor={{ false: Color.backgroundColorDark, true: Color.highlightColor }}
+                            thumbColor={Color.elementWhite}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                        />
+                    </View>
                 </View>
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <FlatList
@@ -170,10 +196,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial'
     },
     orderButtons: {
-        flex: 1.5,
+        flex: 2,
         justifyContent: 'space-evenly',
-        alignItems: 'center',
-        flexDirection: 'row',
+        // alignItems: 'center',
+        flexDirection: 'column',
     },
     cb_scrollview: {
         paddingTop: 10,
