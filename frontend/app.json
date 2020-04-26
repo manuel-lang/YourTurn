@@ -1,15 +1,21 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "name": "YourTurn",
+    "icon": "./assets/images/Logo.png",
+    "version": "1.0.0",
+    "slug": "YourTurn",
+    "ios": {
+      "bundleIdentifier": "com.euvsvirus.yourturn",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.yourcompany.yourturn",
+      "versionCode": 1
+    }
+    ,
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Logo.png",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/splash.png",

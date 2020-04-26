@@ -8,7 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+import Colors from "./constants/Colors"
 
 console.disableYellowBox = true;
 
@@ -19,7 +20,7 @@ const Splash = (props) => {
     <View style={styles.splash} >
       <TouchableHighlight onPress={props.onPressSplash}>
       <Image 
-        source={require('./assets/images/Logo.png')} 
+        source={require('./assets/images/Logo_spot.png')} 
         style={{width: 300, height: 120}}   
       />
       </TouchableHighlight>
