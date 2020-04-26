@@ -150,7 +150,7 @@ function Marius() {
                         <CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />
                         <CustomButton tag="Sustainability" func={setfetchedData} activeTags={activeTags} />
                     </ScrollView>
-                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
                         <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Local</Text>
                         <Switch
                             trackColor={{ false: Color.backgroundColorDark, true: Color.highlightColor }}
@@ -175,10 +175,10 @@ function Marius() {
                                     friendsImages={friendIdToimage(item.participants)}
                                     friendsNames={friendsIdToName(item.participants)}
                                     likes={item.likes.length}
-                                    comments={3}
-                                    favorit={true}
+                                    comments={item.comments}
+                                    favorit={item.bookmarked}
                                     privateChallenge={item.private}
-                                    coopetition={true}
+                                    coopetition={item.coopetition}
                                     description={item.description}
                                     tags={item.tags}
                                     proof={item.proof}
