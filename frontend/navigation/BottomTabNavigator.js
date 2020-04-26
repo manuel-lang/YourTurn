@@ -5,6 +5,7 @@ import Nils from '../screens/Nils';
 import Marius from '../screens/Marius';
 import Malte from '../screens/Malte';
 import Minhkha from '../screens/Minhkha';
+import Friends from '../screens/Friends';
 import AnotherScreen from '../screens/AnotherScreen';
 
 import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -77,8 +78,8 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
 
       <BottomTab.Screen
-        name="minhkha"
-        component={Minhkha}
+        name="mfriends"
+        component={Friends}
         options={{
           title: 'Friends',
           tabBarIcon: ({ focused }) => 
