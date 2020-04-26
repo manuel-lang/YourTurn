@@ -277,9 +277,11 @@ const Done = (props) => {
             style={{marginTop: 40}}
           />
 
-        <View style={{marginTop: 40}}>
+        <View style={{marginTop: 40, marginBottom: 10}}>
           <Text p bold color={Colors.textPrimary}>Congrats! You mastered this challenge.</Text>
         </View>
+
+        <Text p color={Colors.textPrimary}>Let your friends know who is the greatest.</Text>
 
         <View style={styles.buttonContainer}>
           {/* <Button
@@ -288,9 +290,127 @@ const Done = (props) => {
             onPress={props.onPressDoneFinished}
           > Back </Button> */}
 
+          <Button
+            onlyIcon
+            icon="instagram"
+            iconFamily="Feather"
+            iconSize={25}
+            color={Colors.tabColor}
+            iconColor={Colors.highlightColor}
+            style={{ width: 50, height: 50, margin: 10 }}
+          />
+
+          <Button
+            onlyIcon
+            icon="facebook"
+            iconFamily="Feather"
+            iconSize={25}
+            color={Colors.tabColor}
+            iconColor={Colors.highlightColor}
+            style={{ width: 50, height: 50, margin: 10 }}
+          />
+
+          <Button
+            onlyIcon
+            icon="twitter"
+            iconFamily="Feather"
+            iconSize={25}
+            color={Colors.tabColor}
+            iconColor={Colors.highlightColor}
+            style={{ width: 50, height: 50, margin: 10 }}
+          />
+
+          <Button
+            onlyIcon
+            icon="social-snapchat"
+            iconFamily="Foundation"
+            iconSize={25}
+            color={Colors.tabColor}
+            iconColor={Colors.highlightColor}
+            style={{ width: 50, height: 50, margin: 10 }}
+          />
+
+
+          {/* <Button
+            onlyIcon
+            icon="upload"
+            iconFamily="Entypo"
+            iconSize={30}
+            color={Colors.highlightColor}
+            iconColor={Colors.elementWhite}
+            style={{ width: 100, height: 50, margin: 10  }}
+            onPress={props.onPressDoneFinished}
+          /> */}
+
+      </View>
+
+      <View style={styles.buttonContainer}>
+          <Button
+            color={Colors.highlightColor}
+            style={{ width: 100, height: 50 }}
+            onPress={props.onPressDoneFinished}
+          > Back </Button>
+
+
+          {/* <Button
+            onlyIcon
+            icon="upload"
+            iconFamily="Entypo"
+            iconSize={30}
+            color={Colors.highlightColor}
+            iconColor={Colors.elementWhite}
+            style={{ width: 100, height: 50, margin: 10  }}
+            onPress={props.onPressDoneFinished}
+          /> */}
+
+      </View>
+
+    </View>
+  )
+}
+
+const Upload = (props) => {
+
+  return (
+    <View style={styles.center}>
+          <Icon
+            name="upload"
+            family="Entypo"
+            color={Colors.highlightColor}
+            size={200}
+            style={{marginTop: 40}}
+          />
+
+        <View style={{marginTop: 40}}>
+          <Text p bold color={Colors.textPrimary}>Please choose how you would like to upload the proof.</Text>
+        </View>
+
+        <View style={styles.buttonContainer}>
+
         <Button
           onlyIcon
-          icon="instagram"
+          icon="camera"
+          iconFamily="Feather"
+          iconSize={25}
+          color={Colors.tabColor}
+          iconColor={Colors.highlightColor}
+          style={{ width: 100, height: 50, margin: 10 }}
+        />
+
+        <Button
+          onlyIcon
+          icon="upload"
+          iconFamily="Feather"
+          iconSize={25}
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite}
+          style={{ width: 100, height: 50, margin: 10 }}
+          onPress={props.onPressUploadFinished}
+        />
+
+        <Button
+          onlyIcon
+          icon="more-vertical"
           iconFamily="Feather"
           iconSize={25}
           color={Colors.tabColor}
@@ -299,7 +419,7 @@ const Done = (props) => {
         />
 
 
-        <Button
+        {/* <Button
           onlyIcon
           icon="upload"
           iconFamily="Entypo"
@@ -308,7 +428,7 @@ const Done = (props) => {
           iconColor={Colors.elementWhite}
           style={{ width: 100, height: 50, margin: 10  }}
           onPress={props.onPressDoneFinished}
-        />
+        /> */}
 
       </View>
     </View>
@@ -366,8 +486,14 @@ export default function Minhkha(props) {
 
   const onPressDone = (event) => {
     // console.log(event);
-    setDoneOpen(true);
+    setUploadOpen(true);
     setChallengeDetailsOpen(false);
+  }
+
+  const onPressUploadFinished = (event) => {
+    // console.log(event);
+    setUploadOpen(false);
+    setDoneOpen(true);
   }
 
   const onPressAddUserFinished = (event) => {
@@ -478,6 +604,7 @@ const parseDate = (date) => {
   const [dataLoaded, setDataLoaded] = React.useState(false);
 
   const [challengeDetailsOpen, setChallengeDetailsOpen] = React.useState(true);
+  const [uploadOpen, setUploadOpen] = React.useState(false);
   const [doneOpen, setDoneOpen] = React.useState(false);
   const [addUserOpen, setAddUserOpen] = React.useState(false);
   const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
@@ -556,6 +683,12 @@ const parseDate = (date) => {
               {doneOpen &&
               <Done
                 onPressDoneFinished={onPressDoneFinished}
+              />
+              }
+
+              {uploadOpen &&
+              <Upload
+                onPressUploadFinished={onPressUploadFinished}
               />
               }
 
