@@ -93,7 +93,7 @@ const CustomButton = (props) => {
     return (
         <Button
             upperCase={false}
-            text={props.tag}
+            text={props.name}
             style={(isActive ? style_button_active : style_button_inactive)}
             onPress = {onPressCustomButton}
             onLongPress= {onPressCustomButton}
@@ -144,14 +144,14 @@ function Marius() {
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
-                        <CustomButton tag="Social" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Sport" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Creative" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />
-                        <CustomButton tag="Sustainability" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton name="Sport" tag="Sport" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton name="Green" tag="Sustainability" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton name="Social" tag="Social" func={setfetchedData} activeTags={activeTags} />
+                        <CustomButton name="Creative" tag="Creative" func={setfetchedData} activeTags={activeTags} />
+                        {/*<CustomButton tag="Location" func={setfetchedData} activeTags={activeTags} />*/}
                     </ScrollView>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
-                        <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Local</Text>
+                        <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
                         <Switch
                             trackColor={{ false: Color.backgroundColorDark, true: Color.highlightColor }}
                             thumbColor={Color.elementWhite}
@@ -212,6 +212,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         height: '100%',
+        flexDirection: 'row',
+        paddingLeft: 10
     }
 });
 
