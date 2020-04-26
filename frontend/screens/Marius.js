@@ -6,7 +6,7 @@ import FeedItem  from './FeedItem';
 import Color from '../constants/Colors';
 
 const images = {
-    user0: '../assets/images/users/user0.png',
+    user0: require('../assets/images/users/user0.png'),
     user1: require('../assets/images/users/user1.png'),
     user2: require('../assets/images/users/user2.png'),
     user3: require('../assets/images/users/user3.png'),
@@ -17,6 +17,14 @@ const images = {
     user8: require('../assets/images/users/user8.png'),
     user9: require('../assets/images/users/user9.png'),
     user10: require('../assets/images/users/user10.png'),
+    user11: require('../assets/images/users/user11.png'),
+    user12: require('../assets/images/users/user12.png'),
+    user13: require('../assets/images/users/user13.png'),
+    user14: require('../assets/images/users/user14.png'),
+    user15: require('../assets/images/users/user15.png'),
+    user16: require('../assets/images/users/user16.png'),
+    user17: require('../assets/images/users/user17.png'),
+    user18: require('../assets/images/users/user18.png'),
     challenge1: require('../assets/images/challenges/challenge1.png'),
     challenge2: require('../assets/images/challenges/challenge2.png'),
     challenge3: require('../assets/images/challenges/challenge3.png'),
