@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         // alignItems: 'center',
         flexDirection: 'column',
+        marginTop: 20
     },
     cb_scrollview: {
         paddingTop: 10,

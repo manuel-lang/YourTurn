@@ -145,10 +145,10 @@ const ChallengeDetails = (props) => {
 
         <TouchableHighlight
             onPress={props.onPressDone} >
-            <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50, alignItems: 'center'}}>
+            <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}>
               <Image
                     source={require('../assets/images/Logo.png')}
-                    style={{width: 100, height: 50, marginTop: 10}}
+                    style={{width: 130, height: 50, marginTop: 10, marginLeft: 20}}
                     onPress={props.onPressDone} />
             </View>
         </TouchableHighlight>
@@ -366,7 +366,7 @@ export default function Minhkha(props) {
 // };
 
 const parseDate = (date) => {
-  const parsedDate = new Date(date)
+  const parsedDate = new Date(date["$date"])
   const dateNow = Date.now()
   const dateDif = new Date(parsedDate - dateNow)
 
