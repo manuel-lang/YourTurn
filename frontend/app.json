@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "YourTurn",
-    "icon": "./assets/images/Logo.png",
+    "icon": "./assets/images/Logo_App.png",
     "version": "1.0.0",
     "slug": "YourTurn",
     "ios": {
