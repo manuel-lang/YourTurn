@@ -8,26 +8,9 @@ import { Icon } from 'galio-framework';
 
 import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 
-import Minhkha from "./Minhkha"
-import Collapsible from 'react-native-collapsible';
-
-// const images = {
-//     user0: require('../assets/images/users/user0.png'),
-//     user1: require('../assets/images/users/user1.png'),
-//     user2: require('../assets/images/users/user2.png'),
-//     user3: require('../assets/images/users/user3.png'),
-//     user4: require('../assets/images/users/user4.png'),
-//     user5: require('../assets/images/users/user5.png'),
-//     challenge1: require('../assets/images/challenges/challenge1.png'),
-//     challenge2: require('../assets/images/challenges/challenge2.png'),
-//     challenge3: require('../assets/images/challenges/challenge3.png'),
-//     challenge4: require('../assets/images/challenges/challenge4.png'),
-//     challenge5: require('../assets/images/challenges/challenge5.png'),
-// }
-
 Profile.defaultProps = {
     ownerImage: require('../assets/images/users/user1.png'),
-    ownerName: "Name",
+    ownerName: "Manuel Lang",
     challengeImage: require('../assets/images/challenges/challenge1.png'),
     challengeTitle: "This is the name of the challenge",
     friends: [2, 3, 4],
@@ -47,146 +30,92 @@ Profile.defaultProps = {
 };
 
 export default function Profile (props) {
-
-    // const ownerImage = 0
-    // const challengeImage = props.challengeImage
-    // const ownerName = "Manu"
-    // const friends = props.friends
-    // const likes = ["Arne", "Malte", "Minh-Kha"]
-    // const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
-    // const challengeName = props.name
-    // const favorit = props.favorit
-    // const privateChallenge = props.privateChallenge
-    // const coopetition = props.privateChallenge
-
-    // description
-    // tagList
-    // proof
-    // voting
-    // bet
-    // deadline
-    
-  
-    function renderFavoriteIcon() {
-      if (!props.favorit) return null;
-      return (
-          <Ionicons name="ios-bookmark" size={26} color={Colors.elementWhite} style={{marginLeft: 20}}/>
-      );
-    }
-  
-    function renderPrivateIcon() {
-      if (!props.privateChallenge) return null;
-      return (
-          <Entypo name="mask" size={26} color={Colors.elementWhite} style={{marginLeft: 10}} />
-      );
-    }
-  
-    function renderCoopetitionIcon() {
-      if (!props.coopetition) return null;
-      return (
-          <Ionicons name="md-people" size={26} color={Colors.elementWhite} style={{marginLeft: 10}} />
-      );
-    }
-
-    const onPressDetails = () => {
-        console.log("hello")
-        setShowDetails(!showDetails)
-    }
-
-    const [showDetails, setShowDetails] = React.useState(false);
   
     return (
   
       <View style={styles.wrapperProfile}>
-
-        {/* <TouchableOpacity
-            style={styles.infopart}
-            onPress={onPressDetails}
-        > */}
     
-            <View style={styles.imagepart}>
-            <ImageBackground
-                style={styles.backgroundimage}
-                imageStyle={{ borderRadius: 20 }}
-                source={props.challengeImage}
-            >
-            </ImageBackground>
+        <View style={styles.imagePart}>
+          <ImageBackground
+              style={styles.backgroundimage}
+              imageStyle={{ borderRadius: 0 }}
+              source={props.ownerImage}
+          >
+          </ImageBackground>
 
-            <View style={styles.headerFeedItem}>
-                <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
-                <View style={styles.headerFeedItemText}>
-                    <Text color={Colors.textPrimary} bold h5>{props.ownerName}</Text>
-                    <Text color={Colors.textSecondary} p>Challenge owner</Text>
+          <View style={styles.contentPart}>
+
+            <View style={styles.header}>
+              <Text color={Colors.textPrimary} bold h3>Manuel Lang</Text>
+              <Text color={Colors.textSecondary} p>Gets his ass kicked</Text>
+            </View>
+
+            <View style={styles.footerDivider}></View>
+
+            <View style={styles.statsWrapper}>
+
+              <View style={styles.stats}>
+                <View style={styles.statsFirstLine}>
+                  <Icon 
+                    name="check-circle" 
+                    family="Feather" 
+                    color={Colors.highlightColor} 
+                    size={30} 
+                    style={styles.statsIcon}
+                  />
+                  <Text h3 bold color={Colors.textPrimary} >
+                      5
+                  </Text>
                 </View>
-            </View>
-    
-            {/* <View style={styles.challengeIcons}>
-                {renderFavoriteIcon()}
-                {renderPrivateIcon()}
-                {renderCoopetitionIcon()}
-            </View> */}
-    
-            <View style={styles.titleFeedItem}>
-                <Text color={Colors.textPrimary} h5 bold >{props.challengeTitle}</Text>
-            </View>
-            </View>
-    
-            <View style={styles.footerFeedItemWrapper}>
-    
-            <View style={styles.footerFeedItemContainer}>
-                <View style={styles.footerFeedItemElement}>
-                <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
-                    {props.likes}
+                <Text p color={Colors.textSecondary} >
+                    Done
                 </Text>
+              </View>
+
+              <View style={styles.stats}>
+                <View style={styles.statsFirstLine}>
+                  <Icon 
+                    name="group" 
+                    family="FontAwesome" 
+                    color={Colors.highlightColor} 
+                    size={30} 
+                    style={styles.statsIcon}
+                  />
+                  <Text h3 bold color={Colors.textPrimary} >
+                      3
+                  </Text>
                 </View>
-            </View>
-    
-            <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                {/* {
-                friends.map( friendId => {
-                    <Image source={images["user" + friendId]} style={styles.friendsImage}/>
-                })
-                } */}
-                {/* <Image source={props.friendsImages[0]} style={styles.friendsImage}/>
-                <Image source={props.friendsImages[1]} style={styles.friendsImage}/>
-                <Image source={props.friendsImages[2]} style={styles.friendsImage}/> */}
-            </View>
-    
-            <View style={styles.footerFeedItemContainer}>
-                <View style={styles.footerFeedItemElement}>
-                <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
-                    {props.comments}
+                <Text p color={Colors.textSecondary} >
+                    Friends
                 </Text>
+              </View>
+
+              <View style={styles.stats}>
+                <View style={styles.statsFirstLine}>
+                  <Icon 
+                    name="attach-money" 
+                    family="MaterialIcons" 
+                    color={Colors.highlightColor} 
+                    size={30} 
+                    style={styles.statsIcon}
+                  />
+                  <Text h3 bold color={Colors.textPrimary} >
+                      8
+                  </Text>
                 </View>
-            </View>     
-    
+                <Text p color={Colors.textSecondary} >
+                    Coins
+                </Text>
+              </View>
+              
             </View>
-            
-            {/* <View style={styles.footerDivider}></View> */}
 
-            {/* <Collapsible 
-                collapsed={!showDetails}
-                onAnimationEnd={() => {
-                    setShowDetails(showDetails)
-                }}
-            > */}
-                {/* {showDetails && <Minhkha 
-                    description={props.description}
-                    tagList={props.tags}
-                    proof={props.proof}
-                    voting={props.voting}
-                    bet={props.bet}
-                    deadline={props.deadline}
-                    friendsImages={props.friendsImages}
-                    friendsNames={props.friendsNames}
-                    onPressDetails={onPressDetails}
-                />} */}
-            {/* </Collapsible> */}
+            <View style={styles.footerDivider}></View>
 
-        {/* </TouchableOpacity> */}
-  
+          </View>
+          
+        </View>
+    
       </View>
   
     )
@@ -217,14 +146,58 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
       },
-      imagepart: {
+      imagePart: {
         flex: 1,
         flexDirection: 'column',
+        justifyContent: "flex-start",
+        alignItems: "center",
         marginTop: 0,
       },
+      contentPart: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: "flex-start",
+        alignItems: "center",
+        marginTop: 0,
+        backgroundColor: Colors.tabColor,
+        width: "90%",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        marginTop: -20,
+        padding: 30,
+      },
+      header: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: "center",
+        height: 200,
+      },
+      statsWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "space-evenly",
+      },
+      stats: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: "flex-start",
+        alignItems: "center",
+        height: 70,
+      },
+      statsFirstLine: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignContent: "center",
+      },
+      statsIcon: {
+        marginTop: 10,
+        marginRight: 5
+      },
+
       backgroundimage: {
         width: '100%',
-        height: 200,
+        height: 300,
         opacity: 0.4,
         // borderRadius: 0,
       
@@ -293,7 +266,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginLeft: 20,
         marginRight: 20,
-        borderBottomColor: Colors.tabColor,
+        borderBottomColor: Colors.elementWhite,
         borderBottomWidth: 2,
       },
 });
