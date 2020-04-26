@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import Colors from "../constants/Colors"
 
 import { Text } from 'galio-framework';
@@ -60,68 +60,75 @@ export default function FeedItem (props) {
     return (
   
       <View style={styles.wrapperFeedItem}>
+
+        <TouchableOpacity
+            style={styles.infopart}
+            onPress={() => props.setShowDetails(!props.showDetails)}
+        >
   
-        <View style={styles.headerFeedItem}>
-          <Image source={images["user" + ownerId]} style={styles.ownerImageFeedItem}/>
-          <View style={styles.headerFeedItemText}>
-            <Text color={Colors.textColor} bold h5>{name}</Text>
-            <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
-          </View>
-        </View>
-  
-        <View style={styles.imagepart}>
-          <ImageBackground
-            style={styles.backgroundimage}
-            imageStyle={{ borderRadius: 20 }}
-            source={images["challenge" + challengeId] }
-          >
-          </ImageBackground>
-  
-          <View style={styles.challengeIcons}>
-            {renderFavoriteIcon()}
-            {renderPrivateIcon()}
-            {renderCoopetitionIcon()}
-          </View>
-  
-          <View style={styles.titleFeedItem}>
-            <Text color={Colors.textColor} h5 bold >{title}</Text>
-          </View>
-        </View>
-  
-        <View style={styles.footerFeedItemWrapper}>
-  
-          <View style={styles.footerFeedItemContainer}>
-            <View style={styles.footerFeedItemElement}>
-              <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-              <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-                {likes.length}
-              </Text>
+            <View style={styles.headerFeedItem}>
+            <Image source={images["user" + ownerId]} style={styles.ownerImageFeedItem}/>
+            <View style={styles.headerFeedItemText}>
+                <Text color={Colors.textColor} bold h5>{name}</Text>
+                <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
             </View>
-          </View>
-  
-          <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-            {/* {
-              friends.map( friendId => {
-                <Image source={images["user" + friendId]} style={styles.friendsImage}/>
-              })
-            } */}
-            <Image source={images["user" + 1]} style={styles.friendsImage}/>
-            <Image source={images["user" + 3]} style={styles.friendsImage}/>
-            <Image source={images["user" + 5]} style={styles.friendsImage}/>
-          </View>
-  
-          <View style={styles.footerFeedItemContainer}>
-            <View style={styles.footerFeedItemElement}>
-              <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-              <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-                {comments.length}
-              </Text>
             </View>
-          </View>     
-  
-        </View>
-        
-        <View style={styles.footerDivider}></View>
+    
+            <View style={styles.imagepart}>
+            <ImageBackground
+                style={styles.backgroundimage}
+                imageStyle={{ borderRadius: 20 }}
+                source={images["challenge" + challengeId] }
+            >
+            </ImageBackground>
+    
+            <View style={styles.challengeIcons}>
+                {renderFavoriteIcon()}
+                {renderPrivateIcon()}
+                {renderCoopetitionIcon()}
+            </View>
+    
+            <View style={styles.titleFeedItem}>
+                <Text color={Colors.textColor} h5 bold >{title}</Text>
+            </View>
+            </View>
+    
+            <View style={styles.footerFeedItemWrapper}>
+    
+            <View style={styles.footerFeedItemContainer}>
+                <View style={styles.footerFeedItemElement}>
+                <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+                <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                    {likes.length}
+                </Text>
+                </View>
+            </View>
+    
+            <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
+                {/* {
+                friends.map( friendId => {
+                    <Image source={images["user" + friendId]} style={styles.friendsImage}/>
+                })
+                } */}
+                <Image source={images["user" + 1]} style={styles.friendsImage}/>
+                <Image source={images["user" + 3]} style={styles.friendsImage}/>
+                <Image source={images["user" + 5]} style={styles.friendsImage}/>
+            </View>
+    
+            <View style={styles.footerFeedItemContainer}>
+                <View style={styles.footerFeedItemElement}>
+                <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+                <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                    {comments.length}
+                </Text>
+                </View>
+            </View>     
+    
+            </View>
+            
+            <View style={styles.footerDivider}></View>
+
+        </TouchableOpacity>
   
       </View>
   
