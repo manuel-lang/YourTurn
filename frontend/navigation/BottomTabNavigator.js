@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { View, Text } from 'react-native';
-import Nils from '../screens/Nils';
+import Profile from '../screens/Profile';
 import Marius from '../screens/Marius';
 import Malte from '../screens/Malte';
 import Minhkha from '../screens/Minhkha';
@@ -63,7 +63,7 @@ export default function BottomTabNavigator({ navigation, route }) {
     >
       <BottomTab.Screen
         name="nils"
-        component={Nils}
+        component={Profile}
         options={{
           title: 'Profile',
           tabBarIcon: ({ focused }) => 
