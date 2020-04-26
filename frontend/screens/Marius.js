@@ -107,6 +107,15 @@ function Marius() {
         return tmp;
     }
 
+    function friendsIdToName(friendsId) {
+        let tmp = [];
+        let i;
+        for (i = 0; i < friendsId.length; ++i) {
+            tmp.push(friendsId[i]["name"]);
+        }
+        return tmp;
+    }
+
     return (
         <View style={{flex: 1, backgroundColor: background}}>
             <View style={styles.wrapper}>
@@ -131,7 +140,8 @@ function Marius() {
                                     challengeImage={images["challenge" + item.challenge_id]}
                                     challengeTitle={item.name}
                                     friends={item.participants.length}
-                                    friendsImage={friendIdToimage(item.participants)}
+                                    friendsImages={friendIdToimage(item.participants)}
+                                    friendsName={friendsIdToName(item.participants)}
                                     likes={item.likes.length}
                                     comments={3}
                                     favorit={true}
