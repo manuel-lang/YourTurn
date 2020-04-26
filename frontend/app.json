@@ -13,9 +13,7 @@
       "versionCode": 1
     }
     ,
-    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/Logo.png",
     "scheme": "myapp",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -27,9 +25,7 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    ]
+
   }
 }
