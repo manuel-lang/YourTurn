@@ -14,18 +14,11 @@ import { ActionButton } from 'react-native-material-ui';
 import { Block } from 'galio-framework';
 import { Button } from 'galio-framework';
 import Colors from '../constants/Colors';
-//import {Text} from 'galio-framework';
-import Text from '../constants/Text';
+import {Text} from 'galio-framework';
 
 
 export default function Malte() {
 
-  const [deleteNotification1, setDeleteNotification1] = React.useState(false);
-  const [deleteNotification2, setDeleteNotification2] = React.useState(false);
-  const [deleteNotification3, setDeleteNotification3] = React.useState(false);
-  const [deleteNotification4, setDeleteNotification4] = React.useState(false);
-  const [deleteNotification5, setDeleteNotification5] = React.useState(false);
-  const [deleteNotification6, setDeleteNotification6] = React.useState(false);
   const API_URL_NOTIFICATION = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/notifications"
   
   /*
@@ -70,188 +63,51 @@ export default function Malte() {
   */
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Collapsible  collapsed={deleteNotification1}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Arne invited you to the challenge "Do a Barrel Roll"</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification1(!deleteNotification1)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-        <Block style={{alignItems: "center", marginBottom: 10}}>
-        <Button 
-            capitalize size="small" 
-            color="#00bcd4"
-            style={{height: 40}}>
-              <Text style={{color: 'black'}}p>View Challenge</Text>
-            </Button>
-        </Block>
-      </Block>
-      </Collapsible>
-      <Collapsible  collapsed={deleteNotification2}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Manu completed the challenge "Beer Pong Trickshot"</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification2(!deleteNotification2)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-      </Block>
-      </Collapsible>
-      <Collapsible  collapsed={deleteNotification3}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Minh-Kha wants to add you as a friend</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification3(!deleteNotification3)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-        <Block style={{alignItems: "center", marginBottom: 10}}>
-        <Button 
-            capitalize size="small" 
-            color="#00bcd4"
-            style={{height: 40}} 
-            onPress={() => setDeleteNotification3(!deleteNotification3)}>
-              <Text style={{color: 'black'}}p>Accept</Text>
-            </Button>
-        </Block>
-      </Block>
-      </Collapsible>
-      <Collapsible  collapsed={deleteNotification4}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Nils is following you now</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification4(!deleteNotification4)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-      </Block>
-      </Collapsible>
-      <Collapsible  collapsed={deleteNotification5}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Timo invited you to the challenge "Cook a healthy meal"</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification5(!deleteNotification5)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-        <Block style={{alignItems: "center", marginBottom: 10}}>
-        <Button 
-            capitalize size="small" 
-            color="#00bcd4"
-            style={{height: 40}}>
-              <Text style={{color: 'black'}}p>View Challenge</Text>
-            </Button>
-        </Block>
-      </Block>
-      </Collapsible>
-      <Collapsible  collapsed={deleteNotification6}>
-      <Block style={styles.notificationContainer}>
-        <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-        <Block style={styles.textContainer}>
-          <Text style={{color: 'white'}}p>Adidas started a new challenge</Text>
-        </Block>
-        <Block style={{marginTop: 10, marginRight: 10}}>
-        <Button 
-            onlyIcon icon="close" 
-            iconFamily="antdesign" 
-            iconSize={15}
-            color="orangered" 
-            iconColor="#fff" 
-            style={{ width: 25, height: 25}} 
-            onPress={() => setDeleteNotification6(!deleteNotification6)}>
-              warning
-            </Button>
-        </Block>
-        </Block>
-        <Block style={{alignItems: "center", marginBottom: 10}}>
-        <Button 
-            capitalize size="small" 
-            color="#00bcd4"
-            style={{height: 40}}>
-              <Text style={{color: 'black'}}p>View Challenge</Text>
-            </Button>
-        </Block>
-      </Block>
-      </Collapsible>
+      <Notification notifText = "Arne hat dich herausgefordert" notifButton = "View Challenge" noButton = {false}></Notification>
+      <Notification notifText = "Manu completed the challenge 'Beer Pong Trickshot'" noButton = {true} ></Notification>
+      <Notification notifText = "Minh-Kha wants to add you as a friend" notifButton = "Accept" noButton = {false}></Notification>
+      <Notification notifText = "Nils is following you now" noButton = {true}></Notification>
+      <Notification notifText = "Timo invited you to the challenge 'Cook a healthy meal'" notifButton = "View Challenge" noButton = {false}></Notification>
+      <Notification notifText = "Adidas started a new challenge" notifButton = "View Challenge" noButton = {false}></Notification>
     </ScrollView>
   );
 }
 
-function OptionButton({ icon, label, onPress, isLastOption }) {
-  return (
-    <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-        </View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{label}</Text>
-        </View>
-      </View>
-    </RectButton>
-  );
-}
 
-function Notification(props) {
+function Notification({notifText , notifButton , noButton}) {
+  const [deleteNotification1, setDeleteNotification1] = React.useState(false);
   return (
-  props.content,
-  props.id
+    <Collapsible  collapsed={deleteNotification1}>
+    <Block style={styles.notificationContainer}>
+      <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+      <Block style={styles.textContainer}>
+        <Text style={{color: 'white', flexWrap: 'wrap', fontSize: 18}}p>{notifText}</Text>
+      </Block>
+      <Block style={{marginTop: 10, marginRight: 10}}>
+      <Button 
+          onlyIcon icon="close" 
+          iconFamily="antdesign" 
+          iconSize={15}
+          color="orangered" 
+          iconColor="#fff" 
+          style={{ width: 25, height: 25}} 
+          onPress={() => setDeleteNotification1(!deleteNotification1)}>
+            warning
+          </Button>
+      </Block>
+      </Block>
+      <Collapsible collapsed={noButton}>
+      <Block style={{alignItems: "center", marginBottom: 10}}>
+      <Button 
+          capitalize size="small" 
+          color="#00bcd4"
+          style={{height: 40}}>
+            <Text style={{color: 'black'}}p>{notifButton}</Text>
+          </Button>
+      </Block>
+      </Collapsible>
+    </Block>
+    </Collapsible>
   )
 }
 
