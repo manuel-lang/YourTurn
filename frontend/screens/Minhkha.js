@@ -172,7 +172,7 @@ const AddUser = (props) => {
     <View>
 
         <View style={{marginTop: 40}}>
-          <Text p bold color={Colors.textPrimary}>Select your friends you would like to add</Text>
+          <Text p bold color={Colors.textPrimary}>Whose asses do you want to kick?</Text>
         </View>
 
         <UserCard
@@ -238,16 +238,28 @@ const UserCard = (props) => {
         />
         </Button> */}
 
-        <View style={styles.headerFeedItem}>
-            <Image source={props.image} style={styles.ownerImageFeedItem}/>
-            <View style={styles.headerFeedItemText}>
-                <Text color={Colors.textPrimary} bold h5>{props.title}</Text>
-                <Text color={Colors.textSecondary} p>Friend</Text>
+        <TouchableHighlight onPress={onPressUserCard} style={{width: "100%", height: "100%"}}>
+          <View style={{flex: 1, flexDirection: "column", alignItems: "center", width: "100%", height: "100%"}}>
+            <View style={styles.headerFeedItem}>
+                <Image source={props.image} style={styles.ownerImageFeedItem}/>
+                <View style={styles.headerFeedItemText}>
+                  <Text color={Colors.textPrimary} bold h5 style={{marginTop: 50}}>{props.title}</Text>
+                  <Text color={Colors.textSecondary} p>Friend</Text>
+                </View>
+
+                {buttonPressed && <Icon 
+                    name="check" 
+                    family="Feather" 
+                    color={Colors.highlightColor} 
+                    size={30} 
+                    style={styles.statsIcon}
+                  />}
             </View>
 
-            <View style={styles.Divi}></View>
-        </View>
-
+            <View style={styles.footerDivider}></View>
+          </View>
+        </TouchableHighlight>
+        
       </View>
     </View>
   )
@@ -495,6 +507,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: Colors.highlightColor,
+    marginTop: 20
   },
 
   card: {
@@ -631,6 +644,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 30,
   },
   headerFeedItemText: {
     flex: 1,
