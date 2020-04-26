@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Dimensions, ImageBackground, ScrollView } from 'react-native';
 // import Text from "../constants/Text"
 import Colors from "../constants/Colors"
 
@@ -43,14 +43,14 @@ export default function Profile (props) {
           >
           </ImageBackground>
 
-          <View style={styles.contentPart}>
+          <ScrollView contentContainerStyle={styles.contentPart}>
 
             <View style={styles.header}>
               <Text color={Colors.textPrimary} bold h3>Manuel Lang</Text>
-              <Text color={Colors.textSecondary} p>Gets his ass kicked</Text>
+              <Text color={Colors.textSecondary} p>Almost Superman</Text>
             </View>
 
-            <View style={styles.footerDivider}></View>
+            {/* <View style={styles.footerDivider}></View> */}
 
             <View style={styles.statsWrapper}>
 
@@ -110,9 +110,43 @@ export default function Profile (props) {
               
             </View>
 
-            <View style={styles.footerDivider}></View>
 
-          </View>
+            <View style={styles.profileInfoContainer}>
+              <View style={styles.profileInfoWrapper}>
+                  
+                    <Text h5 color={Colors.textPrimary} >
+                        Completed Challenges
+                    </Text>
+                    <Icon 
+                      name="check-circle" 
+                      family="Feather"
+                      color={Colors.elementWhite} 
+                      size={30} 
+                      style={styles.statsIcon}
+                    />
+                 
+              </View>
+
+              <View style={styles.profileInfoWrapper}>
+
+                    <Text h5 color={Colors.textPrimary} >
+                        User Statistics
+                    </Text>
+
+                    <Icon 
+                      name="line-graph" 
+                      family="Entypo" 
+                      color={Colors.elementWhite} 
+                      size={30} 
+                      style={styles.statsIcon}
+                    />
+                
+              </View>
+
+              
+            </View>
+
+          </ScrollView>
           
         </View>
     
@@ -128,7 +162,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         padding: 0,
-        backgroundColor: Colors.backgroundColorLight
+        backgroundColor: Colors.backgroundColorDark
       },
       ownerImageFeedItem: {
         height: 60,
@@ -159,11 +193,11 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         marginTop: 0,
-        backgroundColor: Colors.tabColor,
+        backgroundColor: Colors.backgroundColorLight,
         width: "90%",
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        marginTop: -20,
+        marginTop: 220,
         padding: 30,
       },
       header: {
@@ -182,7 +216,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: "flex-start",
         alignItems: "center",
-        height: 70,
+        height: 90,
+        borderBottomColor: Colors.tabColor,
+        borderBottomWidth: 2,
+        borderTopColor: Colors.tabColor,
+        borderTopWidth: 2,
+        paddingTop: 10,
+        paddingBottom: 10,
       },
       statsFirstLine: {
         flex: 1,
@@ -193,6 +233,20 @@ const styles = StyleSheet.create({
       statsIcon: {
         marginTop: 10,
         marginRight: 5
+      },
+      profileInfoContainer: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        // height: 200,
+        paddingTop: 20,
+      },
+      profileInfoWrapper: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: 300,
       },
 
       backgroundimage: {
@@ -259,6 +313,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         height: 100,
       },
+
       footerDivider: {
         flex: 1,
         flexDirection: 'column',
