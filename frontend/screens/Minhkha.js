@@ -145,10 +145,11 @@ const ChallengeDetails = (props) => {
 
         <TouchableHighlight
             onPress={props.onPressDone} >
-            <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}>
+            {/* <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}> */}
+            <View style={{ borderWidth: 1, borderColor: Colors.highlightColor, backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}>
               <Image
                     source={require('../assets/images/Logo.png')}
-                    style={{width: 130, height: 50, marginTop: 10, marginLeft: 20}}
+                    style={{width: 130, height: 40, marginTop: 10, marginLeft: 20}}
                     onPress={props.onPressDone} />
             </View>
         </TouchableHighlight>
