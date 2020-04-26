@@ -176,13 +176,13 @@ const AddUser = (props) => {
         </View>
 
         <UserCard
-          title={props.friendsNames[0]}
-          image={props.friendsImages[0]}
+          title={"Dennis"}
+          image={require('../assets/images/users/user98.png')}
           subtitle="Friend"
         />
         <UserCard
-          title={props.friendsNames[1]}
-          image={props.friendsImages[1]}
+          title={"Natalia"}
+          image={require('../assets/images/users/user99.png')}
           subtitle="Friend"
         />
 
