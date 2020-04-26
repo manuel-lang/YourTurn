@@ -43,7 +43,7 @@ FeedItem.defaultProps = {
     proof: "proof",
     voting: false,
     bet: "bet",
-    deadline: {"$date": 1590414228092}
+    deadline: {"$date": 1590414228092},
 };
 
 export default function FeedItem (props) {
@@ -125,7 +125,7 @@ export default function FeedItem (props) {
                     {renderPrivateIcon()}
                     {renderCoopetitionIcon()}
                 </View>
-                <View style={styles.titleFeedItem}>
+                <View style={((props.coopetition || props.favorit || props.privateChallenge) ? styles.titleFeedItem : styles.titleFeedItem2)}>
                     <Text color={Colors.textPrimary} h5 bold >{props.challengeTitle}</Text>
                 </View>
             </View>
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
       imagepart: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: 20,
+        marginTop: 10,
       },
       backgroundimage: {
         width: '100%',
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "center",
-        marginTop: -20
+        marginTop: -30
       },
 
       footerFeedItemContainer: {
@@ -279,11 +279,18 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        marginTop: 120,
         padding: 20,
-        // textAlign: "center",
+        marginTop: 120,
         height: 100,
       },
+      titleFeedItem2: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 20,
+        marginTop: 145,
+        height: 100,
+       },
       footerDivider: {
         flex: 1,
         flexDirection: 'column',
