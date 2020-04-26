@@ -5,6 +5,26 @@ import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
 import Minhkha from './Minhkha';
 
+const images = {
+    user0: '../assets/images/users/user0.png',
+    user1: require('../assets/images/users/user1.png'),
+    user2: require('../assets/images/users/user2.png'),
+    user3: require('../assets/images/users/user3.png'),
+    user4: require('../assets/images/users/user4.png'),
+    user5: require('../assets/images/users/user5.png'),
+    user6: require('../assets/images/users/user6.png'),
+    user7: require('../assets/images/users/user7.png'),
+    user8: require('../assets/images/users/user8.png'),
+    user9: require('../assets/images/users/user9.png'),
+    user10: require('../assets/images/users/user10.png'),
+    challenge1: require('../assets/images/challenges/challenge1.png'),
+    challenge2: require('../assets/images/challenges/challenge2.png'),
+    challenge3: require('../assets/images/challenges/challenge3.png'),
+    challenge4: require('../assets/images/challenges/challenge4.png'),
+    challenge5: require('../assets/images/challenges/challenge5.png'),
+}
+
+
 let color_button_inactive = '#ababab';
 let color_button_active = '#443f3c';
 let background = '#2d2d2d';
@@ -64,7 +84,6 @@ function Marius() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [activeTags, setActiveTags] = useState([])
-    const [showDetails, setShowDetails] = useState(false)
 
     useEffect(() => {
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
@@ -79,23 +98,19 @@ function Marius() {
             .catch((error) => console.error(error))
     }, []);
 
-
+    function friendIdToimage(friendsId) {
+        let tmp = [];
+        let i;
+        for (i = 0; i < friendsId.length; ++i) {
+            tmp.push(images["user"+friendsId[i]["id"]]);
+        }
+        return tmp;
+    }
 
     return (
         <View style={{flex: 1, backgroundColor: background}}>
-            {!showDetails &&
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
-                    {/*<FlatList
-                        data={[
-                            {key: "Health"},
-                            {key: "Social"},
-                            {key: "Lifestyle"}
-                        ]}
-                        horizontal={true}
-                        renderItem={({ item }) => <CustomButton tag={item.key} func={setfetchedData} activeTags={activeTags} />}
-                        keyExtractor={item => item.id}
-                    />*/}
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
                         <CustomButton tag="Health" func={setfetchedData} activeTags={activeTags} />
                         <CustomButton tag="Sustainable" func={setfetchedData} activeTags={activeTags} />
@@ -111,22 +126,28 @@ function Marius() {
                         renderItem={
                             ({item}) =>
                                 <FeedItem
-                                    name={item.name}
+                                    ownerImage={images["user" + item.owner.id]}
+                                    ownerName={item.owner.name}
+                                    challengeImage={images["challenge" + item.challenge_id]}
+                                    challengeTitle={item.name}
                                     friends={item.participants.length}
-                                    description={item.description}
-                                    coopetition={true}
-                                    privateChallenge={item.private}
+                                    friendsImage={friendIdToimage(item.participants)}
+                                    likes={item.likes.length}
+                                    comments={3}
                                     favorit={true}
-                                    setShowDetails={setShowDetails}
-                                    showDetails={showDetails}
+                                    privateChallenge={item.private}
+                                    coopetition={true}
+                                    description={item.description}
+                                    tags={item.tags}
+                                    proof={item.proof}
+                                    voting={item.voting}
+                                    bet={item.bet}
+                                    deadline={item.deadline}
                                 />
                         }
                     />
                 </View>
             </View>
-            }
-
-            {showDetails && <Minhkha setShowDetails={setShowDetails} />}
         </View>
     );
 }
@@ -152,10 +173,3 @@ const styles = StyleSheet.create({
 });
 
 export default Marius;
-/*<TextInput
-                style={{flex: 1, color: '#000000', marginBottom: 10}}
-                placeholder="click here to search your feed!"
-                clearButtonMode="always"
-                //defaultValue={text}
-                //onChangeText={text => setText(text)}
-            />*/
