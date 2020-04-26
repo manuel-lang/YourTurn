@@ -63,7 +63,7 @@ export default function Malte() {
   */
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Notification notifText = "Arne hat dich herausgefordert" notifButton = "View Challenge" noButton = {false}></Notification>
+      <Notification notifText = "Arne invited you to the challenge 'Do a Barrel Roll'" notifButton = "View Challenge" noButton = {false}></Notification>
       <Notification notifText = "Manu completed the challenge 'Beer Pong Trickshot'" noButton = {true} ></Notification>
       <Notification notifText = "Minh-Kha wants to add you as a friend" notifButton = "Accept" noButton = {false}></Notification>
       <Notification notifText = "Nils is following you now" noButton = {true}></Notification>
