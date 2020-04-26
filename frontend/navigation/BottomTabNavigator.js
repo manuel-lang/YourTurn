@@ -25,7 +25,7 @@ function IconWithBadge({ name, badgeCount, color, size }) {
             position: 'absolute',
             right: -6,
             top: -1,
-            backgroundColor: 'red',
+            backgroundColor: Colors.elementRed,
             borderRadius: 6,
             width: 12,
             height: 12,
@@ -33,7 +33,7 @@ function IconWithBadge({ name, badgeCount, color, size }) {
             alignItems: 'center',
           }}
         >
-          <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>
+          <Text style={{ color: 'white', fontSize: 9, fontWeight: 'bold' }}>
             {badgeCount}
           </Text>
         </View>
@@ -48,16 +48,16 @@ export default function BottomTabNavigator({ navigation, route }) {
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({ headerTitle: getHeaderTitle(route), 
                           headerTintColor: 'white', 
-                          headerStyle:{backgroundColor: Colors.tabBackroundColor}});
+                          headerStyle:{backgroundColor: Colors.backgroundColorLight}});
 
   return (
     <BottomTab.Navigator 
       initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{
-        activeBackgroundColor: Colors.tabColor,
-        inactiveBackgroundColor: Colors.tabColor,
+        activeBackgroundColor: Colors.backgroundColorLight,
+        inactiveBackgroundColor: Colors.backgroundColorLight,
         activeTintColor: Colors.highlightColor,
-        inactiveTintColor: Colors.textColor,
+        inactiveTintColor: Colors.textPrimary,
       }}
     >
       <BottomTab.Screen
@@ -70,7 +70,7 @@ export default function BottomTabNavigator({ navigation, route }) {
               name="person"
               size={30}
               style={{ marginBottom: -3}}
-              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+              color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
         }}
@@ -86,7 +86,7 @@ export default function BottomTabNavigator({ navigation, route }) {
               name="group"
               size={30}
               style={{ marginBottom: -3 }}
-              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+              color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
         }}
@@ -102,7 +102,7 @@ export default function BottomTabNavigator({ navigation, route }) {
               name="menu"
               size={30}
               style={{ marginBottom: -3 }}
-              color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+              color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
         }}
@@ -118,7 +118,7 @@ export default function BottomTabNavigator({ navigation, route }) {
             name="flag-checkered"
             size={30}
             style={{ marginBottom: -3 }}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
         }}
@@ -134,7 +134,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           <IconWithBadge 
           name="ios-notifications" 
           badgeCount={6} 
-          color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+          color={focused ? Colors.highlightColor : Colors.elementWhite}
           size={30} />,
         }}
       />
@@ -148,15 +148,15 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'nils':
-      return 'Profile';
+      return '';
     case 'minhkha':
-      return 'Friends & Groups';
+      return '';
     case 'marius':
-      return 'New Challenges Feed';
+      return '';
     case 'challenges':
-      return 'Your Active Challenges';
+      return '';
     case 'malte':
-      return 'Notifications';
+      return '';
     
   }
 }

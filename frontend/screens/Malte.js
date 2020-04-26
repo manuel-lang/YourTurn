@@ -78,35 +78,33 @@ function Notification({notifText , notifButton , noButton}) {
   const [deleteNotification1, setDeleteNotification1] = React.useState(false);
   return (
     <Collapsible  collapsed={deleteNotification1}>
-    <Block style={styles.notificationContainer}>
-      <Block style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
-      <Block style={styles.textContainer}>
-        <Text style={{color: 'white', flexWrap: 'wrap', fontSize: 18}}p>{notifText}</Text>
-      </Block>
-      <Block style={{marginTop: 10, marginRight: 10}}>
+    <View style={styles.notificationContainer}>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+      <View style={styles.textContainer}>
+        <Text style={{color: Colors.textPrimary, flexWrap: 'wrap', fontSize: 18}}p>{notifText}</Text>
+      </View>
       <Button 
           onlyIcon icon="close" 
           iconFamily="antdesign" 
           iconSize={15}
-          color="orangered" 
-          iconColor="#fff" 
-          style={{ width: 25, height: 25}} 
+          color={Colors.elementRed}
+          iconColor={Colors.elementWhite}
+          style={{ width: 25, height: 25, marginTop: 10, marginRight: 10}} 
           onPress={() => setDeleteNotification1(!deleteNotification1)}>
             warning
           </Button>
-      </Block>
-      </Block>
+      </View>
       <Collapsible collapsed={noButton}>
-      <Block style={{alignItems: "center", marginBottom: 10}}>
+      <View style={{alignItems: "center", marginBottom: 10}}>
       <Button 
           capitalize size="small" 
-          color="#00bcd4"
+          color={Colors.highlightColor}
           style={{height: 40}}>
-            <Text style={{color: 'black'}}p>{notifButton}</Text>
+            <Text style={{color: Colors.textPrimary}}p>{notifButton}</Text>
           </Button>
-      </Block>
+      </View>
       </Collapsible>
-    </Block>
+    </View>
     </Collapsible>
   )
 }
@@ -123,18 +121,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: _backgroundColor,
+    backgroundColor: Colors.backgroundColorLight,
   },
   notificationContainer: {
     margin: 10, 
-    backgroundColor: _notificationColor
+    backgroundColor: Colors.tabColor
   },
   textContainer: {
     marginLeft: 20,
     marginRight: 10,
     marginTop: 10,
     marginBottom: 5,
-    width: 400
+    width: 390
   },
   imageContainer: {
     alignItems: 'center',
@@ -146,31 +144,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     margin: 10,
   },
-  button: {
-    backgroundColor: 'green',
-    width: '40%',
-    height: 40
-  },  
   contentContainer: {
     paddingTop: 15,
   },
   optionIconContainer: {
     marginRight: 12,
   },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
+
 });

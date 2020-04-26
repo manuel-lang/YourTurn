@@ -17,11 +17,12 @@ export default {
   // secondaryTextColor: 'grey',
   // tabBackroundColor: '#242424',
 
-  backgroundColorLight: "#242424",
-  backgroundColorDark: '#4f4f4f',
+  backgroundColorLight: "#2d2d2d",
+  backgroundColorDark: '#242424',
   textPrimary: '#fff',
   elementWhite: '#fff',
+  elementRed: '#ff4500',
   textSecondary: '#808080',
   highlightColor: '#00bcd4',
-  tabColor: '#2d2d2d',
+  tabColor: '#4f4f4f',
 };
