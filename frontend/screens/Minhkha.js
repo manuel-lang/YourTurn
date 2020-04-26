@@ -32,20 +32,20 @@ const ChallengeDetails = (props) => {
 
       <View style={styles.tagContainer}>
         {
-          props.tagList.map( (tag) => 
-          <Button 
+          props.tagList.map( (tag) =>
+          <Button
             color={Colors.tabColor}
             style={styles.tagStyle}
           >
             {"#" + tag}
           </Button>
           )
-        } 
+        }
       </View>
 
       <View style={styles.rowContainer}>
         <Text h5 bold color={Colors.textPrimary}>Proof</Text>
-        <Button 
+        <Button
           color={Colors.highlightColor}
           style={styles.proofStyle}
         >
@@ -53,9 +53,10 @@ const ChallengeDetails = (props) => {
         </Button>
       </View>
 
+        {/*
       <View style={styles.rowContainer}>
         <Text h5 bold color={Colors.textPrimary}>Voting</Text>
-        <Button 
+        <Button
           color={Colors.highlightColor}
           style={styles.proofStyle}
         >
@@ -63,19 +64,21 @@ const ChallengeDetails = (props) => {
         </Button>
       </View>
 
+
       <View style={styles.rowContainer}>
         <Text h5 bold color={Colors.textPrimary}>Bet</Text>
-        <Button 
+        <Button
           color={Colors.highlightColor}
           style={styles.proofStyle}
         >
           {props.bet}
         </Button>
       </View>
+      */}
 
       <View style={styles.rowContainer}>
         <Text h5 bold color={Colors.textPrimary}>Deadline</Text>
-        <Button 
+        <Button
           color={Colors.highlightColor}
           style={styles.proofStyle}
         >
@@ -96,52 +99,56 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button 
-          onlyIcon 
-          icon="thumbs-up" 
-          iconFamily="Entypo" 
-          iconSize={25} 
-          color={Colors.tabColor} 
+          {/*
+        <Button
+          onlyIcon
+          icon="thumbs-up"
+          iconFamily="Entypo"
+          iconSize={25}
+          color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
 
-        <Button 
-          onlyIcon 
-          icon="comment" 
-          iconFamily="MaterialIcons" 
-          iconSize={25} 
-          color={Colors.tabColor} 
+        <Button
+          onlyIcon
+          icon="comment"
+          iconFamily="MaterialIcons"
+          iconSize={25}
+          color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
+        */}
 
-        <Button 
-          onlyIcon 
-          icon="check" 
-          iconFamily="Entypo" 
-          iconSize={30} 
-          color={Colors.highlightColor}
-          iconColor={Colors.elementWhite} 
-          style={{ width: 100, height: 50 }} 
-          onPress={props.onPressDone}
-        />
-
-        <Button 
-          onlyIcon 
-          icon="add-user" 
-          iconFamily="Entypo" 
-          iconSize={25} 
-          color={Colors.tabColor} 
+        <Button
+          onlyIcon
+          icon="add-user"
+          iconFamily="Entypo"
+          iconSize={25}
+          color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle}
           onPress={props.onPressAddUser}
           />
 
-        <Button 
-          onlyIcon 
-          icon="share" 
-          iconFamily="Entypo" 
-          iconSize={25} 
-          color={Colors.tabColor} 
+        <Button
+          onlyIcon
+          icon="check"
+          iconFamily="Entypo"
+          iconSize={30}
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite}
+          style={{ width: 100, height: 50 }}
+          onPress={props.onPressDone}
+        />
+
+
+
+        <Button
+          onlyIcon
+          icon="share"
+          iconFamily="Entypo"
+          iconSize={25}
+          color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
       </View>
@@ -150,7 +157,7 @@ const ChallengeDetails = (props) => {
 }
 
 const AddUser = (props) => {
-  // console.log(props.friendList[0].name) 
+  // console.log(props.friendList[0].name)
   return (
     <View>
 
@@ -170,7 +177,7 @@ const AddUser = (props) => {
         />
 
         {/* {props.friendList.map( (friend) => {
-          
+
           <UserCard
             title={friend.name}
             subtitle="Friend"
@@ -181,15 +188,15 @@ const AddUser = (props) => {
         } */}
 
       <View style={{alignItems: "center", marginTop: 20}}>
-        <Button 
-          onlyIcon 
-          icon="check" 
-          iconFamily="Entypo" 
-          iconSize={30} 
+        <Button
+          onlyIcon
+          icon="check"
+          iconFamily="Entypo"
+          iconSize={30}
           color={Colors.highlightColor}
           iconColor={Colors.elementWhite}
-          style={{ width: 100, height: 50 }} 
-          onPress={props.onPressAddUserFinished}  
+          style={{ width: 100, height: 50 }}
+          onPress={props.onPressAddUserFinished}
         />
     </View>
   </View>
@@ -207,7 +214,7 @@ const UserCard = (props) => {
 
   return (
     <View style={{backgroundColor: Colors.backgroundColorLight}}>
-      
+
       <View style={styles.ownerCard} >
       {/* <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
           <GCard
@@ -220,7 +227,7 @@ const UserCard = (props) => {
           avatar="http://i.pravatar.cc/100?id=skater"
         />
         </Button> */}
-      
+
         <View style={styles.headerFeedItem}>
             <Image source={props.image} style={styles.ownerImageFeedItem}/>
             <View style={styles.headerFeedItemText}>
@@ -240,11 +247,11 @@ const Done = (props) => {
 
   return (
     <View style={styles.center}>
-          <Icon 
-            name="check-circle" 
-            family="Feather" 
-            color={Colors.highlightColor} 
-            size={200} 
+          <Icon
+            name="check-circle"
+            family="Feather"
+            color={Colors.highlightColor}
+            size={200}
             style={{marginTop: 40}}
           />
 
@@ -253,10 +260,10 @@ const Done = (props) => {
         </View>
 
         <View style={{alignItems: "center", marginTop: 40}}>
-          <Button 
+          <Button
             color={Colors.highlightColor}
-            style={{ width: 100, height: 50 }} 
-            onPress={props.onPressDoneFinished}  
+            style={{ width: 100, height: 50 }}
+            onPress={props.onPressDoneFinished}
           > Back </Button>
       </View>
     </View>
@@ -300,7 +307,7 @@ export default function Minhkha(props) {
 //     method: 'GET',
 //     headers: new Headers({
 //               'Content-Type': 'application/json'
-//             }), 
+//             }),
 //   })
 //     .then(res => res.json())
 //     .then(
@@ -310,8 +317,8 @@ export default function Minhkha(props) {
 //         // Execute callback function which sets the parameters from the result file
 //         if (result !== null) {
 //           return result;
-//         }      
-        
+//         }
+
 //       },
 //       (error) => {
 //         console.log(error);
@@ -322,9 +329,9 @@ export default function Minhkha(props) {
 // const setChallengeParameters = (result) => {
 
 //   const res = JSON.parse(result)
-  
+
 //   setName(res.name)
-//   setOwnerId(res.owner.name) 
+//   setOwnerId(res.owner.name)
 //   setDescription(res.description)
 //   setTagList(res.tags)
 //   setProof(res.proof)
@@ -338,14 +345,14 @@ export default function Minhkha(props) {
 //   setCompletetUserList(res.completed_users)
 
 //   setDataLoaded(true)
-  
+
 // };
 
 // const setUserParameters = (result) => {
 
 //   const res = JSON.parse(result)
 //   setFriendList(res.friends)
-  
+
 // };
 
 const parseDate = (date) => {
@@ -382,10 +389,10 @@ const parseDate = (date) => {
   const [doneOpen, setDoneOpen] = React.useState(false);
   const [addUserOpen, setAddUserOpen] = React.useState(false);
 
-  
+
   // Get values for chart and table data as well as meta data - ONLY ONCE
   // React.useEffect( () => {
-    
+
     // setName("Liegestütze")
     // setOwnerId("123")
     // setDescription("Hiermit fordere ich dich zu 100 Liegestützen heraus, du kleiner Bastard amk!")
@@ -426,7 +433,7 @@ const parseDate = (date) => {
               </View>
 
               {challengeDetailsOpen &&
-              <ChallengeDetails 
+              <ChallengeDetails
                 tagList={props.tagList}
                 proof={props.proof}
                 voting={props.voting}
@@ -438,7 +445,7 @@ const parseDate = (date) => {
               }
 
               {addUserOpen &&
-              <AddUser 
+              <AddUser
                 friendsNames={props.friendsNames}
                 friendsImages={props.friendsImages}
                 onPressAddUserFinished={onPressAddUserFinished}
@@ -446,18 +453,18 @@ const parseDate = (date) => {
               }
 
               {doneOpen &&
-              <Done 
+              <Done
                 onPressDoneFinished={onPressDoneFinished}
               />
               }
 
               <View style={{alignItems: "center", marginTop: 30}}>
-                <Button 
-                  onlyIcon 
-                  icon="up" 
-                  iconFamily="AntDesign" 
-                  iconSize={25} 
-                  color={Colors.backgroundColorLight} 
+                <Button
+                  onlyIcon
+                  icon="up"
+                  iconFamily="AntDesign"
+                  iconSize={25}
+                  color={Colors.backgroundColorLight}
                   iconColor={Colors.elementWhite}
                   style={styles.secondaryButtonStyle}
                   onPress={props.onPressDetails}
@@ -488,7 +495,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 0,
     shadowColor: Colors.backgroundColorLight,
 
-  }, 
+  },
 
   ownerCard: {
     marginTop: 20,
@@ -544,7 +551,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginRight: 10,
   },
- 
+
   rowContainer: {
   flex: 1,
   flexDirection: 'row',
@@ -555,7 +562,7 @@ const styles = StyleSheet.create({
   feedbackContainer: {
   backgroundColor: Colors.backgroundColorLight
   },
-  
+
   feedback: {
     flex: 1,
     flexDirection: 'row',
@@ -619,7 +626,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-  
+
   },
 
 });
