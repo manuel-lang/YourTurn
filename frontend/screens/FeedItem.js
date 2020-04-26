@@ -7,55 +7,91 @@ import { Icon } from 'galio-framework';
 
 import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 
+import Minhkha from "./Minhkha"
+import Collapsible from 'react-native-collapsible';
 
-const images = {
-    user0: require('../assets/images/users/user0.png'),
-    user1: require('../assets/images/users/user1.png'),
-    user2: require('../assets/images/users/user2.png'),
-    user3: require('../assets/images/users/user3.png'),
-    user4: require('../assets/images/users/user4.png'),
-    user5: require('../assets/images/users/user5.png'),
-    challenge1: require('../assets/images/challenges/challenge1.png'),
-    // challenge2: require('../assets/images/challenges/challenge2.png'),
-    // challenge3: require('../assets/images/challenges/challenge3.png'),
-    // challenge4: require('../assets/images/challenges/challenge4.png'),
-    // challenge5: require('../assets/images/challenges/challenge5.png'),
-  }
+// const images = {
+//     user0: require('../assets/images/users/user0.png'),
+//     user1: require('../assets/images/users/user1.png'),
+//     user2: require('../assets/images/users/user2.png'),
+//     user3: require('../assets/images/users/user3.png'),
+//     user4: require('../assets/images/users/user4.png'),
+//     user5: require('../assets/images/users/user5.png'),
+//     challenge1: require('../assets/images/challenges/challenge1.png'),
+//     challenge2: require('../assets/images/challenges/challenge2.png'),
+//     challenge3: require('../assets/images/challenges/challenge3.png'),
+//     challenge4: require('../assets/images/challenges/challenge4.png'),
+//     challenge5: require('../assets/images/challenges/challenge5.png'),
+// }
+
+FeedItem.defaultProps = {
+    ownerImage: require('../assets/images/users/user1.png'),
+    ownerName: "Name",
+    challengeImage: require('../assets/images/challenges/challenge1.png'),
+    challengeTitle: "This is the name of the challenge",
+    friends: [2, 3, 4],
+    friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
+    likes: 2,
+    comments: 3,
+    favorit: false,
+    privateChallenge: false,
+    coopetition: false,
+    description: "This is the description of the challenge. Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum.",
+    tags: ["Health", "Sport"],
+    proof: "proof",
+    voting: false,
+    bet: "bet",
+    deadline: {"$date": 1590414228092}
+};
 
 export default function FeedItem (props) {
 
-    const ownerId = 0
-    const challengeId = 1
-    const name = "Manu"
-    const friends = props.friends
-    const likes = ["Arne", "Malte", "Minh-Kha"]
-    const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
-    const title = props.name
-    const favorit = props.favorit
-    const privateChallenge = props.privateChallenge
-    const coopetition = props.privateChallenge
+    // const ownerImage = 0
+    // const challengeImage = props.challengeImage
+    // const ownerName = "Manu"
+    // const friends = props.friends
+    // const likes = ["Arne", "Malte", "Minh-Kha"]
+    // const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
+    // const challengeName = props.name
+    // const favorit = props.favorit
+    // const privateChallenge = props.privateChallenge
+    // const coopetition = props.privateChallenge
+
+    // description
+    // tagList
+    // proof
+    // voting
+    // bet
+    // deadline
     
   
     function renderFavoriteIcon() {
-      if (!favorit) return null;
+      if (!props.favorit) return null;
       return (
           <Ionicons name="ios-bookmark" size={26} color={Colors.tabIconDefault} style={{marginLeft: 20}}/>
       );
     }
   
     function renderPrivateIcon() {
-      if (!privateChallenge) return null;
+      if (!props.privateChallenge) return null;
       return (
           <Entypo name="mask" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
       );
     }
   
     function renderCoopetitionIcon() {
-      if (!coopetition) return null;
+      if (!props.coopetition) return null;
       return (
           <Ionicons name="md-people" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
       );
     }
+
+    const onPressDetails = () => {
+        console.log("hello")
+        setShowDetails(!showDetails)
+    }
+
+    const [showDetails, setShowDetails] = React.useState(false);
   
     return (
   
@@ -63,13 +99,13 @@ export default function FeedItem (props) {
 
         <TouchableOpacity
             style={styles.infopart}
-            onPress={() => props.setShowDetails(!props.showDetails)}
+            onPress={onPressDetails}
         >
   
             <View style={styles.headerFeedItem}>
-            <Image source={images["user" + ownerId]} style={styles.ownerImageFeedItem}/>
+            <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
             <View style={styles.headerFeedItemText}>
-                <Text color={Colors.textColor} bold h5>{name}</Text>
+                <Text color={Colors.textColor} bold h5>{props.ownerName}</Text>
                 <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
             </View>
             </View>
@@ -78,7 +114,7 @@ export default function FeedItem (props) {
             <ImageBackground
                 style={styles.backgroundimage}
                 imageStyle={{ borderRadius: 20 }}
-                source={images["challenge" + challengeId] }
+                source={props.challengeImage}
             >
             </ImageBackground>
     
@@ -89,7 +125,7 @@ export default function FeedItem (props) {
             </View>
     
             <View style={styles.titleFeedItem}>
-                <Text color={Colors.textColor} h5 bold >{title}</Text>
+                <Text color={Colors.textColor} h5 bold >{props.challengeTitle}</Text>
             </View>
             </View>
     
@@ -99,7 +135,7 @@ export default function FeedItem (props) {
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
                 <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-                    {likes.length}
+                    {props.likes}
                 </Text>
                 </View>
             </View>
@@ -110,16 +146,16 @@ export default function FeedItem (props) {
                     <Image source={images["user" + friendId]} style={styles.friendsImage}/>
                 })
                 } */}
-                <Image source={images["user" + 1]} style={styles.friendsImage}/>
-                <Image source={images["user" + 3]} style={styles.friendsImage}/>
-                <Image source={images["user" + 5]} style={styles.friendsImage}/>
+                <Image source={props.friendsImages[0]} style={styles.friendsImage}/>
+                <Image source={props.friendsImages[1]} style={styles.friendsImage}/>
+                <Image source={props.friendsImages[2]} style={styles.friendsImage}/>
             </View>
     
             <View style={styles.footerFeedItemContainer}>
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
                 <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-                    {comments.length}
+                    {props.comments}
                 </Text>
                 </View>
             </View>     
@@ -127,6 +163,18 @@ export default function FeedItem (props) {
             </View>
             
             <View style={styles.footerDivider}></View>
+
+            {/* <Collapsible collapsed={!showDetails}> */}
+                <Minhkha 
+                    description={props.description}
+                    tagList={props.tags}
+                    proof={props.proof}
+                    voting={props.voting}
+                    bet={props.bet}
+                    deadline={props.deadline}
+                    onPressDetails={onPressDetails}
+                />
+            {/* </Collapsible> */}
 
         </TouchableOpacity>
   

@@ -254,113 +254,6 @@ const Done = (props) => {
   )
 }
 
-// const FeedItem = (props) => {
-
-//   const ownerId = 0
-//   const challengeId = 1
-//   const name = "Manu"
-//   const friends = props.friends
-//   const likes = ["Arne", "Malte", "Minh-Kha"]
-//   const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
-//   const title = props.name
-//   const favorit = props.favorit
-//   const privateChallenge = props.privateChallenge
-//   const coopetition = props.privateChallenge
-  
-
-//   function renderFavoriteIcon() {
-//     if (!favorit) return null;
-//     return (
-//         <Ionicons name="ios-bookmark" size={26} color={Colors.tabIconDefault} style={{marginLeft: 20}}/>
-//     );
-//   }
-
-//   function renderPrivateIcon() {
-//     if (!privateChallenge) return null;
-//     return (
-//         <Entypo name="mask" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
-//     );
-//   }
-
-//   function renderCoopetitionIcon() {
-//     if (!coopetition) return null;
-//     return (
-//         <Ionicons name="md-people" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
-//     );
-//   }
-
-//   return (
-
-//     <View style={styles.wrapperFeedItem}>
-
-//       <View style={styles.headerFeedItem}>
-//         <Image source={images["user" + ownerId]} style={styles.ownerImageFeedItem}/>
-//         <View style={styles.headerFeedItemText}>
-//           <Text color={Colors.textColor} bold h5>{name}</Text>
-//           <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
-//         </View>
-//       </View>
-
-//       <View style={styles.imagepart}>
-//         <ImageBackground
-//           style={styles.backgroundimage}
-//           imageStyle={{ borderRadius: 20 }}
-//           source={images["challenge" + challengeId] }
-//         >
-//         </ImageBackground>
-
-//         <View style={styles.challengeIcons}>
-//           {renderFavoriteIcon()}
-//           {renderPrivateIcon()}
-//           {renderCoopetitionIcon()}
-//         </View>
-
-//         <View style={styles.titleFeedItem}>
-//           <Text color={Colors.textColor} h5 bold >{title}</Text>
-//         </View>
-//       </View>
-
-//       <View style={styles.footerFeedItemWrapper}>
-
-//         <View style={styles.footerFeedItemContainer}>
-//           <View style={styles.footerFeedItemElement}>
-//             <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-//             <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-//               {likes.length}
-//             </Text>
-//           </View>
-//         </View>
-
-//         <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-//           {/* {
-//             friends.map( friendId => {
-//               <Image source={images["user" + friendId]} style={styles.friendsImage}/>
-//             })
-//           } */}
-//           <Image source={images["user" + 1]} style={styles.friendsImage}/>
-//           <Image source={images["user" + 3]} style={styles.friendsImage}/>
-//           <Image source={images["user" + 5]} style={styles.friendsImage}/>
-//         </View>
-
-//         <View style={styles.footerFeedItemContainer}>
-//           <View style={styles.footerFeedItemElement}>
-//             <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-//             <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
-//               {comments.length}
-//             </Text>
-//           </View>
-//         </View>     
-
-//       </View>
-      
-//       <View style={styles.footerDivider}></View>
-
-//     </View>
-
-//   )
-
-// }
-
 export default function Minhkha(props) {
 
   const onPressAddUser = (event) => {
@@ -389,62 +282,62 @@ export default function Minhkha(props) {
 
 
 // Get all initial state data from server
-const getIndividualElementRequest = (api, id) => {
+// const getIndividualElementRequest = (api, id) => {
 
-  const url = api + id.toString()
+//   const url = api + id.toString()
 
-  // Send HTTP POST request with project name and material number to server
-  return fetch(url, {
-    method: 'GET',
-    headers: new Headers({
-              'Content-Type': 'application/json'
-            }), 
-  })
-    .then(res => res.json())
-    .then(
-      result => {
-        console.log("Result received from server: ", result);
+//   // Send HTTP POST request with project name and material number to server
+//   return fetch(url, {
+//     method: 'GET',
+//     headers: new Headers({
+//               'Content-Type': 'application/json'
+//             }), 
+//   })
+//     .then(res => res.json())
+//     .then(
+//       result => {
+//         console.log("Result received from server: ", result);
 
-        // Execute callback function which sets the parameters from the result file
-        if (result !== null) {
-          return result;
-        }      
+//         // Execute callback function which sets the parameters from the result file
+//         if (result !== null) {
+//           return result;
+//         }      
         
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-};
+//       },
+//       (error) => {
+//         console.log(error);
+//       }
+//     )
+// };
 
-const setChallengeParameters = (result) => {
+// const setChallengeParameters = (result) => {
 
-  const res = JSON.parse(result)
+//   const res = JSON.parse(result)
   
-  setName(res.name)
-  setOwnerId(res.owner.name) 
-  setDescription(res.description)
-  setTagList(res.tags)
-  setProof(res.proof)
-  setVoting(res.voting.toString())
-  setBet(res.bet)
-  setDeadline(parseDate(res.deadline["$date"]))
-  setIsPrivate(res.private)
-  setParticipantList(res.participants)
-  setLikeList(res.likes)
-  setCosts(res.costs)
-  setCompletetUserList(res.completed_users)
+//   setName(res.name)
+//   setOwnerId(res.owner.name) 
+//   setDescription(res.description)
+//   setTagList(res.tags)
+//   setProof(res.proof)
+//   setVoting(res.voting.toString())
+//   setBet(res.bet)
+//   setDeadline(parseDate(res.deadline["$date"]))
+//   setIsPrivate(res.private)
+//   setParticipantList(res.participants)
+//   setLikeList(res.likes)
+//   setCosts(res.costs)
+//   setCompletetUserList(res.completed_users)
 
-  setDataLoaded(true)
+//   setDataLoaded(true)
   
-};
+// };
 
-const setUserParameters = (result) => {
+// const setUserParameters = (result) => {
 
-  const res = JSON.parse(result)
-  setFriendList(res.friends)
+//   const res = JSON.parse(result)
+//   setFriendList(res.friends)
   
-};
+// };
 
 const parseDate = (date) => {
   const parsedDate = new Date(date)
@@ -482,7 +375,7 @@ const parseDate = (date) => {
 
   
   // Get values for chart and table data as well as meta data - ONLY ONCE
-  React.useEffect( () => {
+  // React.useEffect( () => {
     
     // setName("Liegestütze")
     // setOwnerId("123")
@@ -499,104 +392,45 @@ const parseDate = (date) => {
     // setCompletetUserList(["Minh-Kha"])
 
     // Get challenge data
-    getIndividualElementRequest(API_URL_CHALLENGE, 1).then( result => setChallengeParameters(result) )
+    // getIndividualElementRequest(API_URL_CHALLENGE, 1).then( result => setChallengeParameters(result) )
 
     // Get user data
-    getIndividualElementRequest(API_URL_USER, 1).then( result => setUserParameters(result) )
+    // getIndividualElementRequest(API_URL_USER, 1).then( result => setUserParameters(result) )
 
-  }, []);
+  // }, []);
 
+  console.log(props)
 
   return (
 
-    dataLoaded && <ScrollView style={styles.container}>
-
-        <FeedItem 
-          name={"This is the title of the challenge. Blabla some text."}
-          friends={[1,2,3]}
-          description={""}
-          coopetition={true}
-          privateChallenge={true}
-          favorit={true}
-        />
-
-        {/* <View style={styles.imageContainer}>
-          <Image 
-            source={require('../assets/images/profile_picture.jpg') }
-            style={styles.image}
-          />
-        </View> */}
+    <ScrollView style={styles.container}>
 
         <View
          style={styles.card}
         >
-          <Card
-          >
-
-            {/* <View style={styles.feedbackContainer}>
-              <View style={styles.feedback}>
-
-                <Text h5 bold color={primaryColor} style={{marginLeft: 10, marginTop: 5}}>
-                  {likeList.length}
-                </Text>
-                <Icon name="thumbs-up" family="Entypo" color={primaryColor} size={25} style={{margin: 5}}/>
-
-                <Text h5 bold color={primaryColor} style={{marginLeft: 20, marginTop: 5}}>
-                  {participantList.length}
-                </Text>
-                <Icon name="group" family="FontAwesome" color={primaryColor} size={25} style={{margin: 5}}/>
-
-                <Text h5 bold color={primaryColor} style={{marginLeft: 20, marginTop: 5}}>
-                  {participantList.length}
-                </Text>
-                <Icon name="check" family="Entypo" color={primaryColor} size={25} style={{margin: 5}}/>
-
-              </View>
-            </View>
-
-            <UserCard
-              title={ownerId} 
-              subtitle={"Challenge owner"}
-            />          */}
+          <Card>
 
             <View style={styles.contentContainer}>
 
-              <View style={styles.titleContainer}>
-                <Text bold h3 color="#fff">{name}</Text>
-              </View>
-
               <View style={styles.descriptionContainer}>
-                <Text p color="#fff">{description}</Text>
+                <Text p color="#fff">{props.description}</Text>
               </View>
 
               {challengeDetailsOpen &&
               <ChallengeDetails 
-                tagList={tagList}
-                proof={proof}
-                voting={voting}
-                bet={bet}
-                deadline={deadline}
+                tagList={props.tagList}
+                proof={props.proof}
+                voting={props.voting}
+                bet={props.bet}
+                deadline={parseDate(props.deadline)}
                 onPressAddUser={onPressAddUser}
                 onPressDone={onPressDone}
               />
               }
 
-              {/* <Collapsible  collapsed={!challengeDetailsOpen}>
-              <ChallengeDetails 
-                description={description}
-                tagList={tagList}
-                proof={proof}
-                voting={voting}
-                bet={bet}
-                deadline={deadline}
-                onPressAddUser={onPressAddUser}
-                onPressDone={onPressDone}
-              />
-              </Collapsible > */}
-
               {addUserOpen &&
               <AddUser 
-                friendList={friendList}
+                friendList={props.friendList}
                 onPressAddUserFinished={onPressAddUserFinished}
               />
               }
@@ -606,6 +440,21 @@ const parseDate = (date) => {
                 onPressDoneFinished={onPressDoneFinished}
               />
               }
+
+              <View style={{alignItems: "center", marginTop: 30}}>
+                <Button 
+                  onlyIcon 
+                  icon="up" 
+                  iconFamily="AntDesign" 
+                  iconSize={25} 
+                  color={Colors.tabColor} 
+                  iconColor={Colors.tabBar}
+                  style={styles.secondaryButtonStyle}
+                  onPress={props.onPressDetails}
+                />
+              </View>
+
+              <View style={styles.footerDivider}></View>
 
             </View>
           </Card>
@@ -746,108 +595,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
 
+  footerDivider: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: 30,
+    marginLeft: 20,
+    marginRight: 20,
+    borderBottomColor: Colors.tabColor,
+    borderBottomWidth: 2,
+  },
 
-
-
-// wrapperFeedItem: {
-//   flex: 1,
-//   flexDirection: 'column',
-//   justifyContent: 'flex-start',
-//   padding: 20,
-// },
-// ownerImageFeedItem: {
-//   height: 60,
-//   width: 60,
-//   marginRight: 10,
-//   borderRadius: 50
-// },
-// headerFeedItem: {
-//   flex: 1,
-//   flexDirection: 'row',
-//   justifyContent: 'flex-start',
-// },
-// headerFeedItemText: {
-//   flex: 1,
-//   flexDirection: 'column',
-//   justifyContent: 'center',
-
-// },
-// imagepart: {
-//   flex: 1,
-//   flexDirection: 'column',
-//   marginTop: 20,
-// },
-// backgroundimage: {
-//   width: '100%',
-//   height: 200,
-//   opacity: 0.4,
-//   borderRadius: 20,
-
-//   flex: 1,
-//   flexDirection: "row",
-// },
-// imagetext: {
-//   marginTop: -34,
-//   marginLeft: 8,
-//   fontSize: 24,
-// },
-// challengeIcons: {
-//   marginTop: -200,
-//   marginLeft: 10,
-//   flex: 1,
-//   flexDirection: "row",
-//   justifyContent: "flex-start"
-// },
-// shortdesc: {
-//   flex: 6
-// },
-// descbutton: {
-//   flex: 3
-// },
-// footerFeedItemWrapper: {
-//   flex: 1,
-//   flexDirection: 'row',
-//   justifyContent: 'space-between',
-//   alignItems: "center",
-//   marginTop: 60
-// },
-
-// footerFeedItemContainer: {
-//   height: 30,
-//   width: 80,
-//   marginRight: 10,
-// }, 
-// footerFeedItemElement: {
-//   backgroundColor: Colors.tabColor,
-//   paddingLeft: 12,
-//   paddingTop: 0,
-//   borderRadius: 12,
-//   flex: 1,
-//   flexDirection: "row",
-// },
-// friendsImage: {
-//   height: 40,
-//   width: 40,
-//   borderRadius: 50,
-//   borderWidth: 2,
-//   borderColor: Colors.tabColor,
-// },
-// titleFeedItem: {
-//   flex: 1,
-//   flexDirection: 'column',
-//   justifyContent: 'space-between',
-//   marginTop: 40,
-//   padding: 20,
-//   textAlign: "center",
-// },
-// footerDivider: {
-//   flex: 1,
-//   flexDirection: 'column',
-//   justifyContent: 'space-between',
-//   marginTop: 30,
-//   marginLeft: 20,
-//   marginRight: 20,
-//   borderBottomColor: Colors.tabColor,
-//   borderBottomWidth: 2,
-// },
 });
