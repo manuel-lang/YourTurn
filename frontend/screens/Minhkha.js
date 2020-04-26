@@ -23,10 +23,6 @@ import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 
 import { Card } from 'react-native-material-ui';
 
-const primaryColor = "#00bcd4"
-const backgroundColor1 = '#242424'
-const backgroundColor2 = Colors.tabBackroundColor
-
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
@@ -38,7 +34,7 @@ const ChallengeDetails = (props) => {
         {
           props.tagList.map( (tag) => 
           <Button 
-            color="#8f8f8f"
+            color={Colors.tabColor}
             style={styles.tagStyle}
           >
             {"#" + tag}
@@ -48,9 +44,9 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.rowContainer}>
-        <Text h5 bold color="#fff">Proof</Text>
+        <Text h5 bold color={Colors.textPrimary}>Proof</Text>
         <Button 
-          color={primaryColor}
+          color={Colors.highlightColor}
           style={styles.proofStyle}
         >
           {props.proof}
@@ -58,9 +54,9 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.rowContainer}>
-        <Text h5 bold color="#fff">Voting</Text>
+        <Text h5 bold color={Colors.textPrimary}>Voting</Text>
         <Button 
-          color={primaryColor}
+          color={Colors.highlightColor}
           style={styles.proofStyle}
         >
           {props.voting}
@@ -68,9 +64,9 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.rowContainer}>
-        <Text h5 bold color="#fff">Bet</Text>
+        <Text h5 bold color={Colors.textPrimary}>Bet</Text>
         <Button 
-          color={primaryColor}
+          color={Colors.highlightColor}
           style={styles.proofStyle}
         >
           {props.bet}
@@ -78,9 +74,9 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.rowContainer}>
-        <Text h5 bold color="#fff">Deadline</Text>
+        <Text h5 bold color={Colors.textPrimary}>Deadline</Text>
         <Button 
-          color={primaryColor}
+          color={Colors.highlightColor}
           style={styles.proofStyle}
         >
           {props.deadline}
@@ -88,13 +84,13 @@ const ChallengeDetails = (props) => {
       </View>
 
       <View style={styles.rowContainer}>
-        <Text h5 bold color="#fff">Progress</Text>
+        <Text h5 bold color={Colors.textPrimary}>Progress</Text>
         <Block style={styles.progressContainer}>
           <Slider
             // disabled
             maximumValue={30}
             value={10}
-            activeColor={primaryColor}
+            activeColor={Colors.highlightColor}
           />
         </Block>
       </View>
@@ -105,8 +101,8 @@ const ChallengeDetails = (props) => {
           icon="thumbs-up" 
           iconFamily="Entypo" 
           iconSize={25} 
-          color="#fff" 
-          iconColor={primaryColor}
+          color={Colors.tabColor} 
+          iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
 
         <Button 
@@ -114,8 +110,8 @@ const ChallengeDetails = (props) => {
           icon="comment" 
           iconFamily="MaterialIcons" 
           iconSize={25} 
-          color="#fff" 
-          iconColor={primaryColor}
+          color={Colors.tabColor} 
+          iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
 
         <Button 
@@ -123,8 +119,8 @@ const ChallengeDetails = (props) => {
           icon="check" 
           iconFamily="Entypo" 
           iconSize={30} 
-          color={primaryColor}
-          iconColor="#fff" 
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite} 
           style={{ width: 100, height: 50 }} 
           onPress={props.onPressDone}
         />
@@ -134,8 +130,8 @@ const ChallengeDetails = (props) => {
           icon="add-user" 
           iconFamily="Entypo" 
           iconSize={25} 
-          color="#fff" 
-          iconColor={primaryColor}
+          color={Colors.tabColor} 
+          iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle}
           onPress={props.onPressAddUser}
           />
@@ -145,8 +141,8 @@ const ChallengeDetails = (props) => {
           icon="share" 
           iconFamily="Entypo" 
           iconSize={25} 
-          color="#fff" 
-          iconColor={primaryColor}
+          color={Colors.tabColor} 
+          iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle} />
       </View>
   </View>
@@ -159,7 +155,7 @@ const AddUser = (props) => {
     <View>
 
         <View style={{marginTop: 40}}>
-          <Text p bold color="#fff">Select your friends you would like to add</Text>
+          <Text p bold color={Colors.textPrimary}>Select your friends you would like to add</Text>
         </View>
 
         <UserCard
@@ -190,8 +186,8 @@ const AddUser = (props) => {
           icon="check" 
           iconFamily="Entypo" 
           iconSize={30} 
-          color={primaryColor}
-          iconColor="#fff" 
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite}
           style={{ width: 100, height: 50 }} 
           onPress={props.onPressAddUserFinished}  
         />
@@ -210,7 +206,7 @@ const UserCard = (props) => {
   }
 
   return (
-    <View style={{backgroundColor: backgroundColor2}}>
+    <View style={{backgroundColor: Colors.backgroundColorLight}}>
       
       <View style={styles.ownerCard} >
       {/* <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
@@ -228,8 +224,8 @@ const UserCard = (props) => {
         <View style={styles.headerFeedItem}>
             <Image source={props.image} style={styles.ownerImageFeedItem}/>
             <View style={styles.headerFeedItemText}>
-                <Text color={Colors.textColor} bold h5>{props.title}</Text>
-                <Text color={Colors.secondaryTextColor} p>Friend</Text>
+                <Text color={Colors.textPrimary} bold h5>{props.title}</Text>
+                <Text color={Colors.textSecondary} p>Friend</Text>
             </View>
 
             <View style={styles.Divi}></View>
@@ -247,18 +243,18 @@ const Done = (props) => {
           <Icon 
             name="check-circle" 
             family="Feather" 
-            color={primaryColor} 
+            color={Colors.highlightColor} 
             size={200} 
             style={{marginTop: 40}}
           />
 
         <View style={{marginTop: 40}}>
-          <Text p bold color="#fff">Congrats! You mastered this challenge.</Text>
+          <Text p bold color={Colors.textPrimary}>Congrats! You mastered this challenge.</Text>
         </View>
 
         <View style={{alignItems: "center", marginTop: 40}}>
           <Button 
-            color={primaryColor}
+            color={Colors.highlightColor}
             style={{ width: 100, height: 50 }} 
             onPress={props.onPressDoneFinished}  
           > Back </Button>
@@ -426,7 +422,7 @@ const parseDate = (date) => {
             <View style={styles.contentContainer}>
 
               <View style={styles.descriptionContainer}>
-                <Text p color="#fff">{props.description}</Text>
+                <Text p color={Colors.textPrimary}>{props.description}</Text>
               </View>
 
               {challengeDetailsOpen &&
@@ -461,8 +457,8 @@ const parseDate = (date) => {
                   icon="up" 
                   iconFamily="AntDesign" 
                   iconSize={25} 
-                  color={Colors.tabColor} 
-                  iconColor={Colors.tabBar}
+                  color={Colors.backgroundColorLight} 
+                  iconColor={Colors.elementWhite}
                   style={styles.secondaryButtonStyle}
                   onPress={props.onPressDetails}
                 />
@@ -481,28 +477,17 @@ const parseDate = (date) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: backgroundColor1,
+    // backgroundColor: Colors.highlightColor,
   },
 
   card: {
     width: "100%",
     padding: 0,
     margin: 0,
-    backgroundColor: backgroundColor2
-  }, 
+    // backgroundColor: Colors.highlightColor,
+    textShadowRadius: 0,
+    shadowColor: Colors.backgroundColorLight,
 
-  ownerInnerCard: {
-    width: "100%",
-    padding: 0,
-    margin: 0,
-    backgroundColor: "#ebebeb",
-  }, 
-
-  ownerInnerCardPressed: {
-    width: "100%",
-    padding: 0,
-    margin: 0,
-    backgroundColor: "#bad3d6",
   }, 
 
   ownerCard: {
@@ -511,8 +496,7 @@ const styles = StyleSheet.create({
     padding: 0,
     height: 80,
     width: "100%",
-    backgroundColor: "#666666",
-    color: "#666666",
+    backgroundColor: Colors.backgroundColorLight,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: "center"
@@ -521,7 +505,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center',
     marginBottom: 0,
-    backgroundColor: backgroundColor2,
+    backgroundColor: Colors.backgroundColorLight,
   },
 
   image: {
@@ -535,7 +519,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 10,
-    backgroundColor: backgroundColor2
+    backgroundColor: Colors.backgroundColorLight
   },
 
   titleContainer: {
@@ -569,7 +553,7 @@ const styles = StyleSheet.create({
   },
 
   feedbackContainer: {
-  backgroundColor: backgroundColor2
+  backgroundColor: Colors.backgroundColorLight
   },
   
   feedback: {

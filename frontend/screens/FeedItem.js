@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+// import Text from "../constants/Text"
 import Colors from "../constants/Colors"
 
 import { Text } from 'galio-framework';
@@ -69,21 +70,21 @@ export default function FeedItem (props) {
     function renderFavoriteIcon() {
       if (!props.favorit) return null;
       return (
-          <Ionicons name="ios-bookmark" size={26} color={Colors.tabIconDefault} style={{marginLeft: 20}}/>
+          <Ionicons name="ios-bookmark" size={26} color={Colors.elementWhite} style={{marginLeft: 20}}/>
       );
     }
   
     function renderPrivateIcon() {
       if (!props.privateChallenge) return null;
       return (
-          <Entypo name="mask" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+          <Entypo name="mask" size={26} color={Colors.elementWhite} style={{marginLeft: 10}} />
       );
     }
   
     function renderCoopetitionIcon() {
       if (!props.coopetition) return null;
       return (
-          <Ionicons name="md-people" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+          <Ionicons name="md-people" size={26} color={Colors.elementWhite} style={{marginLeft: 10}} />
       );
     }
 
@@ -106,8 +107,8 @@ export default function FeedItem (props) {
             <View style={styles.headerFeedItem}>
                 <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
                 <View style={styles.headerFeedItemText}>
-                    <Text color={Colors.textColor} bold h5>{props.ownerName}</Text>
-                    <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
+                    <Text color={Colors.textPrimary} bold h5>{props.ownerName}</Text>
+                    <Text color={Colors.textSecondary} p>Challenge owner</Text>
                 </View>
             </View>
     
@@ -126,7 +127,7 @@ export default function FeedItem (props) {
             </View>
     
             <View style={styles.titleFeedItem}>
-                <Text color={Colors.textColor} h5 bold >{props.challengeTitle}</Text>
+                <Text color={Colors.textPrimary} h5 bold >{props.challengeTitle}</Text>
             </View>
             </View>
     
@@ -135,7 +136,7 @@ export default function FeedItem (props) {
             <View style={styles.footerFeedItemContainer}>
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
                     {props.likes}
                 </Text>
                 </View>
@@ -155,7 +156,7 @@ export default function FeedItem (props) {
             <View style={styles.footerFeedItemContainer}>
                 <View style={styles.footerFeedItemElement}>
                 <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
                     {props.comments}
                 </Text>
                 </View>
