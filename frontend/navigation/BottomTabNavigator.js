@@ -45,11 +45,11 @@ function IconWithBadge({ name, badgeCount, color, size }) {
   );
 }
 
-function ImageIcon({ name, badgeCount, color, size }) {
+function ImageIcon(props) {
   return (
-    <View style={{ width: size, height: size, marginTop: 10}}>
+    <View style={{ width: props.size, height: props.size, marginTop: -5}}>
       <Image
-        source={require('../assets/images/Logo_only.png')}
+        source={props.focused ? require('../assets/images/Logo_only.png') : require('../assets/images/Logo_only_white.png')}
         style={{width: 30, height: 30, marginTop: 10,}}
       />
     </View>
@@ -119,7 +119,10 @@ export default function BottomTabNavigator({ navigation, route }) {
             //   style={{ marginBottom: -20 }}
             //   color={focused ? Colors.highlightColor : Colors.elementWhite}
             // />
-            <ImageIcon/>
+            <ImageIcon 
+              focused={focused}
+              size={25}
+            />
           ,
         }}
       />
