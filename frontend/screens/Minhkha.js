@@ -1,6 +1,6 @@
 // import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, Button as B } from 'react-native';
+import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, TouchableHighlight} from 'react-native';
 // import { Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
@@ -131,7 +131,7 @@ const ChallengeDetails = (props) => {
         />
 
 
-        <Button
+          {/*<Button
           onlyIcon
           icon="check"
           iconFamily="Entypo"
@@ -141,6 +141,15 @@ const ChallengeDetails = (props) => {
           style={{ width: 100, height: 50 }}
           onPress={props.onPressDone}
         />
+        */}
+
+        <TouchableHighlight
+            onPress={props.onPressDone} >
+              <Image
+                    source={require('../assets/images/Logo.png')}
+                    style={{width: 100, height: 50, marginTop: 10}}
+                    onPress={props.onPressDone} />
+        </TouchableHighlight>
 
         <Button
           onlyIcon
@@ -583,7 +592,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginTop: 20
   },
 
