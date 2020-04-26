@@ -31,6 +31,20 @@ const backgroundColor2 = Colors.tabBackroundColor
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
+const images = {
+  user0: require('../assets/images/users/user0.png'),
+  user1: require('../assets/images/users/user1.png'),
+  user2: require('../assets/images/users/user2.png'),
+  user3: require('../assets/images/users/user3.png'),
+  user4: require('../assets/images/users/user4.png'),
+  user5: require('../assets/images/users/user5.png'),
+  challenge1: require('../assets/images/challenges/challenge1.png'),
+  // challenge2: require('../assets/images/challenges/challenge2.png'),
+  // challenge3: require('../assets/images/challenges/challenge3.png'),
+  // challenge4: require('../assets/images/challenges/challenge4.png'),
+  // challenge5: require('../assets/images/challenges/challenge5.png'),
+}
+
 const ChallengeDetails = (props) => {
   return (
     <View>
@@ -255,10 +269,12 @@ const Done = (props) => {
   )
 }
 
-const FeedItem = () => {
+const FeedItem = (props) => {
 
+  const ownerId = 0
+  const challengeId = 1
   const name = "Manu"
-  const friends = ["1", "2", "3"]
+  const friends = [1, 2, 3]
   const likes = ["Arne", "Malte", "Minh-Kha"]
   const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
   const title = "This is the challenge title. Make a kick flip you noob"
@@ -294,7 +310,7 @@ const FeedItem = () => {
     <View style={styles.wrapper}>
 
       <View style={styles.headerFeedItem}>
-        <Image source={require('../assets/images/users/user0.png')} style={styles.descimage}/>
+        <Image source={images["user" + ownerId]} style={styles.descimage}/>
         <View style={styles.headerFeedItemText}>
           <Text color={Colors.textColor} bold h5>{name}</Text>
           <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
@@ -305,7 +321,7 @@ const FeedItem = () => {
         <ImageBackground
           style={styles.backgroundimage}
           imageStyle={{ borderRadius: 20 }}
-          source={require('../assets/images/challenges/challenge1.png') }
+          source={images["challenge" + challengeId] }
         >
         </ImageBackground>
 
@@ -334,12 +350,12 @@ const FeedItem = () => {
         <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
           {/* {
             friends.map( friendId => {
-              <Image source={require('../assets/images/users/user.png')} style={styles.friendsImage}/>
+              <Image source={images["user" + friendId]} style={styles.friendsImage}/>
             })
           } */}
-          <Image source={require('../assets/images/users/user1.png')} style={styles.friendsImage}/>
-          <Image source={require('../assets/images/users/user3.png')} style={styles.friendsImage}/>
-          <Image source={require('../assets/images/users/user6.png')} style={styles.friendsImage}/>
+          <Image source={images["user" + 1]} style={styles.friendsImage}/>
+          <Image source={images["user" + 3]} style={styles.friendsImage}/>
+          <Image source={images["user" + 5]} style={styles.friendsImage}/>
         </View>
 
         <View style={styles.footerFeedItemContainer}>
@@ -513,27 +529,20 @@ const parseDate = (date) => {
 
         <FeedItem />
 
-        <View style={styles.imageContainer}>
+        {/* <View style={styles.imageContainer}>
           <Image 
             source={require('../assets/images/profile_picture.jpg') }
             style={styles.image}
           />
-        </View>
+        </View> */}
 
         <View
          style={styles.card}
         >
           <Card
-            // onPress={() => setCollapseOpen(!collapseOpen)}
           >
-            {/* <View style={styles.imageContainer}>
-              <Image 
-                source={require('../assets/images/profile_picture.jpg') }
-                style={styles.image}
-              />
-            </View> */}
 
-            <View style={styles.feedbackContainer}>
+            {/* <View style={styles.feedbackContainer}>
               <View style={styles.feedback}>
 
                 <Text h5 bold color={primaryColor} style={{marginLeft: 10, marginTop: 5}}>
@@ -552,12 +561,12 @@ const parseDate = (date) => {
                 <Icon name="check" family="Entypo" color={primaryColor} size={25} style={{margin: 5}}/>
 
               </View>
-              </View>
+            </View>
 
             <UserCard
               title={ownerId} 
               subtitle={"Challenge owner"}
-            />         
+            />          */}
 
             <View style={styles.contentContainer}>
 
@@ -669,7 +678,9 @@ const styles = StyleSheet.create({
   },
 
   contentContainer: {
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
     backgroundColor: backgroundColor2
   },
 
@@ -842,7 +853,9 @@ footerDivider: {
   flex: 1,
   flexDirection: 'column',
   justifyContent: 'space-between',
-  margin: 20,
+  marginTop: 30,
+  marginLeft: 20,
+  marginRight: 20,
   borderBottomColor: Colors.tabColor,
   borderBottomWidth: 2,
 },
