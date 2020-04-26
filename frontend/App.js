@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 console.disableYellowBox = true;
 
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   splash: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.backgroundColorLight,
     justifyContent: "center",
     alignItems: "center",
     height: "100%"

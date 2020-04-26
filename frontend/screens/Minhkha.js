@@ -281,12 +281,35 @@ const Done = (props) => {
           <Text p bold color={Colors.textPrimary}>Congrats! You mastered this challenge.</Text>
         </View>
 
-        <View style={{alignItems: "center", marginTop: 40}}>
-          <Button
+        <View style={styles.buttonContainer}>
+          {/* <Button
             color={Colors.highlightColor}
             style={{ width: 100, height: 50 }}
             onPress={props.onPressDoneFinished}
-          > Back </Button>
+          > Back </Button> */}
+
+        <Button
+          onlyIcon
+          icon="instagram"
+          iconFamily="Feather"
+          iconSize={25}
+          color={Colors.tabColor}
+          iconColor={Colors.highlightColor}
+          style={{ width: 100, height: 50, margin: 10 }}
+        />
+
+
+        <Button
+          onlyIcon
+          icon="check"
+          iconFamily="Entypo"
+          iconSize={30}
+          color={Colors.highlightColor}
+          iconColor={Colors.elementWhite}
+          style={{ width: 100, height: 50, margin: 10  }}
+          onPress={props.onPressDoneFinished}
+        />
+
       </View>
     </View>
   )
