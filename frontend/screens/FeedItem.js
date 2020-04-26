@@ -1,150 +1,235 @@
-import React, { useState } from 'react';
-import {View, Image, StyleSheet, Text, TouchableOpacity, ImageBackground} from "react-native";
-import Collapsible from 'react-native-collapsible';
+import * as React from 'react';
+import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground } from 'react-native';
+import Colors from "../constants/Colors"
+
+import { Text } from 'galio-framework';
+import { Icon } from 'galio-framework';
+
 import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
-import {Block, Button} from "galio-framework";
-import PropTypes from 'prop-types';
 
-function FeedItem({
-    name,
-    friends,
-    description,
-    favorit,
-    privateChallenge,
-    coopetition,
-    setShowDetails,
-    showDetails
-}) {
-  function renderFavoriteIcon() {
-    if (!favorit) return null;
-    return (
-        <Ionicons name="ios-bookmark" size={26} color="black" style={{marginRight: 5}}/>
-    );
+
+const images = {
+    user0: require('../assets/images/users/user0.png'),
+    user1: require('../assets/images/users/user1.png'),
+    user2: require('../assets/images/users/user2.png'),
+    user3: require('../assets/images/users/user3.png'),
+    user4: require('../assets/images/users/user4.png'),
+    user5: require('../assets/images/users/user5.png'),
+    challenge1: require('../assets/images/challenges/challenge1.png'),
+    // challenge2: require('../assets/images/challenges/challenge2.png'),
+    // challenge3: require('../assets/images/challenges/challenge3.png'),
+    // challenge4: require('../assets/images/challenges/challenge4.png'),
+    // challenge5: require('../assets/images/challenges/challenge5.png'),
   }
 
-  function renderPrivateIcon() {
-    if (!privateChallenge) return null;
-    return (
-        <Entypo name="mask" size={26} color="black" style={{marginRight: 5}} />
-    );
-  }
+export default function FeedItem (props) {
 
-  function renderCoopetitionIcon() {
-    if (!coopetition) return null;
-    return (
-        <Ionicons name="md-people" size={26} color="black" />
-    );
-  }
-
-  function renderFriends(amount) {
-    let tmp = [];
-    if (amount <= 3) {
-        for (let i = 0; i < amount; ++i) {
-            tmp.push(
-                <Octicons name="octoface" size={26} color="black" style={{marginRight: 5}}/>
-            )
-        }
-    } else {
-       tmp.push(<Octicons name="octoface" size={26} color="black" style={{marginRight: 5}}/>)
-       tmp.push(<Octicons name="octoface" size={26} color="black" style={{marginRight: 5}}/>)
-       tmp.push(<Text style={{fontSize: 24}}>...</Text>)
+    const ownerId = 0
+    const challengeId = 1
+    const name = "Manu"
+    const friends = props.friends
+    const likes = ["Arne", "Malte", "Minh-Kha"]
+    const comments = ["Arne", "Malte", "Minh-Kha", "hello"]
+    const title = props.name
+    const favorit = props.favorit
+    const privateChallenge = props.privateChallenge
+    const coopetition = props.privateChallenge
+    
+  
+    function renderFavoriteIcon() {
+      if (!favorit) return null;
+      return (
+          <Ionicons name="ios-bookmark" size={26} color={Colors.tabIconDefault} style={{marginLeft: 20}}/>
+      );
     }
-    return tmp;
-  }
-
-    const [isCollapsed, setIsCollapsed] = useState(true);
-    // console.log(test());
-
+  
+    function renderPrivateIcon() {
+      if (!privateChallenge) return null;
+      return (
+          <Entypo name="mask" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+      );
+    }
+  
+    function renderCoopetitionIcon() {
+      if (!coopetition) return null;
+      return (
+          <Ionicons name="md-people" size={26} color={Colors.tabIconDefault} style={{marginLeft: 10}} />
+      );
+    }
+  
     return (
-        <View style={styles.wrapper}>
-            <TouchableOpacity
-                style={styles.infopart}
-                // onPress={() => setShowDetails(!showDetails)}
-            >
-                <View style={styles.imagepart}>
-                    <ImageBackground
-                        style={styles.backgroundimage}
-                        source={require('../assets/images/challenges/challenge1.png') }
-                    >
-                        {renderFavoriteIcon()}
-                        {renderPrivateIcon()}
-                        {renderCoopetitionIcon()}
-                    </ImageBackground>
-                    <Text style={styles.imagetext}>{name}</Text>
-                </View>
-
-
-                <View style={{flexDirection: 'row', margin: 5}}>
-                    <Image source={require('../assets/images/users/user0.png')} style={styles.descimage}/>
-                    <Text style={styles.shortdesc}>{description}</Text>
-                    <View style={{flexDirection: 'column'}}>
-                        <Button round style={{width: 100, height: 20}} color="blue" >Join</Button>
-                        <View style={{flexDirection: 'row'}}>
-                            {renderFriends(friends)}
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+  
+      <View style={styles.wrapperFeedItem}>
+  
+        <View style={styles.headerFeedItem}>
+          <Image source={images["user" + ownerId]} style={styles.ownerImageFeedItem}/>
+          <View style={styles.headerFeedItemText}>
+            <Text color={Colors.textColor} bold h5>{name}</Text>
+            <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
+          </View>
         </View>
-    );
-}
-
-FeedItem.defaultProps = {
-    name: "default name",
-    friends: 0,
-    description: "default description",
-    favorit: false,
-    privateChallenge: false,
-    coopetition: false
-};
-
-FeedItem.propTypes = {
-    name: PropTypes.string,
-    friends: PropTypes.integer,
-    description: PropTypes.string,
-    favorit: PropTypes.boolean,
-    privateChallenge: PropTypes.boolean,
-    coopetition: PropTypes.boolean
-};
+  
+        <View style={styles.imagepart}>
+          <ImageBackground
+            style={styles.backgroundimage}
+            imageStyle={{ borderRadius: 20 }}
+            source={images["challenge" + challengeId] }
+          >
+          </ImageBackground>
+  
+          <View style={styles.challengeIcons}>
+            {renderFavoriteIcon()}
+            {renderPrivateIcon()}
+            {renderCoopetitionIcon()}
+          </View>
+  
+          <View style={styles.titleFeedItem}>
+            <Text color={Colors.textColor} h5 bold >{title}</Text>
+          </View>
+        </View>
+  
+        <View style={styles.footerFeedItemWrapper}>
+  
+          <View style={styles.footerFeedItemContainer}>
+            <View style={styles.footerFeedItemElement}>
+              <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+              <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                {likes.length}
+              </Text>
+            </View>
+          </View>
+  
+          <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
+            {/* {
+              friends.map( friendId => {
+                <Image source={images["user" + friendId]} style={styles.friendsImage}/>
+              })
+            } */}
+            <Image source={images["user" + 1]} style={styles.friendsImage}/>
+            <Image source={images["user" + 3]} style={styles.friendsImage}/>
+            <Image source={images["user" + 5]} style={styles.friendsImage}/>
+          </View>
+  
+          <View style={styles.footerFeedItemContainer}>
+            <View style={styles.footerFeedItemElement}>
+              <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
+              <Text h5 color={Colors.textColor} style={{marginLeft: 15}}>
+                {comments.length}
+              </Text>
+            </View>
+          </View>     
+  
+        </View>
+        
+        <View style={styles.footerDivider}></View>
+  
+      </View>
+  
+    )
+  }
 
 
 const styles = StyleSheet.create({
-    wrapper: {
+    wrapperFeedItem: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        padding: 10,
-    },
-    infopart: {
+        padding: 20,
+      },
+      ownerImageFeedItem: {
+        height: 60,
+        width: 60,
+        marginRight: 10,
+        borderRadius: 50
+      },
+      headerFeedItem: {
         flex: 1,
-        justifyContent: 'flex-start',
-    },
-    imagepart: {
-        flex: 3,
-        flexDirection: 'column'
-    },
-    backgroundimage: {
-        width: '100%',
-        height: 100,
-        opacity: 0.5,
         flexDirection: 'row',
-    },
-    imagetext: {
+        justifyContent: 'flex-start',
+      },
+      headerFeedItemText: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+      
+      },
+      imagepart: {
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 20,
+      },
+      backgroundimage: {
+        width: '100%',
+        height: 200,
+        opacity: 0.4,
+        borderRadius: 20,
+      
+        flex: 1,
+        flexDirection: "row",
+      },
+      imagetext: {
         marginTop: -34,
         marginLeft: 8,
         fontSize: 24,
-    },
-    descimage: {
+      },
+      challengeIcons: {
+        marginTop: -200,
+        marginLeft: 10,
         flex: 1,
-        height: 50,
-        marginRight: 10
-    },
-    shortdesc: {
+        flexDirection: "row",
+        justifyContent: "flex-start"
+      },
+      shortdesc: {
         flex: 6
-    },
-    descbutton: {
+      },
+      descbutton: {
         flex: 3
-    }
+      },
+      footerFeedItemWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: "center",
+        marginTop: 60
+      },
+      
+      footerFeedItemContainer: {
+        height: 30,
+        width: 80,
+        marginRight: 10,
+      }, 
+      footerFeedItemElement: {
+        backgroundColor: Colors.tabColor,
+        paddingLeft: 12,
+        paddingTop: 0,
+        borderRadius: 12,
+        flex: 1,
+        flexDirection: "row",
+      },
+      friendsImage: {
+        height: 40,
+        width: 40,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: Colors.tabColor,
+      },
+      titleFeedItem: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginTop: 40,
+        padding: 20,
+        textAlign: "center",
+        height: 100,
+      },
+      footerDivider: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        marginTop: 30,
+        marginLeft: 20,
+        marginRight: 20,
+        borderBottomColor: Colors.tabColor,
+        borderBottomWidth: 2,
+      },
 });
-
-export default  FeedItem;
