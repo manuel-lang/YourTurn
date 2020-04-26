@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 
+console.disableYellowBox = true;
 
 const Stack = createStackNavigator();
 
@@ -70,7 +71,7 @@ export default function App(props) {
       !loadApp ? <Splash onPressSplash={onPressSplash} /> : <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{headerShown:false}}>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

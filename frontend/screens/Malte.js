@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   contentContainer: {
-    paddingTop: 15,
+    paddingTop: 30,
   },
   optionIconContainer: {
     marginRight: 12,
