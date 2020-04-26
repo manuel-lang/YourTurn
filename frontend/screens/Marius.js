@@ -141,7 +141,7 @@ function Marius() {
                                     challengeTitle={item.name}
                                     friends={item.participants.length}
                                     friendsImages={friendIdToimage(item.participants)}
-                                    friendsName={friendsIdToName(item.participants)}
+                                    friendsNames={friendsIdToName(item.participants)}
                                     likes={item.likes.length}
                                     comments={3}
                                     favorit={true}
