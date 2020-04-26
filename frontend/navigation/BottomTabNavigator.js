@@ -10,6 +10,8 @@ import AnotherScreen from '../screens/AnotherScreen';
 
 import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { Image } from 'react-native';
+
 import Colors from '../constants/Colors';
 
 const BottomTab = createBottomTabNavigator();
@@ -17,7 +19,7 @@ const INITIAL_ROUTE_NAME = 'marius';
 
 function IconWithBadge({ name, badgeCount, color, size }) {
   return (
-    <View style={{ width: 24, height: 24, margin: 5 }}>
+    <View style={{ width: 24, height: 24, margin: 5, marginTop: 15}}>
       <Ionicons name={name} size={size} color={color} />
       {badgeCount > 0 && (
         <View
@@ -43,6 +45,18 @@ function IconWithBadge({ name, badgeCount, color, size }) {
   );
 }
 
+function ImageIcon(props) {
+  return (
+    <View style={{ width: props.size, height: props.size, marginTop: -5}}>
+      <Image
+        source={props.focused ? require('../assets/images/Logo_only.png') : require('../assets/images/Logo_only_white.png')}
+        style={{width: 30, height: 30, marginTop: 10,}}
+      />
+    </View>
+  );
+}
+
+
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
@@ -65,12 +79,12 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="nils"
         component={Profile}
         options={{
-          title: 'Profile',
+          title: '',
           tabBarIcon: ({ focused }) => 
             <MaterialIcons
               name="person"
-              size={30}
-              style={{ marginBottom: -3}}
+              size={35}
+              style={{ marginBottom: -15}}
               color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
@@ -81,12 +95,12 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="mfriends"
         component={Friends}
         options={{
-          title: 'Friends',
+          title: '',
           tabBarIcon: ({ focused }) => 
             <FontAwesome 
               name="group"
-              size={30}
-              style={{ marginBottom: -3 }}
+              size={25}
+              style={{ marginBottom: -17 }}
               color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
@@ -97,13 +111,17 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="marius"
         component={Marius}
         options={{
-          title: 'Feed',
+          title: '',
           tabBarIcon: ({ focused }) => 
-            <Entypo
-              name="menu"
-              size={30}
-              style={{ marginBottom: -3 }}
-              color={focused ? Colors.highlightColor : Colors.elementWhite}
+            // <Entypo
+            //   name="menu"
+            //   size={40}
+            //   style={{ marginBottom: -20 }}
+            //   color={focused ? Colors.highlightColor : Colors.elementWhite}
+            // />
+            <ImageIcon 
+              focused={focused}
+              size={25}
             />
           ,
         }}
@@ -113,12 +131,12 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="challenges"
         component={AnotherScreen}
         options={{
-          title: 'Challenges',
+          title: '',
           tabBarIcon: ({ focused }) => 
             <MaterialCommunityIcons
             name="flag-checkered"
             size={30}
-            style={{ marginBottom: -3 }}
+            style={{ marginBottom: -20 }}
             color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
           ,
@@ -130,7 +148,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="malte"
         component={Malte}
         options={{
-          title: 'Notifications',
+          title: '',
           tabBarIcon: ({ focused }) => 
           <IconWithBadge 
           name="ios-notifications" 
