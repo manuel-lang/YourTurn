@@ -31,6 +31,7 @@ FeedItem.defaultProps = {
     challengeTitle: "This is the name of the challenge",
     friends: [2, 3, 4],
     friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
+    friendsNames: ["Arne", "Marius", "Nils"],
     likes: 2,
     comments: 3,
     favorit: false,
@@ -103,11 +104,11 @@ export default function FeedItem (props) {
         >
   
             <View style={styles.headerFeedItem}>
-            <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
-            <View style={styles.headerFeedItemText}>
-                <Text color={Colors.textColor} bold h5>{props.ownerName}</Text>
-                <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
-            </View>
+                <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
+                <View style={styles.headerFeedItemText}>
+                    <Text color={Colors.textColor} bold h5>{props.ownerName}</Text>
+                    <Text color={Colors.secondaryTextColor} p>Challenge owner</Text>
+                </View>
             </View>
     
             <View style={styles.imagepart}>
@@ -164,16 +165,23 @@ export default function FeedItem (props) {
             
             <View style={styles.footerDivider}></View>
 
-            {/* <Collapsible collapsed={!showDetails}> */}
-                <Minhkha 
+            {/* <Collapsible 
+                collapsed={!showDetails}
+                onAnimationEnd={() => {
+                    setShowDetails(showDetails)
+                }}
+            > */}
+                {showDetails && <Minhkha 
                     description={props.description}
                     tagList={props.tags}
                     proof={props.proof}
                     voting={props.voting}
                     bet={props.bet}
                     deadline={props.deadline}
+                    friendsImages={props.friendsImages}
+                    friendsNames={props.friendsNames}
                     onPressDetails={onPressDetails}
-                />
+                />}
             {/* </Collapsible> */}
 
         </TouchableOpacity>
@@ -206,7 +214,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-      
       },
       imagepart: {
         flex: 1,

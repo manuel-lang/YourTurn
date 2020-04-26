@@ -154,7 +154,7 @@ const ChallengeDetails = (props) => {
 }
 
 const AddUser = (props) => {
-  console.log(props.friendList[0].name) 
+  // console.log(props.friendList[0].name) 
   return (
     <View>
 
@@ -163,11 +163,13 @@ const AddUser = (props) => {
         </View>
 
         <UserCard
-          title={props.friendList[0].name}
+          title={props.friendsNames[0]}
+          image={props.friendsImages[0]}
           subtitle="Friend"
         />
         <UserCard
-          title={props.friendList[1].name}
+          title={props.friendsNames[1]}
+          image={props.friendsImages[1]}
           subtitle="Friend"
         />
 
@@ -211,7 +213,7 @@ const UserCard = (props) => {
     <View style={{backgroundColor: backgroundColor2}}>
       
       <View style={styles.ownerCard} >
-      <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
+      {/* <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
           <GCard
           flex
           borderless
@@ -221,7 +223,18 @@ const UserCard = (props) => {
           location="Frankfurt, Germany"
           avatar="http://i.pravatar.cc/100?id=skater"
         />
-        </Button>
+        </Button> */}
+      
+        <View style={styles.headerFeedItem}>
+            <Image source={props.image} style={styles.ownerImageFeedItem}/>
+            <View style={styles.headerFeedItemText}>
+                <Text color={Colors.textColor} bold h5>{props.title}</Text>
+                <Text color={Colors.secondaryTextColor} p>Friend</Text>
+            </View>
+
+            <View style={styles.Divi}></View>
+        </View>
+
       </View>
     </View>
   )
@@ -430,7 +443,8 @@ const parseDate = (date) => {
 
               {addUserOpen &&
               <AddUser 
-                friendList={props.friendList}
+                friendsNames={props.friendsNames}
+                friendsImages={props.friendsImages}
                 onPressAddUserFinished={onPressAddUserFinished}
               />
               }
@@ -604,6 +618,24 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderBottomColor: Colors.tabColor,
     borderBottomWidth: 2,
+  },
+
+  ownerImageFeedItem: {
+    height: 60,
+    width: 60,
+    marginRight: 10,
+    borderRadius: 50
+  },
+  headerFeedItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  headerFeedItemText: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  
   },
 
 });
