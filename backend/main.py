@@ -4,12 +4,14 @@ from bson.json_util import dumps
 from dotenv import load_dotenv
 from fastapi import FastAPI, status, Query
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from models import Challenge, Notification, User
 import os
 from pymongo import MongoClient, ASCENDING
 import random
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="../static"), name="static")
 load_dotenv()
 
 
