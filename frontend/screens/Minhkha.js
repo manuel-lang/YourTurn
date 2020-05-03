@@ -398,6 +398,8 @@ const Done = (props) => {
 
 const Upload = (props) => {
 
+    const [image, setImage] = React.useState([]);
+
     const pickImage = async () => {
         try {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -407,7 +409,7 @@ const Upload = (props) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                this.setState({image: result.uri});
+                setImage({image: result.uri});
             }
 
             console.log(result);
@@ -425,7 +427,7 @@ const Upload = (props) => {
                 quality: 1,
             });
             if (!result.cancelled) {
-                this.setState({image: result.uri});
+                setImage({image: result.uri});
             }
 
             console.log(result);
