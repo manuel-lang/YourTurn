@@ -145,7 +145,7 @@ const ChallengeDetails = (props) => {
         />
         */}
 
-                <TouchableHighlight
+                <TouchableOpacity
                     onPress={props.getPermissionAsync, props.onPressDone}>
                     {/* <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}> */}
                     <View style={{
@@ -166,9 +166,10 @@ const ChallengeDetails = (props) => {
                                 width: 1061*0.1, 
                                 height: 355*0.1,
                             }}
-                            onPress={props.onPressDone}/>
+                            onPress={props.onPressDone}
+                        />
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
                 <Button
                     onlyIcon

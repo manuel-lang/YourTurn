@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, TouchableOpacity, Switch, TouchableHighlight, Image, ImageBackground, TextInput } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Switch, Image, ImageBackground, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
 import { Input, Text } from 'galio-framework';
@@ -245,7 +245,7 @@ export default function CreateChallenge (props) {
 
             <View style={styles.buttonContainer}>
 
-                <TouchableHighlight
+                <TouchableOpacity
                     onPress={submitChallenge}>
                     {/* <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}> */}
                     <View style={{
@@ -254,14 +254,21 @@ export default function CreateChallenge (props) {
                         backgroundColor: Colors.tabColor,
                         borderRadius: 25,
                         width: 150,
-                        height: 50
+                        height: 50,
+                        flex: 1,
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center"
                     }}>
                         <Image
                             source={require('../assets/images/Logo.png')}
-                            style={{width: 130, height: 40, marginTop: baseMargin, marginLeft: 20}}
-                            onPress={props.onPressDone}/>
+                            style={{
+                                width: 1061*0.1, 
+                                height: 355*0.1,
+                            }}
+                        />
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
             </View>
 
