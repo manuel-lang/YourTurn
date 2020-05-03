@@ -23,6 +23,8 @@ import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 
 import { Card } from 'react-native-material-ui';
 
+import * as ImagePicker from 'expo-image-picker'
+
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
@@ -372,6 +374,42 @@ const Done = (props) => {
 
 const Upload = (props) => {
 
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+  
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
+  const takeImage = async () => {
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        this.setState({ image: result.uri });
+      }
+  
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
   return (
     <View style={styles.center}>
           <Icon
@@ -396,6 +434,7 @@ const Upload = (props) => {
           color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={{ width: 100, height: 50, margin: 10 }}
+          onPress={takeImage}
         />
 
         <Button
@@ -406,7 +445,7 @@ const Upload = (props) => {
           color={Colors.highlightColor}
           iconColor={Colors.elementWhite}
           style={{ width: 100, height: 50, margin: 10 }}
-          onPress={props.onPressUploadFinished}
+          onPress={pickImage}
         />
 
         <Button
@@ -515,7 +554,7 @@ export default function Minhkha(props) {
     setChallengeDetailsOpen(true);
   }
 
-
+  
 // Get all initial state data from server
 // const getIndividualElementRequest = (api, id) => {
 
@@ -639,7 +678,7 @@ const parseDate = (date) => {
   console.log(props)
 
   return (
-
+    
     <ScrollView style={styles.container}>
 
         <View
