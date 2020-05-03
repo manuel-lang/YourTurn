@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { SplashScreen } from 'expo';
