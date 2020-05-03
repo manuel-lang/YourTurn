@@ -5,6 +5,7 @@ import Profile from '../screens/Profile';
 import Marius from '../screens/Marius';
 import Malte from '../screens/Malte';
 import Minhkha from '../screens/Minhkha';
+import CreateChallenge from "../components/CreateChallenge"
 import Friends from '../screens/Friends';
 import AnotherScreen from '../screens/AnotherScreen';
 
@@ -147,7 +148,7 @@ export default function BottomTabNavigator({ navigation, route }) {
 
       <BottomTab.Screen
         name="malte"
-        component={Malte}
+        component={CreateChallenge}
         options={{
           title: '',
           tabBarIcon: ({ focused }) =>
