@@ -15,6 +15,7 @@
     "@expo/vector-icons": "~10.0.6",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.0.0",
+    "@react-navigation/material-top-tabs": "^5.1.14",
     "@react-navigation/native": "^5.1.7",
     "@react-navigation/stack": "^5.2.18",
     "@react-navigation/web": "~1.0.0-alpha.9",
@@ -36,6 +37,7 @@
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
+    "react-native-tab-view": "^2.14.0",
     "react-native-tags": "^2.1.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.11.7"
