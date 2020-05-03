@@ -17,7 +17,6 @@ FeedItem.defaultProps = {
     ownerName: "Name",
     challengeImageURI: '../assets/images/challenges/challenge1.png',
     challengeTitle: "This is the name of the challenge",
-    friends: [2, 3, 4],
     friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
     friendsNames: ["Arne", "Marius", "Nils"],
     likes: 2,
