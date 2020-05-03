@@ -1,35 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, ScrollView, Switch, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, StyleSheet, Switch, Text, View} from 'react-native';
 import {FlatList} from "react-native-gesture-handler";
 import {Button} from 'react-native-material-ui';
 import FeedItem from './FeedItem';
 import Color from '../constants/Colors';
 
-const images = {
-    user0: require('../assets/images/users/user0.png'),
-    user1: require('../assets/images/users/user1.png'),
-    user2: require('../assets/images/users/user2.png'),
-    user3: require('../assets/images/users/user3.png'),
-    user4: require('../assets/images/users/user4.png'),
-    user5: require('../assets/images/users/user5.png'),
-    user6: require('../assets/images/users/user6.png'),
-    user7: require('../assets/images/users/user7.png'),
-    user8: require('../assets/images/users/user8.png'),
-    user9: require('../assets/images/users/user9.png'),
-    user10: require('../assets/images/users/user10.png'),
-    user11: require('../assets/images/users/user11.png'),
-    user12: require('../assets/images/users/user12.png'),
-    user13: require('../assets/images/users/user13.png'),
-    user14: require('../assets/images/users/user14.png'),
-    user15: require('../assets/images/users/user15.png'),
-    user16: require('../assets/images/users/user16.png'),
-    user17: require('../assets/images/users/user17.png'),
-    user18: require('../assets/images/users/user18.png'),
-}
-
 const CustomButton = (props) => {
 
-    const onPressCustomButton = () => {let tmp = props.func_me_isActive; // workaround: old isActive state of the button, need in the fetch part
+    const onPressCustomButton = () => {
+        let tmp = props.func_me_isActive; // workaround: old isActive state of the button, need in the fetch part
         let url = props.url;
         if (props.func_me_isActive) {
             props.func_me(false);
@@ -87,7 +66,7 @@ function Marius() {
 
     const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
     const user_id = 1;  // change to real value once we have multiple users
-    const challenges_url =`${base_url}/challenges?user_id=${user_id}`
+    const challenges_url = `${base_url}/challenges?user_id=${user_id}`
 
     useEffect(() => {
         fetch(challenges_url, {
@@ -101,22 +80,16 @@ function Marius() {
             .catch((error) => console.error(error))
     }, []);
 
-    function friendIdToimage(friendsId) {
-        let tmp = [];
-        let i;
-        for (i = 0; i < friendsId.length; ++i) {
-            tmp.push(images["user" + friendsId[i]["id"]]);
-        }
-        return tmp;
+    function friendObjectsToImageSources(friendObjects) {
+        return friendObjects.map(function (friendObject) {
+            return `${base_url}/static/images/users/user${friendObject["id"]}.png`;
+        });
     }
 
-    function friendsIdToName(friendsId) {
-        let tmp = [];
-        let i;
-        for (i = 0; i < friendsId.length; ++i) {
-            tmp.push(friendsId[i]["name"]);
-        }
-        return tmp;
+    function friendObjectsToName(friendObjects) {
+        return friendObjects.map(function (friendObject) {
+            return friendObject["name"];
+        });
     }
 
     return (
@@ -160,8 +133,8 @@ function Marius() {
                                     challengeImageURI={`${base_url}/static/images/challenges/challenge${item.challenge_id}.png`}
                                     challengeTitle={item.name}
                                     friends={item.participants.length}
-                                    friendsImages={friendIdToimage(item.participants)}
-                                    friendsNames={friendsIdToName(item.participants)}
+                                    friendsImages={friendObjectsToImageSources(item.participants)}
+                                    friendsNames={friendObjectsToName(item.participants)}
                                     likes={item.likes.length}
                                     comments={item.comments}
                                     favorit={item.bookmarked}

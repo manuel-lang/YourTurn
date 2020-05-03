@@ -129,14 +129,9 @@ export default function FeedItem (props) {
             </View>
 
             <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                {/* {
-                friends.map( friendId => {
-                    <Image source={images["user" + friendId]} style={styles.friendsImage}/>
-                })
-                } */}
-                <Image source={props.friendsImages[0]} style={styles.friendsImage}/>
-                <Image source={props.friendsImages[1]} style={styles.friendsImage}/>
-                <Image source={props.friendsImages[2]} style={styles.friendsImage}/>
+                {props.friendsImages.slice(0, 3).map( friendsImage => {
+                  return <Image source={{uri: friendsImage}} style={styles.friendsImage}/>
+                })}
             </View>
 
             <View style={styles.footerFeedItemContainer}>
@@ -150,7 +145,7 @@ export default function FeedItem (props) {
 
             </View>
 
-            <View style={styles.footerDivider}></View>
+            <View style={styles.footerDivider}/>
 
             {/* <Collapsible
                 collapsed={!showDetails}
