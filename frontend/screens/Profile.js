@@ -8,6 +8,9 @@ import { Icon } from 'galio-framework';
 
 import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 
+import ActionButton from 'react-native-action-button';
+// import {Icon as IoCon} from 'react-native-vector-icons/Ionicons';
+
 Profile.defaultProps = {
     ownerImage: require('../assets/images/users/user1.png'),
     ownerName: "Manuel Lang",
@@ -149,6 +152,15 @@ export default function Profile (props) {
           </ScrollView>
           
         </View>
+
+        <ActionButton buttonColor={Colors.highlightColor}>
+          <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
+              <Icon name="md-create" family="Ionicons" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+              <Icon name="md-notifications-off" family="Ionicons" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
     
       </View>
   
@@ -323,5 +335,10 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderBottomColor: Colors.elementWhite,
         borderBottomWidth: 2,
+      },
+      actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
       },
 });

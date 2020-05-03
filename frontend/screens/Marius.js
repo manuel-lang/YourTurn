@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Switch, Text, View} from 'react-native';
-import {FlatList} from "react-native-gesture-handler";
-import {Button} from 'react-native-material-ui';
-import FeedItem from './FeedItem';
-import Color from '../constants/Colors';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation, TouchableOpacity } from 'react-native';
+import { FlatList } from "react-native-gesture-handler";
+import { Button } from 'react-native-material-ui';
+import FeedItem  from './FeedItem';
+import Colors from '../constants/Colors';
+
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const CustomButton = (props) => {
 
@@ -53,6 +56,8 @@ const CustomButton = (props) => {
     );
 }
 
+let _listViewOffset = 0
+
 function Marius() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
@@ -67,6 +72,7 @@ function Marius() {
     const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
+    const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
     useEffect(() => {
         fetch(challenges_url, {
@@ -92,8 +98,33 @@ function Marius() {
         });
     }
 
+    const onScroll = (event) => {
+        // Simple fade-in / fade-out animation
+        const CustomLayoutLinear = {
+          duration: 100,
+          create: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
+          update: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
+          delete: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity }
+        }
+        // Check if the user is scrolling up or down by confronting the new scroll position with your own one
+        const currentOffset = event.nativeEvent.contentOffset.y
+        const direction = (currentOffset > 0 && currentOffset > _listViewOffset)
+          ? 'down'
+          : 'up'
+
+        // If the user is scrolling down (and the action-button is still visible) hide it
+        const isActionButtonVisibleTest = (direction === 'up')
+
+        if (isActionButtonVisibleTest !== isActionButtonVisible) {
+          LayoutAnimation.configureNext(CustomLayoutLinear)
+          setIsActionButtonVisible(isActionButtonVisibleTest)
+        }
+        // Update your scroll position
+        _listViewOffset = currentOffset
+      }
+
     return (
-        <View style={{flex: 1, backgroundColor: Color.backgroundColorLight}}>
+        <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview}
@@ -112,7 +143,7 @@ function Marius() {
                                       func_me_isActive={isActive4} url={challenges_url}/>
                     </ScrollView>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
-                        <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
+                        <Text style={{color: Colors.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
                         <Switch
                             trackColor={{false: Color.backgroundColorDark, true: Color.highlightColor}}
                             thumbColor={Color.elementWhite}
@@ -149,6 +180,16 @@ function Marius() {
                         }
                     />
                 </View>
+
+                {isActionButtonVisible && 
+                // <TouchableOpacity onPress={() => { console.log("hi")}}>
+                <ActionButton
+                    buttonColor={Colors.highlightColor}
+                    onPress={() => { console.log("hi")}}
+                />
+                // </TouchableOpacity>
+                }
+
             </View>
         </View>
     );
@@ -174,7 +215,12 @@ const styles = StyleSheet.create({
         height: '100%',
         flexDirection: 'row',
         paddingLeft: 10
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+      },
 });
 
 export default Marius;
