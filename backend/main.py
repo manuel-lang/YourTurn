@@ -1,13 +1,17 @@
+from typing import List
+
 from bson.json_util import dumps
 from dotenv import load_dotenv
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, Query
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from models import Challenge, Notification, User
 import os
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING
 import random
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="../static"), name="static")
 load_dotenv()
 
 
@@ -17,25 +21,43 @@ def _get_db():
 
 
 @app.get("/challenges")
-def get_challenges(user_id: int) -> JSONResponse:
+def get_challenges(user_id: int, tag: list = Query(None)) -> JSONResponse:
     """
     Lists all challenges.
     :param user_id: the id of the user
+    :param tag: the given tags
     :return: status code and response data
     """
     db = _get_db()
-    all_challenges = list(db["challenges"].find())
+    all_challenges = list(db["challenges"].find().sort("challenge_id", ASCENDING))
     if not user_id:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(all_challenges))
-    else:
+        challenges = all_challenges
+    elif not tag:
         bookmarked_challenges = [x["bookmarks"] for x in list(db["users"].find({"user_id": user_id}))][0]
         print(bookmarked_challenges)
         other_challenges = [x for x in all_challenges if
                             x["owner"]["id"] != user_id and x["challenge_id"] not in bookmarked_challenges]
         random.shuffle(other_challenges)
-        ordered_challenges = [x for x in all_challenges if x["owner"]["id"] == user_id] + [x for x in all_challenges if x[
+        challenges = [x for x in all_challenges if x["owner"]["id"] == user_id] + [x for x in all_challenges if x[
             "challenge_id"] in bookmarked_challenges] + other_challenges
-        return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(ordered_challenges))
+    else:
+        challenges = []
+        for c in all_challenges:
+            contains_tags = True
+            for t in tag:
+                if t not in c["tags"]:
+                    contains_tags = False
+                    break
+            if contains_tags:
+                challenges.append(c)
+
+    user_bookmarks = list(db["users"].find({"user_id": user_id}))[0]["bookmarks"]
+    for i in range(len(challenges)):
+        challenges[i]["coopetition"] = random.choice([True, False])
+        challenges[i]["bookmarked"] = challenges[i]["challenge_id"] in user_bookmarks
+        challenges[i]["comments"] = random.randint(0, 9)
+
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(challenges))
 
 
 @app.post("/challenges")
@@ -116,7 +138,7 @@ def get_individual_user(user_id: int) -> JSONResponse:
     :return: status code and response data
     """
     user = _get_db()["users"].find_one({"user_id": user_id})
-    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps([user]))
+    return JSONResponse(status_code=status.HTTP_200_OK, content=dumps(user))
 
 
 @app.get("/notifications")
