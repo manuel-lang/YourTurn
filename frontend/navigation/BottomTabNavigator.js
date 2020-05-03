@@ -8,6 +8,8 @@ import Minhkha from '../screens/Minhkha';
 import Friends from '../screens/Friends';
 import AnotherScreen from '../screens/AnotherScreen';
 
+import FriendsScreen from '../screens/FriendsScreen';
+
 import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Image } from 'react-native';
@@ -61,12 +63,12 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route), 
-                          headerTintColor: 'white', 
-                          headerStyle:{backgroundColor: Colors.backgroundColorLight}});
+    /*navigation.setOptions({ headerTitle: getHeaderTitle(route),
+                          headerTintColor: 'white',
+                          headerStyle:{backgroundColor: Colors.backgroundColorLight}});*/
 
   return (
-    <BottomTab.Navigator 
+    <BottomTab.Navigator
       initialRouteName={INITIAL_ROUTE_NAME}
       tabBarOptions={{
         activeBackgroundColor: Colors.backgroundColorLight,
@@ -80,7 +82,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={Profile}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => 
+          tabBarIcon: ({ focused }) =>
             <MaterialIcons
               name="person"
               size={35}
@@ -93,17 +95,16 @@ export default function BottomTabNavigator({ navigation, route }) {
 
       <BottomTab.Screen
         name="mfriends"
-        component={Friends}
+        component={FriendsScreen}
         options={{
-          title: '',
-          tabBarIcon: ({ focused }) => 
-            <FontAwesome 
+          title: 'Friends',
+          tabBarIcon: ({ focused }) =>
+            <FontAwesome
               name="group"
               size={25}
               style={{ marginBottom: -17 }}
               color={focused ? Colors.highlightColor : Colors.elementWhite}
             />
-          ,
         }}
       />
 
@@ -112,14 +113,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={Marius}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => 
+          tabBarIcon: ({ focused }) =>
             // <Entypo
             //   name="menu"
             //   size={40}
             //   style={{ marginBottom: -20 }}
             //   color={focused ? Colors.highlightColor : Colors.elementWhite}
             // />
-            <ImageIcon 
+            <ImageIcon
               focused={focused}
               size={25}
             />
@@ -132,7 +133,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={AnotherScreen}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => 
+          tabBarIcon: ({ focused }) =>
             <MaterialCommunityIcons
             name="flag-checkered"
             size={30}
@@ -149,10 +150,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={Malte}
         options={{
           title: '',
-          tabBarIcon: ({ focused }) => 
-          <IconWithBadge 
-          name="ios-notifications" 
-          badgeCount={6} 
+          tabBarIcon: ({ focused }) =>
+          <IconWithBadge
+          name="ios-notifications"
+          badgeCount={6}
           color={focused ? Colors.highlightColor : Colors.elementWhite}
           size={30} />,
         }}
@@ -176,6 +177,6 @@ function getHeaderTitle(route) {
       return '';
     case 'malte':
       return '';
-    
+
   }
 }
