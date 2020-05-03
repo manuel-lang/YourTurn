@@ -13,9 +13,9 @@ import Collapsible from 'react-native-collapsible';
 
 
 FeedItem.defaultProps = {
-    ownerImage: require('../assets/images/users/user1.png'),
+    ownerImageURI: '../assets/images/users/user1.png',
     ownerName: "Name",
-    challengeImageURI: require('../assets/images/challenges/challenge1.png'),
+    challengeImageURI: '../assets/images/challenges/challenge1.png',
     challengeTitle: "This is the name of the challenge",
     friends: [2, 3, 4],
     friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
@@ -92,7 +92,7 @@ export default function FeedItem (props) {
         >
 
             <View style={styles.headerFeedItem}>
-                <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
+                <Image source={{uri: props.ownerImageURI}} style={styles.ownerImageFeedItem}/>
                 <View style={styles.headerFeedItemText}>
                     <Text color={Colors.textPrimary} bold h5>{props.ownerName}</Text>
                     <Text color={Colors.textSecondary} p>Challenge owner</Text>
