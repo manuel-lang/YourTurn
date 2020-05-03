@@ -127,7 +127,10 @@ const ChallengeDetails = (props) => {
           color={Colors.tabColor}
           iconColor={Colors.highlightColor}
           style={styles.secondaryButtonStyle}
-          onPress={props.onPressAddUser}
+          // onPress={props.onPressAddUser}
+          onPress={() => {
+            navigation.navigate('AddUser')
+          }}
         />
 
 
@@ -171,7 +174,6 @@ const AddUser = (props) => {
   // console.log(props.friendList[0].name)
   return (
     <View>
-
         <View style={{marginTop: 40}}>
           <Text p bold color={Colors.textPrimary}>Whose asses do you want to kick?</Text>
         </View>
@@ -248,11 +250,11 @@ const UserCard = (props) => {
                   <Text color={Colors.textSecondary} p>Friend</Text>
                 </View>
 
-                {buttonPressed && <Icon 
-                    name="check" 
-                    family="Feather" 
-                    color={Colors.highlightColor} 
-                    size={30} 
+                {buttonPressed && <Icon
+                    name="check"
+                    family="Feather"
+                    color={Colors.highlightColor}
+                    size={30}
                     style={styles.statsIcon}
                   />}
             </View>
@@ -260,7 +262,7 @@ const UserCard = (props) => {
             <View style={styles.footerDivider}></View>
           </View>
         </TouchableHighlight>
-        
+
       </View>
     </View>
   )
@@ -476,14 +478,14 @@ const AddUserDone = (props) => {
   )
 }
 
-export default function Minhkha(props) {
+function Minhkha(props) {
 
   const onPressAddUser = (event) => {
     // console.log(event);
     setAddUserOpen(true);
     setChallengeDetailsOpen(false);
   }
-  
+
 
   const onPressDone = (event) => {
     // console.log(event);
@@ -869,3 +871,10 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default Minhkha;
+
+export {
+    AddUser,
+    ChallengeDetails
+}

@@ -4,6 +4,10 @@ import { FlatList } from "react-native-gesture-handler";
 import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
 import Color from '../constants/Colors';
+import { createStackNavigator } from "@react-navigation/stack";
+import { AddUser, ChallengeDetails } from "./Minhkha";
+
+const Stack = createStackNavigator()
 
 const images = {
     user0: require('../assets/images/users/user0.png'),
@@ -98,7 +102,7 @@ const CustomButton = (props) => {
     );
 }
 
-function Marius() {
+function MariusScreen() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
@@ -192,6 +196,16 @@ function Marius() {
             </View>
         </View>
     );
+}
+
+const Marius = () => {
+    return (
+        <Stack.Navigator initalRouteName="Main">
+            <Stack.Screen name="Main" component={MariusScreen} />
+            <Stack.Screen name="AddUser" component={AddUser} />
+            <Stack.Screen name="ChallengeDetails" component={ChallengeDetails} />
+        </Stack.Navigator>
+    )
 }
 
 const styles = StyleSheet.create({
