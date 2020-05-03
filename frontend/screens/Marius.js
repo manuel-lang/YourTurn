@@ -4,9 +4,9 @@ import { FlatList } from "react-native-gesture-handler";
 import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
 import Colors from '../constants/Colors';
-
 import ActionButton from 'react-native-action-button';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {createStackNavigator} from "@react-navigation/stack";
+import ChallengeOverview from './ChallengeOverview';
 
 const CustomButton = (props) => {
 
@@ -59,7 +59,7 @@ const CustomButton = (props) => {
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
 
-function Marius() {
+function FeedScreen() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
@@ -186,7 +186,7 @@ function Marius() {
                     </ScrollView>
                 </View>
 
-                {isActionButtonVisible && 
+                {isActionButtonVisible &&
                 <ActionButton
                     buttonColor={Colors.highlightColor}
                     onPress={() => { console.log("hi")}}
@@ -225,5 +225,17 @@ const styles = StyleSheet.create({
         color: 'white',
       },
 });
+
+
+const FeedStack = createStackNavigator()
+
+const Marius = () => {
+    return (
+        <FeedStack.Navigator initalRouteName="Feed">
+            <FeedStack.Screen name="Feed" component={FeedScreen} />
+            <FeedStack.Screen name="ChallengeOverview" component={ChallengeOverview} />
+        </FeedStack.Navigator>
+    )
+}
 
 export default Marius;

@@ -2,15 +2,10 @@ import * as React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 // import Text from "../constants/Text"
 import Colors from "../constants/Colors"
-
-import { Text } from 'galio-framework';
-import { Icon } from 'galio-framework';
+import { Text, Icon } from 'galio-framework';
+import { useNavigation } from '@react-navigation/native';
 
 import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
-
-import Minhkha from "./Minhkha"
-import Collapsible from 'react-native-collapsible';
-
 
 FeedItem.defaultProps = {
     ownerImageURI: '../assets/images/users/user1.png',
@@ -52,6 +47,8 @@ export default function FeedItem (props) {
     // bet
     // deadline
 
+    // useNavigation is a hook to get the navigation object for none screen objects
+    const navigation = useNavigation();
 
     function renderFavoriteIcon() {
       if (!props.favorit) return null;
@@ -74,11 +71,6 @@ export default function FeedItem (props) {
       );
     }
 
-    const onPressDetails = () => {
-        // console.log("hello")
-        setShowDetails(!showDetails)
-    }
-
     const [showDetails, setShowDetails] = React.useState(false);
 
     return (
@@ -87,7 +79,9 @@ export default function FeedItem (props) {
 
         <TouchableOpacity
             style={styles.infopart}
-            onPress={onPressDetails}
+            onPress={() => {
+                navigation.navigate('ChallengeOverview')
+            }}
         >
 
             <View style={styles.headerFeedItem}>
@@ -146,28 +140,6 @@ export default function FeedItem (props) {
             </View>
 
             <View style={styles.footerDivider}/>
-
-            {/* <Collapsible
-                collapsed={!showDetails}
-                onAnimationEnd={() => {
-                    setShowDetails(showDetails)
-                }}
-            > */}
-                {showDetails && <Minhkha
-                    baseUrl={props.baseUrl}
-                    userId={props.userId}
-                    description={props.description}
-                    tagList={props.tags}
-                    proof={props.proof}
-                    voting={props.voting}
-                    bet={props.bet}
-                    deadline={props.deadline}
-                    participantImages={props.participantImages}
-                    participantNames={props.participantNames}
-                    onPressDetails={onPressDetails}
-                />}
-            {/* </Collapsible> */}
-
         </TouchableOpacity>
 
       </View>
