@@ -11,14 +11,28 @@ import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 import Minhkha from "./Minhkha"
 import Collapsible from 'react-native-collapsible';
 
+// const images = {
+//     user0: require('../assets/images/users/user0.png'),
+//     user1: require('../assets/images/users/user1.png'),
+//     user2: require('../assets/images/users/user2.png'),
+//     user3: require('../assets/images/users/user3.png'),
+//     user4: require('../assets/images/users/user4.png'),
+//     user5: require('../assets/images/users/user5.png'),
+//     challenge1: require('../assets/images/challenges/challenge1.png'),
+//     challenge2: require('../assets/images/challenges/challenge2.png'),
+//     challenge3: require('../assets/images/challenges/challenge3.png'),
+//     challenge4: require('../assets/images/challenges/challenge4.png'),
+//     challenge5: require('../assets/images/challenges/challenge5.png'),
+// }
 
 FeedItem.defaultProps = {
-    ownerImageURI: '../assets/images/users/user1.png',
+    ownerImage: require('../assets/images/users/user1.png'),
     ownerName: "Name",
-    challengeImageURI: '../assets/images/challenges/challenge1.png',
+    challengeImage: require('../assets/images/challenges/challenge1.png'),
     challengeTitle: "This is the name of the challenge",
-    participantImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
-    participantNames: ["Arne", "Marius", "Nils"],
+    friends: [2, 3, 4],
+    friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
+    friendsNames: ["Arne", "Marius", "Nils"],
     likes: 2,
     comments: 3,
     favorit: false,
@@ -75,7 +89,6 @@ export default function FeedItem (props) {
     }
 
     const onPressDetails = () => {
-        // console.log("hello")
         setShowDetails(!showDetails)
     }
 
@@ -91,7 +104,7 @@ export default function FeedItem (props) {
         >
 
             <View style={styles.headerFeedItem}>
-                <Image source={{uri: props.ownerImageURI}} style={styles.ownerImageFeedItem}/>
+                <Image source={props.ownerImage} style={styles.ownerImageFeedItem}/>
                 <View style={styles.headerFeedItemText}>
                     <Text color={Colors.textPrimary} bold h5>{props.ownerName}</Text>
                     <Text color={Colors.textSecondary} p>Challenge owner</Text>
@@ -102,7 +115,7 @@ export default function FeedItem (props) {
                 <ImageBackground
                     style={styles.backgroundimage}
                     imageStyle={{ borderRadius: 20 }}
-                    source={{uri: props.challengeImageURI}}
+                    source={props.challengeImage}
                 >
                 </ImageBackground>
 
@@ -128,9 +141,14 @@ export default function FeedItem (props) {
             </View>
 
             <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                {props.participantImages.slice(0, 3).map( participantImage => {
-                  return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
-                })}
+                {/* {
+                friends.map( friendId => {
+                    <Image source={images["user" + friendId]} style={styles.friendsImage}/>
+                })
+                } */}
+                <Image source={props.friendsImages[0]} style={styles.friendsImage}/>
+                <Image source={props.friendsImages[1]} style={styles.friendsImage}/>
+                <Image source={props.friendsImages[2]} style={styles.friendsImage}/>
             </View>
 
             <View style={styles.footerFeedItemContainer}>
@@ -144,33 +162,9 @@ export default function FeedItem (props) {
 
             </View>
 
-            <View style={styles.footerDivider}/>
-
-            {/* <Collapsible
-                collapsed={!showDetails}
-                onAnimationEnd={() => {
-                    setShowDetails(showDetails)
-                }}
-            > */}
-                {showDetails && <Minhkha
-                    baseUrl={props.baseUrl}
-                    userId={props.userId}
-                    description={props.description}
-                    tagList={props.tags}
-                    proof={props.proof}
-                    voting={props.voting}
-                    bet={props.bet}
-                    deadline={props.deadline}
-                    participantImages={props.participantImages}
-                    participantNames={props.participantNames}
-                    onPressDetails={onPressDetails}
-                />}
-            {/* </Collapsible> */}
-
+            <View style={styles.footerDivider}></View>
         </TouchableOpacity>
-
       </View>
-
     )
   }
 
