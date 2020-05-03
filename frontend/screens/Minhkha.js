@@ -23,7 +23,8 @@ import {Ionicons, Entypo, Octicons} from '@expo/vector-icons';
 
 import {Card} from 'react-native-material-ui';
 
-import * as ImagePicker from 'expo-image-picker'
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
@@ -146,7 +147,7 @@ const ChallengeDetails = (props) => {
         */}
 
                 <TouchableHighlight
-                    onPress={props.onPressDone}>
+                    onPress={props.getPermissionAsync, props.onPressDone}>
                     {/* <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}> */}
                     <View style={{
                         borderWidth: 1,
@@ -398,44 +399,6 @@ const Done = (props) => {
 
 const Upload = (props) => {
 
-    const [image, setImage] = React.useState([]);
-
-    const pickImage = async () => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-            if (!result.cancelled) {
-                setImage({image: result.uri});
-            }
-
-            console.log(result);
-        } catch (E) {
-            console.log(E);
-        }
-    };
-
-    const takeImage = async () => {
-        try {
-            let result = await ImagePicker.launchCameraAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-            if (!result.cancelled) {
-                setImage({image: result.uri});
-            }
-
-            console.log(result);
-        } catch (E) {
-            console.log(E);
-        }
-    };
-
     return (
         <View style={styles.center}>
             <Icon
@@ -451,7 +414,6 @@ const Upload = (props) => {
             </View>
 
             <View style={styles.buttonContainer}>
-
                 <Button
                     onlyIcon
                     icon="camera"
@@ -460,7 +422,7 @@ const Upload = (props) => {
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
                     style={{width: 100, height: 50, margin: 10}}
-                    onPress={takeImage}
+                    onPress={props.takeImage}
                 />
 
                 <Button
@@ -471,7 +433,7 @@ const Upload = (props) => {
                     color={Colors.highlightColor}
                     iconColor={Colors.elementWhite}
                     style={{width: 100, height: 50, margin: 10}}
-                    onPress={pickImage}
+                    onPress={props.pickImage}
                 />
 
                 <Button
@@ -580,6 +542,59 @@ export default function Minhkha(props) {
         setChallengeDetailsOpen(true);
     }
 
+    const pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                setImageProof({imageProof: result.uri});
+                setUploadOpen(false);
+                setDoneOpen(true);
+            }
+
+            console.log(result);
+        } catch (E) {
+            console.log(E);
+        }
+    }
+
+    const takeImage = async () => {
+        try {
+            let result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                setImageProof({imageProof: result.uri});
+                setUploadOpen(false);
+                setDoneOpen(true);
+            }
+
+            console.log(result);
+        } catch (E) {
+            console.log(E);
+        }
+    }
+
+    const getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+          if (status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+          }
+          const { status2 } = await Permissions.askAsync(Permissions.CAMERA);
+          if (status2 !== 'granted') {
+            alert('Sorry, we need camera permissions to make this work!');
+          }
+        }
+      };
+
 
 // Get all initial state data from server
 // const getIndividualElementRequest = (api, id) => {
@@ -675,6 +690,7 @@ export default function Minhkha(props) {
     const [addUserOpen, setAddUserOpen] = React.useState(false);
     const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
 
+    const [imageProof, setImageProof] = React.useState([]);
 
     // Get values for chart and table data as well as meta data - ONLY ONCE
     // React.useEffect( () => {
@@ -703,6 +719,8 @@ export default function Minhkha(props) {
 
     // console.log(props)
 
+
+    
     return (
 
         <ScrollView style={styles.container}>
@@ -757,6 +775,9 @@ export default function Minhkha(props) {
                     {uploadOpen &&
                     <Upload
                         onPressUploadFinished={onPressUploadFinished}
+                        pickImage={pickImage}
+                        takeImage={takeImage}
+                        getPermissionAsync={getPermissionAsync}
                     />
                     }
 
