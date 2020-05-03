@@ -35,7 +35,7 @@ const CustomButton = (props) => {
     }
 
     let style_button_inactive = {
-        container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Color.backgroundColorLight},
+        container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Color.tabColor},
         text: {fontSize: 18, color: Color.textPrimary}
     };
     let style_button_active = {
