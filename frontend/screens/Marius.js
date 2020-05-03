@@ -5,7 +5,7 @@ import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
 import Color from '../constants/Colors';
 import { createStackNavigator } from "@react-navigation/stack";
-import { AddUser, ChallengeDetails } from "./Minhkha";
+import ChallengeDetails from './ChallengeDetails';
 
 const Stack = createStackNavigator()
 
@@ -202,7 +202,6 @@ const Marius = () => {
     return (
         <Stack.Navigator initalRouteName="Main">
             <Stack.Screen name="Main" component={MariusScreen} />
-            <Stack.Screen name="AddUser" component={AddUser} />
             <Stack.Screen name="ChallengeDetails" component={ChallengeDetails} />
         </Stack.Navigator>
     )

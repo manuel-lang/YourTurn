@@ -89,7 +89,6 @@ export default function FeedItem (props) {
     }
 
     const onPressDetails = () => {
-        console.log("hello")
         setShowDetails(!showDetails)
     }
 
@@ -164,30 +163,8 @@ export default function FeedItem (props) {
             </View>
 
             <View style={styles.footerDivider}></View>
-
-            {/* <Collapsible
-                collapsed={!showDetails}
-                onAnimationEnd={() => {
-                    setShowDetails(showDetails)
-                }}
-            > */}
-                {showDetails && <Minhkha
-                    description={props.description}
-                    tagList={props.tags}
-                    proof={props.proof}
-                    voting={props.voting}
-                    bet={props.bet}
-                    deadline={props.deadline}
-                    friendsImages={props.friendsImages}
-                    friendsNames={props.friendsNames}
-                    onPressDetails={onPressDetails}
-                />}
-            {/* </Collapsible> */}
-
         </TouchableOpacity>
-
       </View>
-
     )
   }
 

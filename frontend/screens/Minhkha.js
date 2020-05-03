@@ -13,6 +13,26 @@ import FeedItem from './FeedItem';
 // import { RadioButton } from 'react-native-material-ui';
 // import { ActionButton } from 'react-native-material-ui';
 
+
+
+/*
+
+            <Minhkha
+                    description={props.description}
+                    tagList={props.tags}
+                    proof={props.proof}
+                    voting={props.voting}
+                    bet={props.bet}
+                    deadline={props.deadline}
+                    friendsImages={props.friendsImages}
+                    friendsNames={props.friendsNames}
+                    onPressDetails={onPressDetails}
+                />
+
+
+ */
+
+
 import { Text } from 'galio-framework';
 import { Card as GCard } from 'galio-framework';
 import { Button } from 'galio-framework';
