@@ -11,24 +11,11 @@ import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
 import Minhkha from "./Minhkha"
 import Collapsible from 'react-native-collapsible';
 
-// const images = {
-//     user0: require('../assets/images/users/user0.png'),
-//     user1: require('../assets/images/users/user1.png'),
-//     user2: require('../assets/images/users/user2.png'),
-//     user3: require('../assets/images/users/user3.png'),
-//     user4: require('../assets/images/users/user4.png'),
-//     user5: require('../assets/images/users/user5.png'),
-//     challenge1: require('../assets/images/challenges/challenge1.png'),
-//     challenge2: require('../assets/images/challenges/challenge2.png'),
-//     challenge3: require('../assets/images/challenges/challenge3.png'),
-//     challenge4: require('../assets/images/challenges/challenge4.png'),
-//     challenge5: require('../assets/images/challenges/challenge5.png'),
-// }
 
 FeedItem.defaultProps = {
     ownerImage: require('../assets/images/users/user1.png'),
     ownerName: "Name",
-    challengeImage: require('../assets/images/challenges/challenge1.png'),
+    challengeImageURI: require('../assets/images/challenges/challenge1.png'),
     challengeTitle: "This is the name of the challenge",
     friends: [2, 3, 4],
     friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
@@ -116,7 +103,7 @@ export default function FeedItem (props) {
                 <ImageBackground
                     style={styles.backgroundimage}
                     imageStyle={{ borderRadius: 20 }}
-                    source={props.challengeImage}
+                    source={{uri: props.challengeImageURI}}
                 >
                 </ImageBackground>
 

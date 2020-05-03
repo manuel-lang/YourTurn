@@ -109,9 +109,10 @@ function Marius() {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
+    const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+
     useEffect(() => {
-        let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
-        fetch('http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1',{
+        fetch(`${base_url}/challenges?user_id=1`,{
             method: 'GET',
             headers: new Headers({
                       'Content-Type': 'application/json'
@@ -169,7 +170,7 @@ function Marius() {
                                 <FeedItem
                                     ownerImage={images["user" + item.owner.id]}
                                     ownerName={item.owner.name}
-                                    challengeImage={images["challenge" + item.challenge_id]}
+                                    challengeImageURI={`${base_url}/static/images/challenges/challenge${item.challenge_id}.png`}
                                     challengeTitle={item.name}
                                     friends={item.participants.length}
                                     friendsImages={friendIdToimage(item.participants)}
