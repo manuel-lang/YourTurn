@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Switch, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation, TouchableOpacity } from 'react-native';
 import { FlatList } from "react-native-gesture-handler";
 import { Button } from 'react-native-material-ui';
 import FeedItem  from './FeedItem';
-import Color from '../constants/Colors';
+import Colors from '../constants/Colors';
+
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const images = {
     user0: require('../assets/images/users/user0.png'),
@@ -83,10 +86,10 @@ const CustomButton = (props) => {
                 .catch((error) => console.error(error))
     }
 
-    let style_button_inactive = {container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Color.backgroundColorLight},
-                                 text:      {fontSize: 18, color: Color.textPrimary}};
-    let style_button_active   = {container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: Color.highlightColor},
-                                 text:      {fontSize: 18, color: Color.textPrimary}};
+    let style_button_inactive = {container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Colors.backgroundColorLight},
+                                 text:      {fontSize: 18, color: Colors.textPrimary}};
+    let style_button_active   = {container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: Colors.highlightColor},
+                                 text:      {fontSize: 18, color: Colors.textPrimary}};
     return (
         <Button
             upperCase={false}
@@ -98,6 +101,8 @@ const CustomButton = (props) => {
     );
 }
 
+let _listViewOffset = 0
+
 function Marius() {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
@@ -108,6 +113,8 @@ function Marius() {
     const [isActive2, setIsActive2] = useState(false)
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
+
+    const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
     useEffect(() => {
         let url = 'http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges?user_id=1';
@@ -140,8 +147,33 @@ function Marius() {
         return tmp;
     }
 
+    const onScroll = (event) => {
+        // Simple fade-in / fade-out animation
+        const CustomLayoutLinear = {
+          duration: 100,
+          create: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
+          update: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
+          delete: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity }
+        }
+        // Check if the user is scrolling up or down by confronting the new scroll position with your own one
+        const currentOffset = event.nativeEvent.contentOffset.y
+        const direction = (currentOffset > 0 && currentOffset > _listViewOffset)
+          ? 'down'
+          : 'up'
+
+        // If the user is scrolling down (and the action-button is still visible) hide it
+        const isActionButtonVisibleTest = (direction === 'up')
+
+        if (isActionButtonVisibleTest !== isActionButtonVisible) {
+          LayoutAnimation.configureNext(CustomLayoutLinear)
+          setIsActionButtonVisible(isActionButtonVisibleTest)
+        }
+        // Update your scroll position
+        _listViewOffset = currentOffset
+      }
+
     return (
-        <View style={{flex: 1, backgroundColor: Color.backgroundColorLight}}>
+        <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
             <View style={styles.wrapper}>
                 <View style={styles.orderButtons}>
                     <ScrollView horizontal={true} style={styles.cb_scrollview} contentContainerStyle={{alignItems: 'center'}}>
@@ -151,10 +183,10 @@ function Marius() {
                         <CustomButton name="Creative" tag="Creative" func={setfetchedData} funcs={[setIsActive1, setIsActive2, setIsActive3]} func_me={setIsActive4} func_me_isActive={isActive4}/>
                     </ScrollView>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
-                        <Text style={{color: Color.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
+                        <Text style={{color: Colors.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
                         <Switch
-                            trackColor={{ false: Color.backgroundColorDark, true: Color.highlightColor }}
-                            thumbColor={Color.elementWhite}
+                            trackColor={{ false: Colors.backgroundColorDark, true: Colors.highlightColor }}
+                            thumbColor={Colors.elementWhite}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleSwitch}
                             value={isEnabled}
@@ -162,33 +194,47 @@ function Marius() {
                     </View>
                 </View>
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
-                    <FlatList
-                        data={fetchedData}
-                        renderItem={
-                            ({item}) =>
-                                <FeedItem
-                                    ownerImage={images["user" + item.owner.id]}
-                                    ownerName={item.owner.name}
-                                    challengeImage={images["challenge" + item.challenge_id]}
-                                    challengeTitle={item.name}
-                                    friends={item.participants.length}
-                                    friendsImages={friendIdToimage(item.participants)}
-                                    friendsNames={friendsIdToName(item.participants)}
-                                    likes={item.likes.length}
-                                    comments={item.comments}
-                                    favorit={item.bookmarked}
-                                    privateChallenge={item.private}
-                                    coopetition={item.coopetition}
-                                    description={item.description}
-                                    tags={item.tags}
-                                    proof={item.proof}
-                                    voting={item.voting}
-                                    bet={item.bet}
-                                    deadline={item.deadline}
-                                />
-                        }
-                    />
+                    <ScrollView
+                        onScroll={onScroll}
+                    >
+                        <FlatList
+                            data={fetchedData}
+                            renderItem={
+                                ({item}) =>
+                                    <FeedItem
+                                        ownerImage={images["user" + item.owner.id]}
+                                        ownerName={item.owner.name}
+                                        challengeImage={images["challenge" + item.challenge_id]}
+                                        challengeTitle={item.name}
+                                        friends={item.participants.length}
+                                        friendsImages={friendIdToimage(item.participants)}
+                                        friendsNames={friendsIdToName(item.participants)}
+                                        likes={item.likes.length}
+                                        comments={item.comments}
+                                        favorit={item.bookmarked}
+                                        privateChallenge={item.private}
+                                        coopetition={item.coopetition}
+                                        description={item.description}
+                                        tags={item.tags}
+                                        proof={item.proof}
+                                        voting={item.voting}
+                                        bet={item.bet}
+                                        deadline={item.deadline}
+                                    />
+                            }
+                        />
+                    </ScrollView>
                 </View>
+
+                {isActionButtonVisible && 
+                // <TouchableOpacity onPress={() => { console.log("hi")}}>
+                <ActionButton
+                    buttonColor={Colors.highlightColor}
+                    onPress={() => { console.log("hi")}}
+                />
+                // </TouchableOpacity>
+                }
+
             </View>
         </View>
     );
@@ -214,7 +260,12 @@ const styles = StyleSheet.create({
         height: '100%',
         flexDirection: 'row',
         paddingLeft: 10
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+      },
 });
 
 export default Marius;

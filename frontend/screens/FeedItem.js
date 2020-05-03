@@ -89,7 +89,7 @@ export default function FeedItem (props) {
     }
 
     const onPressDetails = () => {
-        console.log("hello")
+        // console.log("hello")
         setShowDetails(!showDetails)
     }
 

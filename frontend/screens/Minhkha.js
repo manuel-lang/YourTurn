@@ -504,7 +504,7 @@ export default function Minhkha(props) {
   }
 
   const onPressAddUserDoneFinished = (event) => {
-    console.log("helloooooo");
+    // console.log("helloooooo");
     setAddUserDoneOpen(false);
     setChallengeDetailsOpen(true);
   }
@@ -636,7 +636,7 @@ const parseDate = (date) => {
 
   // }, []);
 
-  console.log(props)
+  // console.log(props)
 
   return (
 
