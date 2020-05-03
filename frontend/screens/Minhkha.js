@@ -387,7 +387,7 @@ const Upload = (props) => {
       if (!result.cancelled) {
         this.setState({ image: result.uri });
       }
-  
+
       console.log(result);
     } catch (E) {
       console.log(E);
@@ -405,7 +405,7 @@ const Upload = (props) => {
       if (!result.cancelled) {
         this.setState({ image: result.uri });
       }
-  
+
       console.log(result);
     } catch (E) {
       console.log(E);
@@ -556,7 +556,7 @@ function Minhkha(props) {
     setChallengeDetailsOpen(true);
   }
 
-  
+
 // Get all initial state data from server
 // const getIndividualElementRequest = (api, id) => {
 
@@ -680,7 +680,7 @@ const parseDate = (date) => {
   // console.log(props)
 
   return (
-    
+
     <ScrollView style={styles.container}>
 
         <View

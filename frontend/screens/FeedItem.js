@@ -17,8 +17,8 @@ FeedItem.defaultProps = {
     ownerName: "Name",
     challengeImageURI: '../assets/images/challenges/challenge1.png',
     challengeTitle: "This is the name of the challenge",
-    friendsImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
-    friendsNames: ["Arne", "Marius", "Nils"],
+    participantImages: [require('../assets/images/users/user2.png'), require('../assets/images/users/user3.png'), require('../assets/images/users/user4.png')],
+    participantNames: ["Arne", "Marius", "Nils"],
     likes: 2,
     comments: 3,
     favorit: false,
@@ -128,8 +128,8 @@ export default function FeedItem (props) {
             </View>
 
             <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                {props.friendsImages.slice(0, 3).map( friendsImage => {
-                  return <Image source={{uri: friendsImage}} style={styles.friendsImage}/>
+                {props.participantImages.slice(0, 3).map( participantImage => {
+                  return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
                 })}
             </View>
 
@@ -153,14 +153,16 @@ export default function FeedItem (props) {
                 }}
             > */}
                 {showDetails && <Minhkha
+                    baseUrl={props.baseUrl}
+                    userId={props.userId}
                     description={props.description}
                     tagList={props.tags}
                     proof={props.proof}
                     voting={props.voting}
                     bet={props.bet}
                     deadline={props.deadline}
-                    friendsImages={props.friendsImages}
-                    friendsNames={props.friendsNames}
+                    participantImages={props.participantImages}
+                    participantNames={props.participantNames}
                     onPressDetails={onPressDetails}
                 />}
             {/* </Collapsible> */}

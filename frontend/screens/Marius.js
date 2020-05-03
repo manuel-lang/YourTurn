@@ -56,6 +56,7 @@ const CustomButton = (props) => {
     );
 }
 
+// Variable that stores current scroll y-position
 let _listViewOffset = 0
 
 function Marius() {
@@ -154,40 +155,40 @@ function Marius() {
                     </View>
                 </View>
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
-                    <FlatList
-                        data={fetchedData}
-                        renderItem={
-                            ({item}) =>
-                                <FeedItem
-                                    ownerImageURI={`${base_url}/static/images/users/user${item.owner.id}.png`}
-                                    ownerName={item.owner.name}
-                                    challengeImageURI={`${base_url}/static/images/challenges/challenge${item.challenge_id}.png`}
-                                    challengeTitle={item.name}
-                                    friendsImages={friendObjectsToImageSources(item.participants)}
-                                    friendsNames={friendObjectsToName(item.participants)}
-                                    likes={item.likes.length}
-                                    comments={item.comments}
-                                    favorit={item.bookmarked}
-                                    privateChallenge={item.private}
-                                    coopetition={item.coopetition}
-                                    description={item.description}
-                                    tags={item.tags}
-                                    proof={item.proof}
-                                    voting={item.voting}
-                                    bet={item.bet}
-                                    deadline={item.deadline}
-                                />
-                        }
-                    />
+                    <ScrollView onScroll={onScroll}>
+                        <FlatList
+                            data={fetchedData}
+                            renderItem={
+                                ({item}) =>
+                                    <FeedItem
+                                        ownerImageURI={`${base_url}/static/images/users/user${item.owner.id}.png`}
+                                        ownerName={item.owner.name}
+                                        challengeImageURI={`${base_url}/static/images/challenges/challenge${item.challenge_id}.png`}
+                                        challengeTitle={item.name}
+                                        friendsImages={friendObjectsToImageSources(item.participants)}
+                                        friendsNames={friendObjectsToName(item.participants)}
+                                        likes={item.likes.length}
+                                        comments={item.comments}
+                                        favorit={item.bookmarked}
+                                        privateChallenge={item.private}
+                                        coopetition={item.coopetition}
+                                        description={item.description}
+                                        tags={item.tags}
+                                        proof={item.proof}
+                                        voting={item.voting}
+                                        bet={item.bet}
+                                        deadline={item.deadline}
+                                    />
+                            }
+                        />
+                    </ScrollView>
                 </View>
 
                 {isActionButtonVisible && 
-                // <TouchableOpacity onPress={() => { console.log("hi")}}>
                 <ActionButton
                     buttonColor={Colors.highlightColor}
                     onPress={() => { console.log("hi")}}
                 />
-                // </TouchableOpacity>
                 }
 
             </View>
