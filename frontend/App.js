@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { Platform, StatusBar, StyleSheet, View, Text, Image, TouchableHighlight } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,12 +14,12 @@ console.disableYellowBox = true;
 const Splash = (props) => {
   return (
       <View style={styles.splash} >
-        <TouchableHighlight onPress={props.onPressSplash}>
+        <TouchableOpacity onPress={props.onPressSplash}>
         <Image
           source={require('./assets/images/Logo_spot.png')}
           style={{width: 300, height: 120}}
         />
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
   )
 }

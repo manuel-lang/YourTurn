@@ -1,6 +1,6 @@
 // import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import {StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, TouchableHighlight, TouchableOpacity} from 'react-native';
 // import { Divider } from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
@@ -265,7 +265,7 @@ const UserCard = (props) => {
         />
         </Button> */}
 
-                <TouchableHighlight onPress={onPressUserCard} style={{width: "100%", height: "100%"}}>
+                <TouchableOpacity onPress={onPressUserCard} style={{width: "100%", height: "100%"}}>
                     <View
                         style={{flex: 1, flexDirection: "column", alignItems: "center", width: "100%", height: "100%"}}>
                         <View style={styles.headerFeedItem}>
@@ -286,7 +286,7 @@ const UserCard = (props) => {
 
                         <View style={styles.footerDivider}></View>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
 
             </View>
         </View>
