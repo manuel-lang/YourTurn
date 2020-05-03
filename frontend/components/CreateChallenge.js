@@ -1,36 +1,66 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, TouchableHighlight} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
 
-import { Text } from 'galio-framework';
-import { Card as GCard } from 'galio-framework';
-import { Button } from 'galio-framework';
-import { Icon } from 'galio-framework';
-import { Slider, Block } from 'galio-framework';
-
-import { Ionicons, Entypo, Octicons } from '@expo/vector-icons';
-
-import { Card } from 'react-native-material-ui';
+import Tags from "react-native-tags";
 
 export default function CreateChallenge (props) {
   
     return (
         
-        <Text>Hallo</Text>
+        <View style={styles.wrapper}>
+
+            <ScrollView>
+
+                {/* <View style={styles.row}> */}
+
+                <Tags
+                  initialText="monkey"
+                  textInputProps={{
+                    placeholder: "Any type of animal"
+                  }}
+                  initialTags={["dog", "cat", "chicken"]}
+                  onChangeTags={tags => console.log(tags)}
+                  onTagPress={(index, tagLabel, event, deleted) =>
+                    console.log(index, tagLabel, event, deleted ? "deleted" : "not deleted")
+                  }
+                  containerStyle={{ justifyContent: "center" }}
+                  inputStyle={{ backgroundColor: "white" }}
+                  renderTag={({ tag, index, onPress, deleteTagOnPress, readonly }) => (
+                    <TouchableOpacity key={`${tag}-${index}`} onPress={onPress}>
+                      <Text>{tag}</Text>
+                    </TouchableOpacity>
+                  )}
+                />
+
+                {/* </View> */}
+
+            </ScrollView>
+
+        </View>
   
     )
   }
 
 
 const styles = StyleSheet.create({
-    wrapperProfile: {
+    wrapper: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         padding: 0,
-        backgroundColor: Colors.backgroundColorDark
+        backgroundColor: Colors.backgroundColorLight
       },
+      row: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: "center",
+      },
+
+
+
       ownerImageFeedItem: {
         height: 60,
         width: 60,
