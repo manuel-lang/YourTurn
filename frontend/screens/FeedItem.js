@@ -80,7 +80,7 @@ export default function FeedItem (props) {
         <TouchableOpacity
             style={styles.infopart}
             onPress={() => {
-                navigation.navigate('ChallengeOverview')
+                navigation.navigate('ChallengeOverview', { data: props})
             }}
         >
 

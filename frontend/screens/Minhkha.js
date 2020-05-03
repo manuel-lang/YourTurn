@@ -1,29 +1,11 @@
-// import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
 import {StyleSheet, View, Image, TextInput, Dimensions, ImageBackground, TouchableHighlight} from 'react-native';
-// import { Divider } from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
-import FeedItem from './FeedItem';
-// import Collapsible from 'react-native-collapsible';
-
-// import { MatButton } from 'react-native-material-ui';
-// import { Checkbox } from 'react-native-material-ui'
-// import { Badge, Icon, Avatar } from 'react-native-material-ui';
-// import { RadioButton } from 'react-native-material-ui';
-// import { ActionButton } from 'react-native-material-ui';
-
 import {Text} from 'galio-framework';
-import {Card as GCard} from 'galio-framework';
 import {Button} from 'galio-framework';
 import {Icon} from 'galio-framework';
-import {Slider, Block} from 'galio-framework';
-
-import {Ionicons, Entypo, Octicons} from '@expo/vector-icons';
-
-import {Card} from 'react-native-material-ui';
-
 import * as ImagePicker from 'expo-image-picker'
+
 
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
@@ -31,7 +13,6 @@ const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:
 const ChallengeDetails = (props) => {
     return (
         <View>
-
             <View style={styles.tagContainer}>
                 {
                     props.tagList.map((tag) =>
@@ -102,24 +83,26 @@ const ChallengeDetails = (props) => {
 
             <View style={styles.buttonContainer}>
                 {/*
-        <Button
-          onlyIcon
-          icon="thumbs-up"
-          iconFamily="Entypo"
-          iconSize={25}
-          color={Colors.tabColor}
-          iconColor={Colors.highlightColor}
-          style={styles.secondaryButtonStyle} />
+                <Button
+                    onlyIcon
+                    icon="thumbs-up"
+                    iconFamily="Entypo"
+                    iconSize={25}
+                    color={Colors.tabColor}
+                    iconColor={Colors.highlightColor}
+                    style={styles.secondaryButtonStyle}
+                />
 
-        <Button
-          onlyIcon
-          icon="comment"
-          iconFamily="MaterialIcons"
-          iconSize={25}
-          color={Colors.tabColor}
-          iconColor={Colors.highlightColor}
-          style={styles.secondaryButtonStyle} />
-        */}
+                <Button
+                    onlyIcon
+                    icon="comment"
+                    iconFamily="MaterialIcons"
+                    iconSize={25}
+                    color={Colors.tabColor}
+                    iconColor={Colors.highlightColor}
+                    style={styles.secondaryButtonStyle}
+                />
+                */}
 
                 <Button
                     onlyIcon
@@ -133,17 +116,18 @@ const ChallengeDetails = (props) => {
                 />
 
 
-                {/*<Button
-          onlyIcon
-          icon="check"
-          iconFamily="Entypo"
-          iconSize={30}
-          color={Colors.highlightColor}
-          iconColor={Colors.elementWhite}
-          style={{ width: 100, height: 50 }}
-          onPress={props.onPressDone}
-        />
-        */}
+                {/*
+                <Button
+                  onlyIcon
+                  icon="check"
+                  iconFamily="Entypo"
+                  iconSize={30}
+                  color={Colors.highlightColor}
+                  iconColor={Colors.elementWhite}
+                  style={{ width: 100, height: 50 }}
+                  onPress={props.onPressDone}
+                />
+                */}
 
                 <TouchableHighlight
                     onPress={props.onPressDone}>
@@ -170,7 +154,8 @@ const ChallengeDetails = (props) => {
                     iconSize={25}
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
-                    style={styles.secondaryButtonStyle}/>
+                    style={styles.secondaryButtonStyle}
+                />
             </View>
         </View>
     )
@@ -546,14 +531,12 @@ export default function Minhkha(props) {
     const onPressAddUser = (event) => {
         // console.log(event);
         setAddUserOpen(true);
-        setChallengeDetailsOpen(false);
     }
 
 
     const onPressDone = (event) => {
         // console.log(event);
         setUploadOpen(true);
-        setChallengeDetailsOpen(false);
     }
 
     const onPressUploadFinished = (event) => {
@@ -571,73 +554,12 @@ export default function Minhkha(props) {
     const onPressAddUserDoneFinished = (event) => {
         // console.log("helloooooo");
         setAddUserDoneOpen(false);
-        setChallengeDetailsOpen(true);
     }
 
     const onPressDoneFinished = (event) => {
         // console.log(event);
         setDoneOpen(false);
-        setChallengeDetailsOpen(true);
     }
-
-
-// Get all initial state data from server
-// const getIndividualElementRequest = (api, id) => {
-
-//   const url = api + id.toString()
-
-//   // Send HTTP POST request with project name and material number to server
-//   return fetch(url, {
-//     method: 'GET',
-//     headers: new Headers({
-//               'Content-Type': 'application/json'
-//             }),
-//   })
-//     .then(res => res.json())
-//     .then(
-//       result => {
-//         console.log("Result received from server: ", result);
-
-//         // Execute callback function which sets the parameters from the result file
-//         if (result !== null) {
-//           return result;
-//         }
-
-//       },
-//       (error) => {
-//         console.log(error);
-//       }
-//     )
-// };
-
-// const setChallengeParameters = (result) => {
-
-//   const res = JSON.parse(result)
-
-//   setName(res.name)
-//   setOwnerId(res.owner.name)
-//   setDescription(res.description)
-//   setTagList(res.tags)
-//   setProof(res.proof)
-//   setVoting(res.voting.toString())
-//   setBet(res.bet)
-//   setDeadline(parseDate(res.deadline["$date"]))
-//   setIsPrivate(res.private)
-//   setParticipantList(res.participants)
-//   setLikeList(res.likes)
-//   setCosts(res.costs)
-//   setCompletetUserList(res.completed_users)
-
-//   setDataLoaded(true)
-
-// };
-
-// const setUserParameters = (result) => {
-
-//   const res = JSON.parse(result)
-//   setFriendList(res.friends)
-
-// };
 
     const parseDate = (date) => {
         const parsedDate = new Date(date["$date"])
@@ -647,78 +569,19 @@ export default function Minhkha(props) {
         return (dateDif.getUTCDate()).toString() + " days left"
     }
 
-    const [showPic, setShowPic] = React.useState(true);
-    const [collapseOpen, setCollapseOpen] = React.useState(false);
-    const [isChecked, setIsChecked] = React.useState(false);
-
-    const [name, setName] = React.useState();
-    const [ownerId, setOwnerId] = React.useState();
-    const [description, setDescription] = React.useState();
-    const [tagList, setTagList] = React.useState();
-    const [proof, setProof] = React.useState();
-    const [voting, setVoting] = React.useState();
-    const [bet, setBet] = React.useState();
-    const [deadline, setDeadline] = React.useState();
-    const [isPrivate, setIsPrivate] = React.useState();
-    const [participantList, setParticipantList] = React.useState();
-    const [likeList, setLikeList] = React.useState();
-    const [costs, setCosts] = React.useState();
-    const [completetUserList, setCompletetUserList] = React.useState();
-
-    const [friendList, setFriendList] = React.useState();
-
-    const [dataLoaded, setDataLoaded] = React.useState(false);
-
-    const [challengeDetailsOpen, setChallengeDetailsOpen] = React.useState(true);
     const [uploadOpen, setUploadOpen] = React.useState(false);
     const [doneOpen, setDoneOpen] = React.useState(false);
     const [addUserOpen, setAddUserOpen] = React.useState(false);
     const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
 
-
-    // Get values for chart and table data as well as meta data - ONLY ONCE
-    // React.useEffect( () => {
-
-    // setName("Liegestütze")
-    // setOwnerId("123")
-    // setDescription("Hiermit fordere ich dich zu 100 Liegestützen heraus, du kleiner Bastard amk!")
-    // setTagList(["sport", "bastard", "pump"])
-    // setProof("photo")
-    // setVoting("yes")
-    // setBet("coins")
-    // setDeadline("in 2 days")
-    // setIsPrivate(true)
-    // setParticipantList(["Manu", "Arne", "Timo", "Arne", "Nils", "Malte"])
-    // setLikeList(["Manu", "Arne", "Timo"])
-    // setCosts(10)
-    // setCompletetUserList(["Minh-Kha"])
-
-    // Get challenge data
-    // getIndividualElementRequest(API_URL_CHALLENGE, 1).then( result => setChallengeParameters(result) )
-
-    // Get user data
-    // getIndividualElementRequest(API_URL_USER, 1).then( result => setUserParameters(result) )
-
-    // }, []);
-
-    // console.log(props)
-
     return (
 
-        <ScrollView style={styles.container}>
-
-            <View
-                style={styles.card}
-            >
-                {/* <Card> */}
-
+            <View style={styles.card} >
                 <View style={styles.contentContainer}>
-
                     <View style={styles.descriptionContainer}>
                         <Text p color={Colors.textPrimary}>{props.description}</Text>
                     </View>
 
-                    {challengeDetailsOpen &&
                     <ChallengeDetails
                         tagList={props.tagList}
                         proof={props.proof}
@@ -728,7 +591,6 @@ export default function Minhkha(props) {
                         onPressAddUser={onPressAddUser}
                         onPressDone={onPressDone}
                     />
-                    }
 
                     {addUserOpen &&
                     <AddUser
@@ -776,10 +638,7 @@ export default function Minhkha(props) {
                     <View style={styles.footerDivider}></View>
 
                 </View>
-                {/* </Card> */}
             </View>
-
-        </ScrollView>
     );
 }
 
@@ -843,7 +702,6 @@ const styles = StyleSheet.create({
 
 
     tagContainer: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: "flex-start",
         margin: 15,
@@ -856,7 +714,6 @@ const styles = StyleSheet.create({
     },
 
     rowContainer: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: "space-between",
         margin: 10,

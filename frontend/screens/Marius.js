@@ -58,6 +58,7 @@ const CustomButton = (props) => {
 
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
+let _fetchedData = []
 
 function FeedScreen() {
     //const [text, setText] = React.useState('');
@@ -232,8 +233,16 @@ const FeedStack = createStackNavigator()
 const Marius = () => {
     return (
         <FeedStack.Navigator initalRouteName="Feed">
-            <FeedStack.Screen name="Feed" component={FeedScreen} />
-            <FeedStack.Screen name="ChallengeOverview" component={ChallengeOverview} />
+            <FeedStack.Screen
+                name="Feed"
+                component={FeedScreen}
+            />
+
+            <FeedStack.Screen
+                name="ChallengeOverview"
+                component={ChallengeOverview}
+                initialParams={{}}
+            />
         </FeedStack.Navigator>
     )
 }
