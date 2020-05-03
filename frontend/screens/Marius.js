@@ -128,12 +128,14 @@ function Marius() {
                         renderItem={
                             ({item}) =>
                                 <FeedItem
+                                    baseUrl={base_url}
                                     ownerImageURI={`${base_url}/static/images/users/user${item.owner.id}.png`}
                                     ownerName={item.owner.name}
+                                    userId={user_id}
                                     challengeImageURI={`${base_url}/static/images/challenges/challenge${item.challenge_id}.png`}
                                     challengeTitle={item.name}
-                                    friendsImages={friendObjectsToImageSources(item.participants)}
-                                    friendsNames={friendObjectsToName(item.participants)}
+                                    participantImages={friendObjectsToImageSources(item.participants)}
+                                    participantNames={friendObjectsToName(item.participants)}
                                     likes={item.likes.length}
                                     comments={item.comments}
                                     favorit={item.bookmarked}
