@@ -196,7 +196,7 @@ class AddUser extends React.Component {
                 </View>
 
                 {this.state.data.map((friend) => {
-                    console.log("Friend " + friend[0] + friend[1]);
+                    // console.log("Friend " + friend[0] + friend[1]);
                     return <UserCard
                         key={friend[1]}
                         title={friend[0]}
@@ -514,7 +514,7 @@ export default function Minhkha(props) {
     }
 
     const onPressAddUserDoneFinished = (event) => {
-        console.log("helloooooo");
+        // console.log("helloooooo");
         setAddUserDoneOpen(false);
         setChallengeDetailsOpen(true);
     }
@@ -646,7 +646,7 @@ export default function Minhkha(props) {
 
     // }, []);
 
-    console.log(props)
+    // console.log(props)
 
     return (
 
