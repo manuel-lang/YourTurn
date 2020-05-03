@@ -38,12 +38,12 @@ const CustomButton = (props) => {
     }
 
     let style_button_inactive = {
-        container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Color.tabColor},
-        text: {fontSize: 18, color: Color.textPrimary}
+        container: {marginLeft: 10, borderRadius: 25, height: 30, backgroundColor: Colors.tabColor},
+        text: {fontSize: 18, color: Colors.textPrimary}
     };
     let style_button_active = {
-        container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: Color.highlightColor},
-        text: {fontSize: 18, color: Color.textPrimary}
+        container: {marginLeft: 10, borderRadius: 25, height: 40, backgroundColor: Colors.highlightColor},
+        text: {fontSize: 18, color: Colors.textPrimary}
     };
     return (
         <Button
@@ -145,8 +145,8 @@ function Marius() {
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10}}>
                         <Text style={{color: Colors.textPrimary, fontSize: 18, marginRight: 10}}>Nearby</Text>
                         <Switch
-                            trackColor={{false: Color.backgroundColorDark, true: Color.highlightColor}}
-                            thumbColor={Color.elementWhite}
+                            trackColor={{false: Colors.backgroundColorDark, true: Colors.highlightColor}}
+                            thumbColor={Colors.elementWhite}
                             ios_backgroundColor="#3e3e3e"
                             onValueChange={toggleSwitch}
                             value={isEnabled}
