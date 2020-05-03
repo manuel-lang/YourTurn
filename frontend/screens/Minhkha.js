@@ -36,12 +36,11 @@ const ChallengeDetails = (props) => {
             <View style={styles.tagContainer}>
                 {
                     props.tagList.map((tag) =>
-                        <Button
-                            color={Colors.tabColor}
+                        <View
                             style={styles.tagStyle}
                         >
-                            {"#" + tag}
-                        </Button>
+                            <Text color={Colors.textPrimary}>{"#" + tag}</Text>
+                        </View>
                     )
                 }
             </View>
@@ -155,11 +154,18 @@ const ChallengeDetails = (props) => {
                         backgroundColor: Colors.tabColor,
                         borderRadius: 25,
                         width: 150,
-                        height: 50
+                        height: 50,
+                        flex: 1,
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center"
                     }}>
                         <Image
                             source={require('../assets/images/Logo.png')}
-                            style={{width: 130, height: 40, marginTop: 10, marginLeft: 20}}
+                            style={{
+                                width: 1061*0.1, 
+                                height: 355*0.1,
+                            }}
                             onPress={props.onPressDone}/>
                     </View>
                 </TouchableHighlight>
@@ -402,8 +408,8 @@ const Upload = (props) => {
     return (
         <View style={styles.center}>
             <Icon
-                name="upload"
-                family="Entypo"
+                name="file-upload"
+                family="MaterialIcons"
                 color={Colors.highlightColor}
                 size={200}
                 style={{marginTop: 40}}
@@ -421,7 +427,7 @@ const Upload = (props) => {
                     iconSize={25}
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
-                    style={{width: 100, height: 50, margin: 10}}
+                    style={styles.uploadButtonStyle}
                     onPress={props.takeImage}
                 />
 
@@ -430,9 +436,9 @@ const Upload = (props) => {
                     icon="upload"
                     iconFamily="Feather"
                     iconSize={25}
-                    color={Colors.highlightColor}
-                    iconColor={Colors.elementWhite}
-                    style={{width: 100, height: 50, margin: 10}}
+                    color={Colors.tabColor}
+                    iconColor={Colors.highlightColor}
+                    style={styles.uploadButtonStyle}
                     onPress={props.pickImage}
                 />
 
@@ -443,7 +449,7 @@ const Upload = (props) => {
                     iconSize={25}
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
-                    style={{width: 100, height: 50, margin: 10}}
+                    style={styles.uploadButtonStyle}
                 />
 
 
@@ -728,76 +734,71 @@ export default function Minhkha(props) {
             <View
                 style={styles.card}
             >
-                {/* <Card> */}
 
-                <View style={styles.contentContainer}>
-
-                    <View style={styles.descriptionContainer}>
-                        <Text p color={Colors.textPrimary}>{props.description}</Text>
-                    </View>
-
-                    {challengeDetailsOpen &&
-                    <ChallengeDetails
-                        tagList={props.tagList}
-                        proof={props.proof}
-                        voting={props.voting}
-                        bet={props.bet}
-                        deadline={parseDate(props.deadline)}
-                        onPressAddUser={onPressAddUser}
-                        onPressDone={onPressDone}
-                    />
-                    }
-
-                    {addUserOpen &&
-                    <AddUser
-                        baseUrl={props.baseUrl}
-                        userId={props.userId}
-                        participantNames={props.participantNames}
-                        participantImages={props.participantImages}
-                        onPressAddUserFinished={onPressAddUserFinished}
-                    />
-                    }
-
-                    {addUserDoneOpen &&
-                    <AddUserDone
-                        friendsNames={props.friendsNames}
-                        friendsImages={props.friendsImages}
-                        onPressAddUserDoneFinished={onPressAddUserDoneFinished}
-                    />
-                    }
-
-                    {doneOpen &&
-                    <Done
-                        onPressDoneFinished={onPressDoneFinished}
-                    />
-                    }
-
-                    {uploadOpen &&
-                    <Upload
-                        onPressUploadFinished={onPressUploadFinished}
-                        pickImage={pickImage}
-                        takeImage={takeImage}
-                        getPermissionAsync={getPermissionAsync}
-                    />
-                    }
-
-                    <View style={{alignItems: "center", marginTop: 30}}>
-                        <Button
-                            onlyIcon
-                            icon="up"
-                            iconFamily="AntDesign"
-                            iconSize={25}
-                            color={Colors.backgroundColorLight}
-                            iconColor={Colors.elementWhite}
-                            style={styles.secondaryButtonStyle}
-                            onPress={props.onPressDetails}
-                        />
-                    </View>
-
-                    <View style={styles.footerDivider}></View>
-
+                <View style={styles.descriptionContainer}>
+                    <Text p color={Colors.textPrimary}>{props.description}</Text>
                 </View>
-                {/* </Card> */}
+
+                {challengeDetailsOpen &&
+                <ChallengeDetails
+                    tagList={props.tagList}
+                    proof={props.proof}
+                    voting={props.voting}
+                    bet={props.bet}
+                    deadline={parseDate(props.deadline)}
+                    onPressAddUser={onPressAddUser}
+                    onPressDone={onPressDone}
+                />
+                }
+
+                {addUserOpen &&
+                <AddUser
+                    baseUrl={props.baseUrl}
+                    userId={props.userId}
+                    participantNames={props.participantNames}
+                    participantImages={props.participantImages}
+                    onPressAddUserFinished={onPressAddUserFinished}
+                />
+                }
+
+                {addUserDoneOpen &&
+                <AddUserDone
+                    friendsNames={props.friendsNames}
+                    friendsImages={props.friendsImages}
+                    onPressAddUserDoneFinished={onPressAddUserDoneFinished}
+                />
+                }
+
+                {doneOpen &&
+                <Done
+                    onPressDoneFinished={onPressDoneFinished}
+                />
+                }
+
+                {uploadOpen &&
+                <Upload
+                    onPressUploadFinished={onPressUploadFinished}
+                    pickImage={pickImage}
+                    takeImage={takeImage}
+                    getPermissionAsync={getPermissionAsync}
+                />
+                }
+
+                <View style={{alignItems: "center", marginTop: 30}}>
+                    <Button
+                        onlyIcon
+                        icon="up"
+                        iconFamily="AntDesign"
+                        iconSize={25}
+                        color={Colors.backgroundColorLight}
+                        iconColor={Colors.elementWhite}
+                        style={styles.secondaryButtonStyle}
+                        onPress={props.onPressDetails}
+                    />
+                </View>
+
+                <View style={styles.footerDivider} />
+
             </View>
 
         </ScrollView>
@@ -846,13 +847,6 @@ const styles = StyleSheet.create({
         borderRadius: 0,
     },
 
-    contentContainer: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 10,
-        backgroundColor: Colors.backgroundColorLight
-    },
-
     titleContainer: {
         alignItems: "flex-start",
         marginBottom: 20
@@ -862,18 +856,20 @@ const styles = StyleSheet.create({
         alignItems: "flex-start"
     },
 
-
     tagContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: "flex-start",
-        margin: 15,
+        marginTop: 15,
+        marginBottom: 15,
     },
 
     tagStyle: {
-        width: 80,
-        height: 30,
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: 'flex-start',
+        padding: 5,
         marginRight: 10,
+        borderRadius: 5,
+        backgroundColor: Colors.tabColor,
     },
 
     rowContainer: {
@@ -907,19 +903,25 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         flex: 1,
+        width: "100%",
         flexDirection: 'row',
         justifyContent: "space-around",
         marginTop: 20
     },
 
     secondaryButtonStyle: {
-        width: 55,
+        width: 50,
+        height: 50,
+    },
+
+    uploadButtonStyle: {
+        width: 70,
         height: 50,
     },
 
     center: {
-        // flex: 1,
-        // flexDirection: 'row',
+        flex: 1,
+        flexDirection: 'column',
         justifyContent: "center",
         alignItems: "center"
     },

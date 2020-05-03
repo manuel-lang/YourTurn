@@ -112,30 +112,30 @@ export default function FeedItem (props) {
 
             <View style={styles.footerFeedItemWrapper}>
 
-            <View style={styles.footerFeedItemContainer}>
-                <View style={styles.footerFeedItemElement}>
-                <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
-                    {props.likes}
-                </Text>
-                </View>
-            </View>
+              <View style={styles.footerFeedItemContainer}>
+                  <View style={styles.footerFeedItemElement}>
+                    <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={18} />
+                    <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
+                        {props.likes}
+                    </Text>
+                  </View>
+              </View>
 
-            <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                {props.participantImages.slice(0, 3).map( participantImage => {
-                    console.log(participantImage);
-                  return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
-                })}
-            </View>
+              <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
+                  {props.participantImages.slice(0, 3).map( participantImage => {
+                      console.log(participantImage);
+                    return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
+                  })}
+              </View>
 
-            <View style={styles.footerFeedItemContainer}>
-                <View style={styles.footerFeedItemElement}>
-                <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
-                <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
-                    {props.comments}
-                </Text>
-                </View>
-            </View>
+              <View style={styles.footerFeedItemContainer}>
+                  <View style={styles.footerFeedItemElement}>
+                    <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={18} />
+                    <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
+                        {props.comments}
+                    </Text>
+                  </View>
+              </View>
 
             </View>
 
@@ -214,15 +214,14 @@ const styles = StyleSheet.create({
       footerFeedItemContainer: {
         height: 30,
         width: 80,
-        marginRight: 10,
       },
       footerFeedItemElement: {
         backgroundColor: Colors.tabColor,
-        paddingLeft: 12,
-        paddingTop: 0,
         borderRadius: 12,
         flex: 1,
         flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
       },
       friendsImage: {
         height: 40,
