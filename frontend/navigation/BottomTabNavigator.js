@@ -18,7 +18,7 @@ import { Image } from 'react-native';
 import Colors from '../constants/Colors';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'marius';
+const INITIAL_ROUTE_NAME = 'malte';
 
 function IconWithBadge({ name, badgeCount, color, size }) {
   return (

@@ -4,16 +4,16 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
 import { Input, Text } from 'galio-framework';
 import DatePicker from 'react-native-datepicker'
-import Tags from "react-native-tags";
+import Tags from "./CustomTags";
 
 const baseMargin = 10;
-const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges"
+const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
 
 
 export default function CreateChallenge (props) {
 
-  const [tagList, setTagList] = React.useState();  
-  const [name, setName] = React.useState("Enter challenge name here ...");  
+  const [tagList, setTagList] = React.useState(["euvsvirus", "yourturn"]);  
+  const [name, setName] = React.useState("Enter challenge name here");  
   const [description, setDescription] = React.useState();  
   const [isPublic, setIsPublic] = React.useState(false);  
   const [hasVoting, setHasVoting] = React.useState(false);  
@@ -57,25 +57,26 @@ export default function CreateChallenge (props) {
     console.log("\n");
 
     // Send HTTP POST request with project name and material number to server
-    return fetch(API_URL_CHALLENGE, {
-        method: 'POST',
-        headers: new Headers({
-            'Content-Type': 'application/json'
-          }), 
-        body: JSON.stringify(convertedState)
-    })
-        .then(res => res.json())
-        .then(
-            result => {
-                console.log("Result received from server: ");
-                console.log(result);
-                console.log("\n");
-            },
-            (error) => {
-                console.log(error);
-            }
-        )
+    // return fetch(`${base_url}/challenges`, {
+    //     method: 'POST',
+    //     headers: new Headers({
+    //         'Content-Type': 'application/json'
+    //       }), 
+    //     body: JSON.stringify(convertedState)
+    // })
+    //     .then(res => res.json())
+    //     .then(
+    //         result => {
+    //             console.log("Result received from server: ");
+    //             console.log(result);
+    //             console.log("\n");
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     )
   };
+
   
   return (
       
@@ -89,7 +90,8 @@ export default function CreateChallenge (props) {
                 <ImageBackground
                     style={styles.backgroundimage}
                     imageStyle={{ borderRadius: 20 }}
-                    source={{uri: "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/static/images/challenges/challenge1.png"}}
+                    // source={{uri: `${base_url}/static/images/challenges/challenge1.png`}}
+                    source={require('../assets/images/challenges/challenge2.png')}
                 >
                 </ImageBackground>
 
@@ -131,14 +133,13 @@ export default function CreateChallenge (props) {
                 <View style={styles.tagsWrapper}>
                   <Tags
                     // initialText="Enter tag name"
+                    tags={tagList}
+                    setTags={setTagList}
                     textInputProps={{
                       placeholder: "Enter tag name",
                     }}
-                    initialTags={["euvsvirus", "yourturn"]}
-                    onChangeTags={tags => {
-                      console.log(tags)
-                      // setTagList(tags)
-                    }}
+                    // initialTags={["euvsvirus", "yourturn"]}
+                    // onChangeTags={customTagFunction}
                     onTagPress={(index, tagLabel, event, deleted) =>
                       console.log(index, tagLabel, event, deleted ? "deleted" : "not deleted")
                     }
