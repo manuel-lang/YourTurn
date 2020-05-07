@@ -19,6 +19,7 @@ const ChallengeDetails = (props) => {
                         <Button
                             color={Colors.tabColor}
                             style={styles.tagStyle}
+                            key={tag.toString()}
                         >
                             {"#" + tag}
                         </Button>
@@ -161,122 +162,6 @@ const ChallengeDetails = (props) => {
     )
 }
 
-class AddUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {data: []};
-    }
-
-    componentDidMount() {
-        fetch(`${this.props.baseUrl}/users/${this.props.userId}`, {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            }),
-        })
-            .then((response) => response.json())
-            .then((json) => JSON.parse(json))
-            .then((json) => {
-                this.setState({
-                    "data": json["friends"].filter(friend => {
-                        return this.props.participantNames.indexOf(friend["name"]) === -1;
-                    }).map(friend => {
-                        return [friend["name"], friend["id"]];
-                    })
-                });
-            })
-            .catch((error) => console.error(error))
-    }
-
-    render() {
-        return (
-            <View>
-
-                <View style={{marginTop: 40}}>
-                    <Text p bold color={Colors.textPrimary}>Whose asses do you want to kick?</Text>
-                </View>
-
-                {this.state.data.map((friend) => {
-                    console.log("Friend " + friend[0] + friend[1]);
-                    return <UserCard
-                        key={friend[1]}
-                        title={friend[0]}
-                        image={{uri: `${this.props.baseUrl}/static/images/users/user${friend[1]}.png`}}
-                        subtitle="Friend"
-                    />
-                })
-                }
-
-                <View style={{alignItems: "center", marginTop: 20}}>
-                    <Button
-                        onlyIcon
-                        icon="check"
-                        iconFamily="Entypo"
-                        iconSize={30}
-                        color={Colors.highlightColor}
-                        iconColor={Colors.elementWhite}
-                        style={{width: 100, height: 50}}
-                        onPress={this.props.onPressAddUserFinished}
-                    />
-                </View>
-            </View>
-        )
-    }
-}
-
-const UserCard = (props) => {
-
-    const [buttonPressed, setButtonPressed] = React.useState(false);
-
-    const onPressUserCard = () => {
-        setButtonPressed(!buttonPressed)
-        console.log("pressed user card")
-    }
-
-    return (
-        <View style={{backgroundColor: Colors.backgroundColorLight}}>
-
-            <View style={styles.ownerCard}>
-                {/* <Button onPress={onPressUserCard} style={{height: "100%", width: "100%"}}>
-          <GCard
-          flex
-          borderless
-          style={!buttonPressed ? styles.ownerInnerCard : styles.ownerInnerCardPressed}
-          title={props.title}
-          caption={props.subtitle}
-          location="Frankfurt, Germany"
-          avatar="http://i.pravatar.cc/100?id=skater"
-        />
-        </Button> */}
-
-                <TouchableHighlight onPress={onPressUserCard} style={{width: "100%", height: "100%"}}>
-                    <View
-                        style={{flex: 1, flexDirection: "column", alignItems: "center", width: "100%", height: "100%"}}>
-                        <View style={styles.headerFeedItem}>
-                            <Image source={props.image} style={styles.ownerImageFeedItem}/>
-                            <View style={styles.headerFeedItemText}>
-                                <Text color={Colors.textPrimary} bold h5 style={{marginTop: 50}}>{props.title}</Text>
-                                <Text color={Colors.textSecondary} p>Friend</Text>
-                            </View>
-
-                            {buttonPressed && <Icon
-                                name="check"
-                                family="Feather"
-                                color={Colors.highlightColor}
-                                size={30}
-                                style={styles.statsIcon}
-                            />}
-                        </View>
-
-                        <View style={styles.footerDivider}></View>
-                    </View>
-                </TouchableHighlight>
-
-            </View>
-        </View>
-    )
-}
-
 const Done = (props) => {
 
     return (
@@ -381,110 +266,7 @@ const Done = (props) => {
     )
 }
 
-const Upload = (props) => {
 
-    const [image, setImage] = React.useState([]);
-
-    const pickImage = async () => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-            if (!result.cancelled) {
-                setImage({image: result.uri});
-            }
-
-            console.log(result);
-        } catch (E) {
-            console.log(E);
-        }
-    };
-
-    const takeImage = async () => {
-        try {
-            let result = await ImagePicker.launchCameraAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-            if (!result.cancelled) {
-                setImage({image: result.uri});
-            }
-
-            console.log(result);
-        } catch (E) {
-            console.log(E);
-        }
-    };
-
-    return (
-        <View style={styles.center}>
-            <Icon
-                name="upload"
-                family="Entypo"
-                color={Colors.highlightColor}
-                size={200}
-                style={{marginTop: 40}}
-            />
-
-            <View style={{marginTop: 40}}>
-                <Text p bold color={Colors.textPrimary}>Please choose how you would like to upload the proof.</Text>
-            </View>
-
-            <View style={styles.buttonContainer}>
-
-                <Button
-                    onlyIcon
-                    icon="camera"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 100, height: 50, margin: 10}}
-                    onPress={takeImage}
-                />
-
-                <Button
-                    onlyIcon
-                    icon="upload"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.highlightColor}
-                    iconColor={Colors.elementWhite}
-                    style={{width: 100, height: 50, margin: 10}}
-                    onPress={pickImage}
-                />
-
-                <Button
-                    onlyIcon
-                    icon="more-vertical"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 100, height: 50, margin: 10}}
-                />
-
-
-                {/* <Button
-          onlyIcon
-          icon="upload"
-          iconFamily="Entypo"
-          iconSize={30}
-          color={Colors.highlightColor}
-          iconColor={Colors.elementWhite}
-          style={{ width: 100, height: 50, margin: 10  }}
-          onPress={props.onPressDoneFinished}
-        /> */}
-
-            </View>
-        </View>
-    )
-}
 
 const AddUserDone = (props) => {
 
@@ -510,16 +292,18 @@ const AddUserDone = (props) => {
                     onPress={props.onPressAddUserDoneFinished}
                 > Back </Button>
 
-                {/* <Button
-          onlyIcon
-          icon="upload"
-          iconFamily="Entypo"
-          iconSize={30}
-          color={Colors.highlightColor}
-          iconColor={Colors.elementWhite}
-          style={{ width: 100, height: 50, margin: 10  }}
-          onPress={props.onPressDoneFinished}
-        /> */}
+            {/*
+            <Button
+                onlyIcon
+                icon="upload"
+                iconFamily="Entypo"
+                iconSize={30}
+                color={Colors.highlightColor}
+                iconColor={Colors.elementWhite}
+                style={{ width: 100, height: 50, margin: 10  }}
+                onPress={props.onPressDoneFinished}
+            />
+            */}
 
             </View>
         </View>
@@ -529,35 +313,29 @@ const AddUserDone = (props) => {
 export default function Minhkha(props) {
 
     const onPressAddUser = (event) => {
-        // console.log(event);
         setAddUserOpen(true);
     }
 
 
     const onPressDone = (event) => {
-        // console.log(event);
         setUploadOpen(true);
     }
 
     const onPressUploadFinished = (event) => {
-        // console.log(event);
         setUploadOpen(false);
         setDoneOpen(true);
     }
 
     const onPressAddUserFinished = (event) => {
-        // console.log(event);
         setAddUserOpen(false);
         setAddUserDoneOpen(true);
     }
 
     const onPressAddUserDoneFinished = (event) => {
-        // console.log("helloooooo");
         setAddUserDoneOpen(false);
     }
 
     const onPressDoneFinished = (event) => {
-        // console.log(event);
         setDoneOpen(false);
     }
 
@@ -575,7 +353,6 @@ export default function Minhkha(props) {
     const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
 
     return (
-
             <View style={styles.card} >
                 <View style={styles.contentContainer}>
                     <View style={styles.descriptionContainer}>
@@ -591,16 +368,6 @@ export default function Minhkha(props) {
                         onPressAddUser={onPressAddUser}
                         onPressDone={onPressDone}
                     />
-
-                    {addUserOpen &&
-                    <AddUser
-                        baseUrl={props.baseUrl}
-                        userId={props.userId}
-                        participantNames={props.participantNames}
-                        participantImages={props.participantImages}
-                        onPressAddUserFinished={onPressAddUserFinished}
-                    />
-                    }
 
                     {addUserDoneOpen &&
                     <AddUserDone
@@ -621,22 +388,6 @@ export default function Minhkha(props) {
                         onPressUploadFinished={onPressUploadFinished}
                     />
                     }
-
-                    <View style={{alignItems: "center", marginTop: 30}}>
-                        <Button
-                            onlyIcon
-                            icon="up"
-                            iconFamily="AntDesign"
-                            iconSize={25}
-                            color={Colors.backgroundColorLight}
-                            iconColor={Colors.elementWhite}
-                            style={styles.secondaryButtonStyle}
-                            onPress={props.onPressDetails}
-                        />
-                    </View>
-
-                    <View style={styles.footerDivider}></View>
-
                 </View>
             </View>
     );
@@ -645,7 +396,6 @@ export default function Minhkha(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: Colors.highlightColor,
         marginTop: 20
     },
 
@@ -653,22 +403,9 @@ const styles = StyleSheet.create({
         width: "100%",
         padding: 0,
         margin: 0,
-        // backgroundColor: Colors.highlightColor,
         textShadowRadius: 0,
         shadowColor: Colors.backgroundColorLight,
 
-    },
-
-    ownerCard: {
-        marginTop: 20,
-        flex: 1,
-        padding: 0,
-        height: 80,
-        width: "100%",
-        backgroundColor: Colors.backgroundColorLight,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: "center"
     },
 
     imageContainer: {
@@ -759,37 +496,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-
-    footerDivider: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        marginTop: 30,
-        marginLeft: 20,
-        marginRight: 20,
-        borderBottomColor: Colors.tabColor,
-        borderBottomWidth: 2,
-    },
-
     ownerImageFeedItem: {
         height: 60,
         width: 60,
         marginRight: 10,
         borderRadius: 50
-    },
-    headerFeedItem: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: "center",
-        marginTop: 30,
-        marginBottom: 30,
-    },
-    headerFeedItemText: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-
-    },
-
+    }
 });

@@ -1,26 +1,13 @@
 import * as React from 'react';
 import {View, Text} from 'react-native'
 import FeedItem from "./FeedItem";
+import AddUser from "./AddUser";
+import UploadScreen from './UploadScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from "@react-navigation/stack";
 import Minhkha from "./Minhkha";
 
-/*
-<Minhkha
-    baseUrl={props.baseUrl}
-    userId={props.userId}
-    description={props.description}
-    tagList={props.tags}
-    proof={props.proof}
-    voting={props.voting}
-    bet={props.bet}
-    deadline={props.deadline}
-    participantImages={props.participantImages}
-    participantNames={props.participantNames}
-    onPressDetails={onPressDetails}
- */
-
-
-const Details = ({route}) => {
+const DetailsContent = ({route}) => {
     return (
         <View>
             <FeedItem
@@ -61,6 +48,33 @@ const Details = ({route}) => {
     )
 }
 
+const DetailsStack = createStackNavigator();
+const Details = ({route}) => {
+    return (
+        <DetailsStack.Navigator initialRouteName="DetailsContent">
+            <DetailsStack.Screen
+                name="DetailsContent"
+                component={DetailsContent}
+                initialParams={{data: route.params.data}}
+            />
+
+            <DetailsStack.Screen
+                name="addUserToChallenge"
+                component={AddUser}
+                initialParams={{
+                    baseUrl: route.params.data.baseUrl,
+                    userId: route.params.data.userId,
+                    participantNames: route.params.data.participantNames,
+                    participantImages: route.params.data.participantImages,
+
+                }}
+            />
+            <DetailsStack.Screen name="shareChallenge" component={{}} />
+            <DetailsStack.Screen name="finishChallenge" component={{}} />
+        </DetailsStack.Navigator>
+    )
+}
+
 const Submissions = ({route}) => {
     return (
         <Text>submissions</Text>
@@ -75,7 +89,7 @@ const ChallengeOverview = ({route}) => {
             swipeEnabled={true}
         >
             <Tab.Screen name="Details" component={Details} initialParams={{data: route.params.data}} />
-            <Tab.Screen name="Submissions" component={Submissions} initialParams={{data: route.params.data}} />
+            <Tab.Screen name="Submissions" component={Submissions} />
         </Tab.Navigator>
     )
 }
