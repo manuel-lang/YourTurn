@@ -8,7 +8,6 @@ import ActionButton from 'react-native-action-button';
 import {createStackNavigator} from "@react-navigation/stack";
 import ChallengeOverview from './ChallengeOverview';
 import { FloatingAction } from "react-native-floating-action";
-
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const CustomButton = (props) => {
@@ -73,11 +72,14 @@ function FeedScreen() {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
-    const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+    // const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+    const base_url = "http://127.0.0.1:8000"
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
+    console.log(challenges_url)
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
+    {/*
     useEffect(() => {
         fetch(challenges_url, {
             method: 'GET',
@@ -86,15 +88,17 @@ function FeedScreen() {
             }),
         })
             .then((response) => response.json())
-            .then((json) => setfetchedData(JSON.parse(json)))
+            .then((json) => console.log(JSON.parse(json)))
             .catch((error) => console.error(error))
     }, []);
+    */}
 
     function friendObjectsToImageSources(friendObjects) {
         return friendObjects.map(function (friendObject) {
             return `${base_url}/static/images/users/user${friendObject["id"]}.png`;
         });
     }
+
 
     function friendObjectsToName(friendObjects) {
         return friendObjects.map(function (friendObject) {
@@ -155,6 +159,28 @@ function FeedScreen() {
     }
     ];
 
+    // TODO: remove, dirty workaround
+    const challenges = [{
+        'name': "Quarantine Family Pic",
+        'owner': {
+            'id': 1,
+            'name': "Manuel"
+        },
+        'challenge_id': 1,
+        'description': "Make a quarantine picture with your family",
+        'private': false,
+        'participants': [1, 2],
+        'tags': ["#quarantinesquad"],
+        'likes': [1, 2],
+        'costs': 0,
+        'completed_users': [1],
+        'deadline': 1589104556,
+        'proof': "image",
+        'picture_id': 0,
+        'bet': "bet bet bet",
+        'voting': false,
+    }]
+
     return (
         <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
             <View style={styles.wrapper}>
@@ -188,7 +214,7 @@ function FeedScreen() {
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <ScrollView onScroll={onScroll}>
                         <FlatList
-                            data={fetchedData}
+                            data={challenges}
                             renderItem={
                                 ({item}) =>
                                     <FeedItem
@@ -217,7 +243,7 @@ function FeedScreen() {
                     </ScrollView>
                 </View>
 
-                {/* {isActionButtonVisible && 
+                {/* {isActionButtonVisible &&
                 // <Animated.View>
                 <ActionButton
                     buttonColor={Colors.highlightColor}
