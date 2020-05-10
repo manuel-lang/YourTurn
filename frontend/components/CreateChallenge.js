@@ -155,7 +155,7 @@ const getPermissionAsync = async () => {
                       style={{fontSize: 20, fontWeight: "bold", color: Colors.textPrimary}}
                     />
                 </View>
-                <View style={{marginLeft: 420, marginTop: -50}}>
+                <View style={{flexDirection: 'row', justifyContent:'flex-end', marginTop: -50}}>
                   <Button onlyIcon icon="plus" 
                           iconFamily="Entypo"
                           iconSize={30}
