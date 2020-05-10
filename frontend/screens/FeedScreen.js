@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation, TouchableOpacity } from 'react-native';
-import { FlatList } from "react-native-gesture-handler";
+import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native-material-ui';
-import FeedItem  from './FeedItem';
+import FeedItem  from '../screens/FeedItem';
 import Colors from '../constants/Colors';
 import ActionButton from 'react-native-action-button';
-import {createStackNavigator} from "@react-navigation/stack";
-import ChallengeOverview from './ChallengeOverview';
-import CreateChallenge from "../components/CreateChallenge";
+
 
 const CustomButton = (props) => {
 
@@ -59,10 +57,8 @@ const CustomButton = (props) => {
 
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
-let _fetchedData = []
 
 function FeedScreen() {
-    //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -77,6 +73,7 @@ function FeedScreen() {
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
+    {/*
     useEffect(() => {
         fetch(challenges_url, {
             method: 'GET',
@@ -88,6 +85,7 @@ function FeedScreen() {
             .then((json) => setfetchedData(JSON.parse(json)))
             .catch((error) => console.error(error))
     }, []);
+    */}
 
     function friendObjectsToImageSources(friendObjects) {
         return friendObjects.map(function (friendObject) {
@@ -137,7 +135,27 @@ function FeedScreen() {
             'description': "Make a quarantine picture with your family",
             'private': false,
             'participants': [1, 2],
-            'tags': ["#quarantinesquad"],
+            'tags': ["quarantinesquad"],
+            'likes': [1, 2],
+            'costs': 0,
+            'completed_users': [1],
+            'deadline': 1589104884,
+            'proof': "image",
+            'picture_id': 0,
+            'bet': "bet bet bet",
+            'voting': false,
+        },
+        {
+            'name': "Show your mask",
+            'owner': {
+                'id': 1,
+                'name': "Manuel"
+            },
+            'challenge_id': 2,
+            'description': "Make a picture with your corona mask",
+            'private': false,
+            'participants': [1, 2],
+            'tags': ["#coromask"],
             'likes': [1, 2],
             'costs': 0,
             'completed_users': [1],
@@ -251,30 +269,4 @@ const styles = StyleSheet.create({
       },
 });
 
-
-const FeedStack = createStackNavigator()
-
-const Marius = () => {
-    return (
-        <FeedStack.Navigator initalRouteName="Feed">
-            <FeedStack.Screen
-                name="Feed"
-                component={FeedScreen}
-            />
-
-            <FeedStack.Screen
-                name="ChallengeOverview"
-                component={ChallengeOverview}
-                initialParams={{}}
-            />
-
-            <FeedStack.Screen
-                name="CreateChallenge"
-                component={CreateChallenge}
-                initialParams={{}}
-            />
-        </FeedStack.Navigator>
-    )
-}
-
-export default Marius;
+export default FeedScreen;

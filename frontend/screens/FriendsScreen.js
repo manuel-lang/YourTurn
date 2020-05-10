@@ -60,7 +60,7 @@ const CoreScreen = () => {
 
     return (
         <MainStack.Navigator initialRouteName="Home">
-            <MainStack.Screen name="Home" component={Home} />
+            <MainStack.Screen name="Home" component={Home} options={{headerShown: false}}/>
             <MainStack.Screen name="Details" component={Details} />
         </MainStack.Navigator>
     );

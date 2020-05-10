@@ -6,9 +6,9 @@ import Colors from "../constants/Colors"
 import Tags from "react-native-tags";
 
 export default function CreateChallenge (props) {
-  
+
     return (
-        
+
         <View style={styles.wrapper}>
 
             <ScrollView>
@@ -39,7 +39,7 @@ export default function CreateChallenge (props) {
             </ScrollView>
 
         </View>
-  
+
     )
   }
 
@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: "flex-start",
         alignItems: "center",
-        marginTop: 0,
         backgroundColor: Colors.backgroundColorLight,
         width: "90%",
         borderTopLeftRadius: 20,
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
         height: 300,
         opacity: 0.4,
         // borderRadius: 0,
-      
+
         flex: 1,
         flexDirection: "row",
       },
@@ -180,12 +179,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 60
       },
-      
+
       footerFeedItemContainer: {
         height: 30,
         width: 80,
         marginRight: 10,
-      }, 
+      },
       footerFeedItemElement: {
         backgroundColor: Colors.tabColor,
         paddingLeft: 12,

@@ -2,22 +2,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import Profile from '../screens/Profile';
-import Marius from '../screens/Marius';
+import FeedNavigation from './FeedNavigation';
 import Malte from '../screens/Malte';
-import Minhkha from '../screens/Minhkha';
-import Friends from '../screens/Friends';
 import AnotherScreen from '../screens/AnotherScreen';
-
 import FriendsScreen from '../screens/FriendsScreen';
-
 import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-
 import { Image } from 'react-native';
-
 import Colors from '../constants/Colors';
 
+
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'marius';
+const INITIAL_ROUTE_NAME = 'feed';
 
 function IconWithBadge({ name, badgeCount, color, size }) {
   return (
@@ -59,124 +54,95 @@ function ImageIcon(props) {
 }
 
 
-export default function BottomTabNavigator({ navigation, route }) {
-  // Set the header title on the parent stack navigator depending on the
-  // currently active tab. Learn more in the documentation:
-  // https://reactnavigation.org/docs/en/screen-options-resolution.html
-    /*navigation.setOptions({ headerTitle: getHeaderTitle(route),
-                          headerTintColor: 'white',
-                          headerStyle:{backgroundColor: Colors.backgroundColorLight}});*/
+function BottomTabNavigator({ navigation, route }) {
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName={INITIAL_ROUTE_NAME}
-      tabBarOptions={{
-        activeBackgroundColor: Colors.backgroundColorLight,
-        inactiveBackgroundColor: Colors.backgroundColorLight,
-        activeTintColor: Colors.highlightColor,
-        inactiveTintColor: Colors.textPrimary,
-      }}
-    >
-      <BottomTab.Screen
-        name="nils"
-        component={Profile}
-        options={{
-          title: '',
-          tabBarIcon: ({ focused }) =>
-            <MaterialIcons
-              name="person"
-              size={35}
-              style={{ marginBottom: -15}}
-              color={focused ? Colors.highlightColor : Colors.elementWhite}
+    return (
+        <BottomTab.Navigator
+            initialRouteName={INITIAL_ROUTE_NAME}
+            tabBarOptions={{
+                activeBackgroundColor: Colors.backgroundColorLight,
+                inactiveBackgroundColor: Colors.backgroundColorLight,
+                activeTintColor: Colors.highlightColor,
+                inactiveTintColor: Colors.textPrimary,
+            }}
+        >
+            <BottomTab.Screen
+                name="nils"
+                component={Profile}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) =>
+                        <MaterialIcons
+                            name="person"
+                            size={35}
+                            style={{ marginBottom: -15}}
+                            color={focused ? Colors.highlightColor : Colors.elementWhite}
+                        />,
+                }}
             />
-          ,
-        }}
-      />
 
-      <BottomTab.Screen
-        name="mfriends"
-        component={FriendsScreen}
-        options={{
-          title: 'Friends',
-          tabBarIcon: ({ focused }) =>
-            <FontAwesome
-              name="group"
-              size={25}
-              style={{ marginBottom: -17 }}
-              color={focused ? Colors.highlightColor : Colors.elementWhite}
+            <BottomTab.Screen
+                name="mfriends"
+                component={FriendsScreen}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) =>
+                        <FontAwesome
+                          name="group"
+                          size={25}
+                          style={{ marginBottom: -17 }}
+                          color={focused ? Colors.highlightColor : Colors.elementWhite}
+                        />,
+                }}
             />
-        }}
-      />
 
-      <BottomTab.Screen
-        name="marius"
-        component={Marius}
-        options={{
-          title: '',
-          tabBarIcon: ({ focused }) =>
-            // <Entypo
-            //   name="menu"
-            //   size={40}
-            //   style={{ marginBottom: -20 }}
-            //   color={focused ? Colors.highlightColor : Colors.elementWhite}
-            // />
-            <ImageIcon
-              focused={focused}
-              size={25}
+            <BottomTab.Screen
+                name="feed"
+                component={FeedNavigation}
+                options={{
+                    title: '',
+                    tabBarIcon: ({focused}) =>
+                        <ImageIcon
+                            focused={focused}
+                            size={25}
+                        />,
+                }}
             />
-          ,
-        }}
-      />
 
-      <BottomTab.Screen
-        name="challenges"
-        component={AnotherScreen}
-        options={{
-          title: '',
-          tabBarIcon: ({ focused }) =>
-            <MaterialCommunityIcons
-            name="flag-checkered"
-            size={30}
-            style={{ marginBottom: -20 }}
-            color={focused ? Colors.highlightColor : Colors.elementWhite}
+            <BottomTab.Screen
+                name="challenges"
+                component={AnotherScreen}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) =>
+                        <MaterialCommunityIcons
+                            name="flag-checkered"
+                            size={30}
+                            style={{ marginBottom: -20 }}
+                            color={focused ? Colors.highlightColor : Colors.elementWhite}
+                        />
+                    ,
+                }}
             />
-          ,
-        }}
-      />
 
 
-      <BottomTab.Screen
-        name="malte"
-        component={Malte}
-        options={{
-          title: '',
-          tabBarIcon: ({ focused }) =>
-          <IconWithBadge
-          name="ios-notifications"
-          badgeCount={6}
-          color={focused ? Colors.highlightColor : Colors.elementWhite}
-          size={30} />,
-        }}
-      />
+            <BottomTab.Screen
+                name="malte"
+                component={Malte}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) =>
+                        <IconWithBadge
+                            name="ios-notifications"
+                            badgeCount={6}
+                            color={focused ? Colors.highlightColor : Colors.elementWhite}
+                            size={30}
+                        />,
+                }}
+            />
 
     </BottomTab.Navigator>
   );
 }
 
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'nils':
-      return '';
-    case 'minhkha':
-      return '';
-    case 'marius':
-      return '';
-    case 'challenges':
-      return '';
-    case 'malte':
-      return '';
-
-  }
-}
+export default BottomTabNavigator;

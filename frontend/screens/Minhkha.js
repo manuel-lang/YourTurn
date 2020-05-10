@@ -10,7 +10,8 @@ import * as ImagePicker from 'expo-image-picker'
 const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/challenges/"
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
-const ChallengeDetails = (props) => {
+const ChallengeDetails = ( props) => {
+
     return (
         <View>
             <View style={styles.tagContainer}>
@@ -113,7 +114,9 @@ const ChallengeDetails = (props) => {
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
                     style={styles.secondaryButtonStyle}
-                    onPress={props.onPressAddUser}
+                    onPress={() => {
+                        navigation.navigate('AddUserToChallenge')
+                    }}
                 />
 
 
@@ -479,10 +482,10 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: "space-around",
         marginTop: 20
+
     },
 
     secondaryButtonStyle: {
