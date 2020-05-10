@@ -9,6 +9,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import ChallengeOverview from './ChallengeOverview';
 import { FloatingAction } from "react-native-floating-action";
 import Icon from 'react-native-vector-icons/Ionicons';
+import CreateChallenge from '../components/CreateChallenge'
 
 const CustomButton = (props) => {
 
@@ -61,7 +62,7 @@ const CustomButton = (props) => {
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
 
-function FeedScreen() {
+function FeedScreen({navigation}) {
     //const [text, setText] = React.useState('');
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
@@ -266,6 +267,7 @@ function FeedScreen() {
                     onPressMain={state => {
                         console.log(state);
                         setIsActionButtonVisible(!isActionButtonVisible);
+                        navigation.navigate('createChallenge')
                     }}
                 />
 
@@ -310,6 +312,7 @@ const Marius = () => {
         <FeedStack.Navigator initalRouteName="Feed">
             <FeedStack.Screen name="Feed" component={FeedScreen} />
             <FeedStack.Screen name="ChallengeOverview" component={ChallengeOverview} />
+            <FeedStack.Screen name="createChallenge" component={CreateChallenge} />
         </FeedStack.Navigator>
     )
 }
