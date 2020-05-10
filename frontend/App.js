@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import Colors from "./constants/Colors"
+import Login from "./screens/Login"
 
 console.disableYellowBox = true;
 
@@ -59,6 +60,7 @@ const Splash = (props) => {
 
 export default function App(props) {
   const [loadApp, setLoadApp] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
   const [initialNavigationState, setInitialNavigationState] = React.useState();
   const containerRef = React.useRef();
@@ -99,15 +101,17 @@ export default function App(props) {
     return null;
   } else {
     return (
-      !loadApp ? <Splash onPressSplash={onPressSplash} /> : <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          {/*<Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>*/}
-          <BottomTabNavigator />
-        </NavigationContainer>
-      </View>
+      !loadApp ? <Splash onPressSplash={onPressSplash} /> : 
+        !isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> :
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
+            {/*<Stack.Navigator screenOptions={{headerShown: true}}>
+              <Stack.Screen name="Root" component={BottomTabNavigator} />
+            </Stack.Navigator>*/}
+            <BottomTabNavigator />
+          </NavigationContainer>
+        </View>
     );
   }
 }

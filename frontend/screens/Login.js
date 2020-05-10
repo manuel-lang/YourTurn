@@ -9,7 +9,7 @@ console.disableYellowBox = true;
 
 const baseMargin = 10
 
-export default function Splash (props) {
+export default function Login (props) {
 
   const factor = 0.2
 
@@ -29,6 +29,7 @@ export default function Splash (props) {
             console.log(id);
             console.log(`email: ${email}`)
             console.log(`password: ${password}`)
+            props.setIsLoggedIn(true)
             break;
         case "signup":
             console.log(id);
