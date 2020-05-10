@@ -69,8 +69,10 @@ const Details = ({route}) => {
 
                 }}
             />
+            {/*
             <DetailsStack.Screen name="shareChallenge" component={{}} />
             <DetailsStack.Screen name="finishChallenge" component={{}} />
+            */}
         </DetailsStack.Navigator>
     )
 }

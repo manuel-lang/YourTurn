@@ -126,6 +126,29 @@ function FeedScreen() {
         _listViewOffset = currentOffset
       }
 
+    const challenges = [
+        {
+            'name': "Quarantine Family Pic",
+            'owner': {
+                'id': 1,
+                'name': "Manuel"
+            },
+            'challenge_id': 1,
+            'description': "Make a quarantine picture with your family",
+            'private': false,
+            'participants': [1, 2],
+            'tags': ["#quarantinesquad"],
+            'likes': [1, 2],
+            'costs': 0,
+            'completed_users': [1],
+            'deadline': 1589104884,
+            'proof': "image",
+            'picture_id': 0,
+            'bet': "bet bet bet",
+            'voting': false,
+        }
+    ]
+
     return (
         <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
             <View style={styles.wrapper}>
@@ -159,7 +182,7 @@ function FeedScreen() {
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <ScrollView onScroll={onScroll}>
                         <FlatList
-                            data={fetchedData}
+                            data={challenges}
                             renderItem={
                                 ({item}) =>
                                     <FeedItem
