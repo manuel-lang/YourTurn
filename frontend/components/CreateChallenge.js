@@ -23,7 +23,7 @@ export default function CreateChallenge (props) {
   const [costs, setCosts] = React.useState();  
   const [bet, setBet] = React.useState("Bet");  
   const [proof, setProof] = React.useState("Proof");
-  const [imageChallenge, setImageChallenge] = React.useState('../assets/images/challenges/challenge2.png');
+  const [imageChallenge, setImageChallenge] = React.useState(undefined);
   const [dialogState, setDialogState] = React.useState([]);
 
   const onTextInputChange = (event, changeMethod) => {
@@ -132,7 +132,6 @@ const getPermissionAsync = async () => {
     }
   };
 
-  
   return (
       <View style={styles.wrapper}>
 
@@ -145,7 +144,7 @@ const getPermissionAsync = async () => {
                     style={styles.backgroundimage}
                     imageStyle={{ borderRadius: 20 }}
                     // source={{uri: `${base_url}/static/images/challenges/challenge1.png`}}
-                    source={{uri: imageChallenge}}
+                    source={imageChallenge==undefined? require('../assets/images/challenges/challenge2.png') : {uri: imageChallenge}}
                 >
                 </ImageBackground>
                 <View style={styles.imagetextContainer}>
@@ -155,7 +154,7 @@ const getPermissionAsync = async () => {
                       style={{fontSize: 20, fontWeight: "bold", color: Colors.textPrimary}}
                     />
                 </View>
-                <View style={{flexDirection: 'row', justifyContent:'flex-end', marginTop: -50}}>
+                <View style={{flexDirection: 'row', justifyContent:'flex-end', paddingRight: 10, marginTop: -50}}>
                   <Button onlyIcon icon="plus" 
                           iconFamily="Entypo"
                           iconSize={30}

@@ -109,16 +109,7 @@ function Notification({notifText , notifButton , noButton}) {
   )
 }
 
-const _highlightColor = Colors.highlightColor;
-const _backgroundColor = Colors.tabBackroundColor;
-const _notificationColor = Colors.tabColor;
-const _textColor = Colors.textColor;
-
 const styles = StyleSheet.create({
-  firstImageContainer: {
-    alignItems: "center",
-    marginBottom: 20
-  },
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColorLight,
@@ -134,21 +125,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     width: 390
   },
-  imageContainer: {
-    alignItems: 'center',
-    marginBottom: 10,
-  },
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: "space-evenly",
     margin: 10,
   },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  optionIconContainer: {
-    marginRight: 12,
-  },
-
 });
