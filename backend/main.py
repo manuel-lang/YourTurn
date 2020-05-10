@@ -1,7 +1,8 @@
+import shutil
 from typing import List
 from bson.json_util import dumps
 from dotenv import load_dotenv
-from fastapi import FastAPI, status, Query
+from fastapi import FastAPI, status, Query, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from models import Challenge, Notification, User
@@ -173,4 +174,25 @@ def update_notification(notification: Notification) -> JSONResponse:
     """
     _get_db()["notifications"].update_one({"notification_id": notification.notification_id},
                                           {"$set": notification.to_dict()})
-    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=jsonable_encoder([]))
+    return JSONResponse(status_code=status.HTTP_204_NO_CONTENT, content=dumps([]))
+
+
+@app.post("/files/")
+def upload_file(file: UploadFile = File(...)):
+    """
+    Uploads an image and stores it in the respective folder such that it can be server to the app.
+    :param file: form-data file
+    """
+    if "challenge" in file.filename:
+        with open(os.path.join("../static/images/challenges/", file.filename), 'wb+') as upload_path:
+            shutil.copyfileobj(file.file, upload_path)
+        return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
+                            content=dumps(f"Challenge file {file.filename} uploaded successfully."))
+    elif "user" in file.filename:
+        with open(os.path.join("../static/images/users/", file.filename), 'wb+') as upload_path:
+            shutil.copyfileobj(file.file, upload_path)
+        return JSONResponse(status_code=status.HTTP_202_ACCEPTED,
+                            content=dumps(f"User file {file.filename} uploaded successfully."))
+    else:
+        return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                            content=dumps(f"Mode {mode} not accepted. Select either challenge or user."))
