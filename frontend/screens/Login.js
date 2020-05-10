@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, ImageBackground} from 'react-native';
 
 import { Button, Input, Text } from 'galio-framework';
 
@@ -44,18 +44,20 @@ export default function Splash (props) {
   }
 
   return (
+    <ImageBackground 
+    source={require('../assets/images/challenges/challenge1.png')} 
+    style={styles.image}
+>
       <View style={styles.container} >
-        <TouchableOpacity onPress={props.onPressSplash} style={{padding: 20}}>
 
-          <Image
+        <Image
             source={require('../assets/images/Logo.png')}
             style={{
-              width: 1061*factor, 
-              height: 355*factor,
+                width: 1061*factor, 
+                height: 355*factor,
             }}
-          />
+        />
 
-        </TouchableOpacity>
 
         <View style={styles.captionContainer} >
 
@@ -71,7 +73,12 @@ export default function Splash (props) {
                 bgColor={Colors.tabColor}
                 borderless={true}
                 rounded={true}
-                onChange={ (event) => onTextInputChange(event, setEmail) } 
+                onChange={ (event) => onTextInputChange(event, setEmail) }
+                left
+                icon="user"
+                family="antdesign"
+                iconSize={20}
+                iconColor={Colors.highlightColor}
             />
         </View>
 
@@ -86,6 +93,11 @@ export default function Splash (props) {
                 borderless={true}
                 rounded={true}
                 onChange={ (event) => onTextInputChange(event, setPassword) } 
+                left
+                icon="lock"
+                family="antdesign"
+                iconSize={20}
+                iconColor={Colors.highlightColor}
             />
         </View>
 
@@ -137,19 +149,26 @@ export default function Splash (props) {
         </View>
 
       </View>
+      </ImageBackground>
   )
 }
 
 
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: Colors.backgroundColorLight,
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-    padding: baseMargin*5,
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: Colors.backgroundColorLight,
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        padding: baseMargin*5,
+        opacity: 0.9
+    },
+    image: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
     },
     captionContainer: {
         marginBottom: 3*baseMargin
