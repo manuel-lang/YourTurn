@@ -9,7 +9,7 @@ Furthermore, YourTurn users can create public and private challenges with or wit
 We built a native App with React Native. In this way, we generated native Apps for Android, iOS and the web. We connected our App to a FastAPI backend that is deployed on Amazon Web Services. To ease the hosting and deployment, we are running the backend inside a Docker container. The backend accesses data from a MongoDB that is also hosted on AWS.
 
 ## Start backend
-* Run `pip3 install -r requirements.txt` to install the nedded requirements.
+* Run `pip3 install -r requirements.txt` to install the needed requirements.
 * Run `uvicorn main:app --reload` inside the backend folder.
 
 ## Start frontend
