@@ -8,7 +8,6 @@ users = initial_data.users
 challenges = initial_data.challenges
 notifications = initial_data.notifications
 
-print(os.getenv("USR_"))
 
 def main():
     mongo_client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'

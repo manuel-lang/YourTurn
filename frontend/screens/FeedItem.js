@@ -74,13 +74,11 @@ export default function FeedItem (props) {
     const [showDetails, setShowDetails] = React.useState(false);
 
     return (
-
       <View style={styles.wrapperFeedItem}>
-
         <TouchableOpacity
             style={styles.infopart}
             onPress={() => {
-                navigation.navigate('ChallengeOverview')
+                navigation.navigate('ChallengeNavigation', { data: props})
             }}
         >
 
@@ -112,30 +110,29 @@ export default function FeedItem (props) {
 
             <View style={styles.footerFeedItemWrapper}>
 
-              <View style={styles.footerFeedItemContainer}>
-                  <View style={styles.footerFeedItemElement}>
-                    <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={18} />
+                <View style={styles.footerFeedItemContainer}>
+                    <View style={styles.footerFeedItemElement}>
+                    <Icon name="thumbs-up" family="Entypo" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
                     <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
                         {props.likes}
                     </Text>
-                  </View>
-              </View>
+                    </View>
+                </View>
 
-              <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
-                  {props.participantImages.slice(0, 3).map( participantImage => {
-                      console.log(participantImage);
-                    return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
-                  })}
-              </View>
+                <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
+                    {props.participantImages.slice(0, 3).map( participantImage => {
+                      return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
+                    })}
+                </View>
 
-              <View style={styles.footerFeedItemContainer}>
-                  <View style={styles.footerFeedItemElement}>
-                    <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={18} />
+                <View style={styles.footerFeedItemContainer}>
+                    <View style={styles.footerFeedItemElement}>
+                    <Icon name="comment" family="MaterialIcons" color={Colors.highlightColor} size={20} style={{marginTop: 4}}/>
                     <Text h5 color={Colors.textPrimary} style={{marginLeft: 15}}>
                         {props.comments}
                     </Text>
-                  </View>
-              </View>
+                    </View>
+                </View>
 
             </View>
 
@@ -143,17 +140,14 @@ export default function FeedItem (props) {
         </TouchableOpacity>
 
       </View>
-
     )
   }
 
 
 const styles = StyleSheet.create({
     wrapperFeedItem: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
         padding: 20,
+        backgroundColor: Colors.backgroundColorLight
       },
       ownerImageFeedItem: {
         height: 60,
@@ -162,17 +156,14 @@ const styles = StyleSheet.create({
         borderRadius: 50
       },
       headerFeedItem: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
       },
       headerFeedItemText: {
-        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
       },
       imagepart: {
-        flex: 1,
         flexDirection: 'column',
         marginTop: 10,
       },
@@ -181,8 +172,6 @@ const styles = StyleSheet.create({
         height: 200,
         opacity: 0.4,
         borderRadius: 20,
-
-        flex: 1,
         flexDirection: "row",
       },
       imagetext: {
@@ -193,18 +182,14 @@ const styles = StyleSheet.create({
       challengeIcons: {
         marginTop: -200,
         marginLeft: 10,
-        flex: 1,
         flexDirection: "row",
         justifyContent: "flex-start"
       },
       shortdesc: {
-        flex: 6
       },
       descbutton: {
-        flex: 3
       },
       footerFeedItemWrapper: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: "center",
@@ -214,14 +199,14 @@ const styles = StyleSheet.create({
       footerFeedItemContainer: {
         height: 30,
         width: 80,
+        marginRight: 10,
       },
       footerFeedItemElement: {
         backgroundColor: Colors.tabColor,
+        paddingLeft: 12,
+        paddingTop: 0,
         borderRadius: 12,
-        flex: 1,
         flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
       },
       friendsImage: {
         height: 40,
@@ -231,7 +216,6 @@ const styles = StyleSheet.create({
         borderColor: Colors.tabColor,
       },
       titleFeedItem: {
-        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 20,
@@ -239,7 +223,6 @@ const styles = StyleSheet.create({
         height: 100,
       },
       titleFeedItem2: {
-        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         padding: 20,
@@ -247,7 +230,6 @@ const styles = StyleSheet.create({
         height: 100,
        },
       footerDivider: {
-        flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
         marginTop: 30,

@@ -33,11 +33,11 @@ Profile.defaultProps = {
 };
 
 export default function Profile (props) {
-  
+
     return (
-  
+
       <View style={styles.wrapperProfile}>
-    
+
         <View style={styles.imagePart}>
           <ImageBackground
               style={styles.backgroundimage}
@@ -59,11 +59,11 @@ export default function Profile (props) {
 
               <View style={styles.stats}>
                 <View style={styles.statsFirstLine}>
-                  <Icon 
-                    name="check-circle" 
-                    family="Feather" 
-                    color={Colors.highlightColor} 
-                    size={30} 
+                  <Icon
+                    name="check-circle"
+                    family="Feather"
+                    color={Colors.highlightColor}
+                    size={30}
                     style={styles.statsIcon}
                   />
                   <Text h3 bold color={Colors.textPrimary} >
@@ -77,11 +77,11 @@ export default function Profile (props) {
 
               <View style={styles.stats}>
                 <View style={styles.statsFirstLine}>
-                  <Icon 
-                    name="group" 
-                    family="FontAwesome" 
-                    color={Colors.highlightColor} 
-                    size={30} 
+                  <Icon
+                    name="group"
+                    family="FontAwesome"
+                    color={Colors.highlightColor}
+                    size={30}
                     style={styles.statsIcon}
                   />
                   <Text h3 bold color={Colors.textPrimary} >
@@ -95,11 +95,11 @@ export default function Profile (props) {
 
               <View style={styles.stats}>
                 <View style={styles.statsFirstLine}>
-                  <Icon 
-                    name="attach-money" 
-                    family="MaterialIcons" 
-                    color={Colors.highlightColor} 
-                    size={30} 
+                  <Icon
+                    name="attach-money"
+                    family="MaterialIcons"
+                    color={Colors.highlightColor}
+                    size={30}
                     style={styles.statsIcon}
                   />
                   <Text h3 bold color={Colors.textPrimary} >
@@ -110,24 +110,24 @@ export default function Profile (props) {
                     Coins
                 </Text>
               </View>
-              
+
             </View>
 
 
             <View style={styles.profileInfoContainer}>
               <View style={styles.profileInfoWrapper}>
-                  
+
                     <Text h5 color={Colors.textPrimary} >
                         Completed Challenges
                     </Text>
-                    <Icon 
-                      name="check-circle" 
+                    <Icon
+                      name="check-circle"
                       family="Feather"
-                      color={Colors.elementWhite} 
-                      size={30} 
+                      color={Colors.elementWhite}
+                      size={30}
                       style={styles.statsIcon}
                     />
-                 
+
               </View>
 
               <View style={styles.profileInfoWrapper}>
@@ -136,21 +136,21 @@ export default function Profile (props) {
                         User Statistics
                     </Text>
 
-                    <Icon 
-                      name="line-graph" 
-                      family="Entypo" 
-                      color={Colors.elementWhite} 
-                      size={30} 
+                    <Icon
+                      name="line-graph"
+                      family="Entypo"
+                      color={Colors.elementWhite}
+                      size={30}
                       style={styles.statsIcon}
                     />
-                
+
               </View>
 
-              
+
             </View>
 
           </ScrollView>
-          
+
         </View>
 
         <ActionButton buttonColor={Colors.highlightColor}>
@@ -161,9 +161,9 @@ export default function Profile (props) {
               <Icon name="md-notifications-off" family="Ionicons" style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
-    
+
       </View>
-  
+
     )
   }
 
@@ -204,7 +204,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: "flex-start",
         alignItems: "center",
-        marginTop: 0,
         backgroundColor: Colors.backgroundColorLight,
         width: "90%",
         borderTopLeftRadius: 20,
@@ -266,7 +265,7 @@ const styles = StyleSheet.create({
         height: 300,
         opacity: 0.4,
         // borderRadius: 0,
-      
+
         flex: 1,
         flexDirection: "row",
       },
@@ -295,12 +294,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 60
       },
-      
+
       footerFeedItemContainer: {
         height: 30,
         width: 80,
         marginRight: 10,
-      }, 
+      },
       footerFeedItemElement: {
         backgroundColor: Colors.tabColor,
         paddingLeft: 12,

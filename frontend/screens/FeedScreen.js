@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation, TouchableOpacity, Animated, Alert } from 'react-native';
-import { FlatList } from "react-native-gesture-handler";
+import { StyleSheet, View, ScrollView, Switch, Text, LayoutAnimation } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native-material-ui';
-import FeedItem  from './FeedItem';
+import FeedItem  from '../screens/FeedItem';
 import Colors from '../constants/Colors';
 import ActionButton from 'react-native-action-button';
-import {createStackNavigator} from "@react-navigation/stack";
-import ChallengeOverview from './ChallengeOverview';
-import { FloatingAction } from "react-native-floating-action";
-import Icon from 'react-native-vector-icons/Ionicons';
-import CreateChallenge from '../components/CreateChallenge'
+
 
 const CustomButton = (props) => {
 
@@ -62,8 +58,7 @@ const CustomButton = (props) => {
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
 
-function FeedScreen({navigation}) {
-    //const [text, setText] = React.useState('');
+function FeedScreen() {
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -73,14 +68,12 @@ function FeedScreen({navigation}) {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
-    // const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
-    const base_url = "http://127.0.0.1:8000"
+    //const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+    const base_url='http://10.0.2.2:8000';
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
-    console.log(challenges_url)
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
-    {/*
     useEffect(() => {
         fetch(challenges_url, {
             method: 'GET',
@@ -89,17 +82,16 @@ function FeedScreen({navigation}) {
             }),
         })
             .then((response) => response.json())
-            .then((json) => console.log(JSON.parse(json)))
+            .then((json) => setfetchedData(JSON.parse(json)))
             .catch((error) => console.error(error))
     }, []);
-    */}
+
 
     function friendObjectsToImageSources(friendObjects) {
         return friendObjects.map(function (friendObject) {
             return `${base_url}/static/images/users/user${friendObject["id"]}.png`;
         });
     }
-
 
     function friendObjectsToName(friendObjects) {
         return friendObjects.map(function (friendObject) {
@@ -115,7 +107,6 @@ function FeedScreen({navigation}) {
           update: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
           delete: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity }
         }
-
         // Check if the user is scrolling up or down by confronting the new scroll position with your own one
         const currentOffset = event.nativeEvent.contentOffset.y
         const direction = (currentOffset > 0 && currentOffset > _listViewOffset)
@@ -132,55 +123,6 @@ function FeedScreen({navigation}) {
         // Update your scroll position
         _listViewOffset = currentOffset
       }
-
-    const actions = [
-    {
-        text: "Accessibility",
-    //   icon: require("../images/ic_accessibility_white.png"),
-        name: "bt_accessibility",
-        position: 2
-    },
-    {
-        text: "Language",
-    //   icon: require("../images/ic_language_white.png"),
-        name: "bt_language",
-        position: 1
-    },
-    {
-        text: "Location",
-    //   icon: require("../images/ic_room_white.png"),
-        name: "bt_room",
-        position: 3
-    },
-    {
-        text: "Video",
-    //   icon: require("../images/ic_videocam_white.png"),
-        name: "bt_videocam",
-        position: 4
-    }
-    ];
-
-    // TODO: remove, dirty workaround
-    const challenges = [{
-        'name': "Quarantine Family Pic",
-        'owner': {
-            'id': 1,
-            'name': "Manuel"
-        },
-        'challenge_id': 1,
-        'description': "Make a quarantine picture with your family",
-        'private': false,
-        'participants': [1, 2],
-        'tags': ["#quarantinesquad"],
-        'likes': [1, 2],
-        'costs': 0,
-        'completed_users': [1],
-        'deadline': 1589104556,
-        'proof': "image",
-        'picture_id': 0,
-        'bet': "bet bet bet",
-        'voting': false,
-    }]
 
     return (
         <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
@@ -215,7 +157,7 @@ function FeedScreen({navigation}) {
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <ScrollView onScroll={onScroll}>
                         <FlatList
-                            data={challenges}
+                            data={fetchedData}
                             renderItem={
                                 ({item}) =>
                                     <FeedItem
@@ -244,32 +186,12 @@ function FeedScreen({navigation}) {
                     </ScrollView>
                 </View>
 
-                {/* {isActionButtonVisible &&
-                // <Animated.View>
+                {isActionButtonVisible &&
                 <ActionButton
                     buttonColor={Colors.highlightColor}
                     onPress={() => { console.log("hi")}}
                 />
-                // </Animated.View>
-                }  */}
-
-                <FloatingAction
-                    actions={actions}
-                    visible={isActionButtonVisible}
-                    position="right"
-                    color={Colors.highlightColor}
-                    onPressItem={name => {
-                        // Alert.alert("Icon pressed", `the icon ${name} was pressed`);
-                        // setIsActionButtonVisible(!isActionButtonVisible)
-                        console.log("Icon pressed", `the icon ${name} was pressed`)
-
-                    }}
-                    onPressMain={state => {
-                        console.log(state);
-                        setIsActionButtonVisible(!isActionButtonVisible);
-                        navigation.navigate('createChallenge')
-                    }}
-                />
+                }
 
             </View>
         </View>
@@ -304,17 +226,4 @@ const styles = StyleSheet.create({
       },
 });
 
-
-const FeedStack = createStackNavigator()
-
-const Marius = () => {
-    return (
-        <FeedStack.Navigator initalRouteName="Feed">
-            <FeedStack.Screen name="Feed" component={FeedScreen} />
-            <FeedStack.Screen name="ChallengeOverview" component={ChallengeOverview} />
-            <FeedStack.Screen name="createChallenge" component={CreateChallenge} />
-        </FeedStack.Navigator>
-    )
-}
-
-export default Marius;
+export default FeedScreen;
