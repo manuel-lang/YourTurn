@@ -19,12 +19,12 @@ const Details = ({route}) => {
             <DetailsStack.Screen
                 name="addUserToChallenge"
                 component={AddUser}
+                options={{headerShown: false}}
                 initialParams={{
                     baseUrl: route.params.data.baseUrl,
                     userId: route.params.data.userId,
                     participantNames: route.params.data.participantNames,
                     participantImages: route.params.data.participantImages,
-
                 }}
             />
             {/*

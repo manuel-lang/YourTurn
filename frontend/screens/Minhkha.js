@@ -4,6 +4,7 @@ import Colors from "../constants/Colors"
 import {Text} from 'galio-framework';
 import {Button} from 'galio-framework';
 import {Icon} from 'galio-framework';
+import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker'
 
 
@@ -11,6 +12,8 @@ const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
 const ChallengeDetails = ( props) => {
+
+    const navigation = useNavigation();
 
     return (
         <View>
@@ -115,7 +118,7 @@ const ChallengeDetails = ( props) => {
                     iconColor={Colors.highlightColor}
                     style={styles.secondaryButtonStyle}
                     onPress={() => {
-                        navigation.navigate('AddUserToChallenge')
+                        navigation.navigate('addUserToChallenge')
                     }}
                 />
 
@@ -315,11 +318,6 @@ const AddUserDone = (props) => {
 
 export default function Minhkha(props) {
 
-    const onPressAddUser = (event) => {
-        setAddUserOpen(true);
-    }
-
-
     const onPressDone = (event) => {
         setUploadOpen(true);
     }
@@ -327,15 +325,6 @@ export default function Minhkha(props) {
     const onPressUploadFinished = (event) => {
         setUploadOpen(false);
         setDoneOpen(true);
-    }
-
-    const onPressAddUserFinished = (event) => {
-        setAddUserOpen(false);
-        setAddUserDoneOpen(true);
-    }
-
-    const onPressAddUserDoneFinished = (event) => {
-        setAddUserDoneOpen(false);
     }
 
     const onPressDoneFinished = (event) => {
@@ -352,8 +341,6 @@ export default function Minhkha(props) {
 
     const [uploadOpen, setUploadOpen] = React.useState(false);
     const [doneOpen, setDoneOpen] = React.useState(false);
-    const [addUserOpen, setAddUserOpen] = React.useState(false);
-    const [addUserDoneOpen, setAddUserDoneOpen] = React.useState(false);
 
     return (
             <View style={styles.card} >
@@ -368,10 +355,10 @@ export default function Minhkha(props) {
                         voting={props.voting}
                         bet={props.bet}
                         deadline={parseDate(props.deadline)}
-                        onPressAddUser={onPressAddUser}
                         onPressDone={onPressDone}
                     />
 
+                    {/*
                     {addUserDoneOpen &&
                     <AddUserDone
                         friendsNames={props.friendsNames}
@@ -379,6 +366,7 @@ export default function Minhkha(props) {
                         onPressAddUserDoneFinished={onPressAddUserDoneFinished}
                     />
                     }
+                    */}
 
                     {doneOpen &&
                     <Done
@@ -494,8 +482,6 @@ const styles = StyleSheet.create({
     },
 
     center: {
-        // flex: 1,
-        // flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center"
     },

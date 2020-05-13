@@ -16,9 +16,8 @@ load_dotenv()
 
 
 def _get_db():
-    return MongoClient(f'mongodb://{os.getenv("REMOTE_HOST")}:{os.getenv("REMOTE_PORT")}')[os.getenv("MAIN_DB")]
-    #return MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-    #                   f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
+    return MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
+                       f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
 
 
 @app.get("/challenges")

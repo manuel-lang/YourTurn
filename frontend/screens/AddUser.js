@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, TouchableHighlight, View, StyleSheet} from "react-native";
+import {Image, TouchableHighlight, View, StyleSheet, ScrollView} from "react-native";
 import {Button, Icon, Text} from "galio-framework";
 import Colors from "../constants/Colors";
 
@@ -7,44 +7,38 @@ const UserCard = (props) => {
     const [buttonPressed, setButtonPressed] = React.useState(false);
 
     return (
-        <View style={{backgroundColor: Colors.backgroundColorLight}}>
-
-            <View style={styles.ownerCard}>
-                <TouchableHighlight onPress={() => {setButtonPressed(!buttonPressed)}} style={{width: "100%", height: "100%"}}>
-                    <View
-                        style={{flex: 1, flexDirection: "column", alignItems: "center", width: "100%", height: "100%"}}>
-                        <View style={styles.headerFeedItem}>
-                            <Image source={props.image} style={styles.ownerImageFeedItem}/>
-                            <View style={styles.headerFeedItemText}>
-                                <Text color={Colors.textPrimary} bold h5 style={{marginTop: 50}}>{props.title}</Text>
-                                <Text color={Colors.textSecondary} p>Friend</Text>
-                            </View>
-
-                            {buttonPressed && <Icon
-                                name="check"
-                                family="Feather"
-                                color={Colors.highlightColor}
-                                size={30}
-                                style={styles.statsIcon}
-                            />}
-                        </View>
+        <TouchableHighlight onPress={() => {setButtonPressed(!buttonPressed)}} style={{width: "100%"}}>
+                <View style={styles.headerFeedItem}>
+                    <Image source={props.image.uri} style={{width: 80, height: 80}}/>
+                    <View style={styles.headerFeedItemText}>
+                        <Text color={Colors.textPrimary} bold h5 style={{marginTop: 50}}>{props.title}</Text>
+                        <Text color={Colors.textSecondary} p>Friend</Text>
                     </View>
-                </TouchableHighlight>
 
-            </View>
-        </View>
+                    {buttonPressed && <Icon
+                        name="check"
+                        family="Feather"
+                        color={Colors.highlightColor}
+                        size={30}
+                        style={styles.statsIcon}
+                    />}
+                </View>
+        </TouchableHighlight>
     )
 }
 
 
 class AddUser extends React.Component {
+
     constructor(props) {
         super(props);
+        this.params = this.props.route.params
+        console.log(props)
         this.state = {data: []};
     }
 
     componentDidMount() {
-        fetch(`${this.props.baseUrl}/users/${this.props.userId}`, {
+        fetch(`${this.params.baseUrl}/users/${this.params.userId}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -54,8 +48,8 @@ class AddUser extends React.Component {
             .then((json) => JSON.parse(json))
             .then((json) => {
                 this.setState({
-                    "data": json["friends"].filter(friend => {
-                        return this.props.participantNames.indexOf(friend["name"]) === -1;
+                    "data": json["friends_ids"].filter(friend => {
+                        return this.params.participantNames.indexOf(friend["name"]) === -1;
                     }).map(friend => {
                         return [friend["name"], friend["id"]];
                     })
@@ -65,23 +59,26 @@ class AddUser extends React.Component {
     }
 
     render() {
+
         return (
-            <View>
-                <View style={{marginTop: 40}}>
+            <View style={{backgroundColor: Colors.backgroundColorLight, flex: 1, flexDirection: 'column', justifyContent: 'flex-start'}}>
+                <View style={{marginTop: 20, marginBottom: 20}}>
                     <Text p bold color={Colors.textPrimary}>Whose asses do you want to kick?</Text>
                 </View>
 
-                {this.state.data.map((friend) => {
-                    return <UserCard
-                        key={friend[1]}
-                        title={friend[0]}
-                        image={{uri: `${this.props.baseUrl}/static/images/users/user${friend[1]}.png`}}
-                        subtitle="Friend"
-                    />
-                })
-                }
+                <ScrollView style={{marginBottom: 20}}>
+                    {this.state.data.map((friend) => {
+                            return <UserCard
+                                key={friend[1]}
+                                title={friend[0]}
+                                image={{uri: `${this.params.baseUrl}/static/images/users/user${friend[1]}.png`}}
+                                subtitle="Friend"
+                            />
+                        })
+                    }
+                </ScrollView>
 
-                <View style={{alignItems: "center", marginTop: 20}}>
+                <View style={{alignItems: "center", marginBottom: 20}}>
                     <Button
                         onlyIcon
                         icon="check"
@@ -90,7 +87,9 @@ class AddUser extends React.Component {
                         color={Colors.highlightColor}
                         iconColor={Colors.elementWhite}
                         style={{width: 100, height: 50}}
-                        onPress={this.props.onPressAddUserFinished}
+                        onPress={() => {
+                            this.props.navigation.goBack()
+                        }}
                     />
                 </View>
             </View>
@@ -100,41 +99,20 @@ class AddUser extends React.Component {
 
 const styles = StyleSheet.create({
     ownerCard: {
-        marginTop: 20,
-        flex: 1,
         padding: 0,
-        height: 80,
         width: "100%",
-        backgroundColor: Colors.backgroundColorLight,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: "center"
+        // borderRadius: 10,
     },
     headerFeedItem: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: "center",
-        marginTop: 30,
-        marginBottom: 30,
     },
     headerFeedItemText: {
-        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
 
     },
-    footerDivider: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        marginTop: 30,
-        marginLeft: 20,
-        marginRight: 20,
-        borderBottomColor: Colors.tabColor,
-        borderBottomWidth: 2,
-    },
-
 })
 
 export default AddUser;

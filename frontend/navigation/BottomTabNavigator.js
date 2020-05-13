@@ -3,16 +3,15 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import Profile from '../screens/Profile';
 import FeedNavigation from './FeedNavigation';
-import Malte from '../screens/Malte';
-import AnotherScreen from '../screens/AnotherScreen';
-import FriendsScreen from '../screens/FriendsScreen';
+import Notifications from '../screens/Notifications';
 import { Ionicons, FontAwesome, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Image } from 'react-native';
 import Colors from '../constants/Colors';
+import EmptyScreen from "../screens/EmptyScreen";
 
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'feed';
+const INITIAL_ROUTE_NAME = 'Feed';
 
 function IconWithBadge({ name, badgeCount, color, size }) {
   return (
@@ -67,7 +66,7 @@ function BottomTabNavigator({ navigation, route }) {
             }}
         >
             <BottomTab.Screen
-                name="nils"
+                name="Profile"
                 component={Profile}
                 options={{
                     title: '',
@@ -82,8 +81,8 @@ function BottomTabNavigator({ navigation, route }) {
             />
 
             <BottomTab.Screen
-                name="mfriends"
-                component={FriendsScreen}
+                name="Friends"
+                component={EmptyScreen}
                 options={{
                     title: '',
                     tabBarIcon: ({ focused }) =>
@@ -97,7 +96,7 @@ function BottomTabNavigator({ navigation, route }) {
             />
 
             <BottomTab.Screen
-                name="feed"
+                name="Feed"
                 component={FeedNavigation}
                 options={{
                     title: '',
@@ -111,7 +110,7 @@ function BottomTabNavigator({ navigation, route }) {
 
             <BottomTab.Screen
                 name="challenges"
-                component={AnotherScreen}
+                component={EmptyScreen}
                 options={{
                     title: '',
                     tabBarIcon: ({ focused }) =>
@@ -127,8 +126,8 @@ function BottomTabNavigator({ navigation, route }) {
 
 
             <BottomTab.Screen
-                name="malte"
-                component={Malte}
+                name="Notifications"
+                component={Notifications}
                 options={{
                     title: '',
                     tabBarIcon: ({ focused }) =>

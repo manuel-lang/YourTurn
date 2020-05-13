@@ -121,7 +121,6 @@ export default function FeedItem (props) {
 
                 <View style={{flex: 1, flexDirection: "row", justifyContent: "center"}}>
                     {props.participantImages.slice(0, 3).map( participantImage => {
-                        console.log(participantImage);
                       return <Image source={{uri: participantImage}} style={styles.friendsImage}/>
                     })}
                 </View>

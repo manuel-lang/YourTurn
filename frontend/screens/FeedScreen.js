@@ -68,12 +68,12 @@ function FeedScreen() {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
-    const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+    //const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
+    const base_url='http://10.0.2.2:8000';
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
 
-    {/*
     useEffect(() => {
         fetch(challenges_url, {
             method: 'GET',
@@ -85,7 +85,7 @@ function FeedScreen() {
             .then((json) => setfetchedData(JSON.parse(json)))
             .catch((error) => console.error(error))
     }, []);
-    */}
+
 
     function friendObjectsToImageSources(friendObjects) {
         return friendObjects.map(function (friendObject) {
@@ -124,49 +124,6 @@ function FeedScreen() {
         _listViewOffset = currentOffset
       }
 
-    const challenges = [
-        {
-            'name': "Quarantine Family Pic",
-            'owner': {
-                'id': 1,
-                'name': "Manuel"
-            },
-            'challenge_id': 1,
-            'description': "Make a quarantine picture with your family",
-            'private': false,
-            'participants': [1, 2],
-            'tags': ["quarantinesquad"],
-            'likes': [1, 2],
-            'costs': 0,
-            'completed_users': [1],
-            'deadline': 1589104884,
-            'proof': "image",
-            'picture_id': 0,
-            'bet': "bet bet bet",
-            'voting': false,
-        },
-        {
-            'name': "Show your mask",
-            'owner': {
-                'id': 1,
-                'name': "Manuel"
-            },
-            'challenge_id': 2,
-            'description': "Make a picture with your corona mask",
-            'private': false,
-            'participants': [1, 2],
-            'tags': ["#coromask"],
-            'likes': [1, 2],
-            'costs': 0,
-            'completed_users': [1],
-            'deadline': 1589104884,
-            'proof': "image",
-            'picture_id': 0,
-            'bet': "bet bet bet",
-            'voting': false,
-        }
-    ]
-
     return (
         <View style={{flex: 1, backgroundColor: Colors.backgroundColorLight}}>
             <View style={styles.wrapper}>
@@ -200,7 +157,7 @@ function FeedScreen() {
                 <View style={{flex: 11, justifyContent: 'space-between'}}>
                     <ScrollView onScroll={onScroll}>
                         <FlatList
-                            data={challenges}
+                            data={fetchedData}
                             renderItem={
                                 ({item}) =>
                                     <FeedItem

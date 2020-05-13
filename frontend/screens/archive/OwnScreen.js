@@ -24,52 +24,52 @@ export default function OwnScreen() {
 
 
         <View style={styles.firstImageContainer}>
-         <Image 
-            source={require('../assets/images/profile_picture.jpg') }
+         <Image
+            source={require('../../assets/images/profile_picture.jpg') }
             style={{width: 100, height: 100}}
           />
         </View>
 
-        
+
 
       <View style={{alignItems: "center"}}>
         <Avatar icon="person" iconColor="white" size={75} iconSize={30}  />
       </View>
 
       <View style={styles.imageContainer}>
-        {showPic && <Image 
-          source={require('../assets/images/profile_picture.jpg') }
+        {showPic && <Image
+          source={require('../../assets/images/profile_picture.jpg') }
           style={{width: 100, height: 100}}
         />}
         <Collapsible  collapsed={collapseOpen}>
-          <Image 
-            source={require('../assets/images/profile_picture.jpg') }
+          <Image
+            source={require('../../assets/images/profile_picture.jpg') }
             style={{width: 100, height: 100}}
           />
         </Collapsible >
-        <Image 
-          source={require('../assets/images/profile_picture.jpg') }
+        <Image
+          source={require('../../assets/images/profile_picture.jpg') }
           style={{width: 50, height: 50}}
         />
 
-        <Button 
-          primary 
+        <Button
+          primary
           id="button"
-          text="Hide/show first pic" 
+          text="Hide/show first pic"
           onPress={() => setShowPic(!showPic)}
         />
-        <Button 
-          accent 
-          text="Collapse/expand second pic" 
+        <Button
+          accent
+          text="Collapse/expand second pic"
           onPress={() => setCollapseOpen(!collapseOpen)}
-        /> 
-        <Button raised primary text="Primary" /> 
+        />
+        <Button raised primary text="Primary" />
         <Button disabled text="Disabled" />
 
       </View>
 
       <View>
-        <ActionButton 
+        <ActionButton
           actions={
             [
               "1", "2", "3", "4"
@@ -79,8 +79,8 @@ export default function OwnScreen() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button raised text="Primary" style={{container: {width: 200}}} /> 
-        <Button raised primary text="Primary"  /> 
+        <Button raised text="Primary" style={{container: {width: 200}}} />
+        <Button raised primary text="Primary"  />
       </View>
 
       <TextInput
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     width: '40%',
     height: 40
-  },  
+  },
   contentContainer: {
     paddingTop: 15,
   },
