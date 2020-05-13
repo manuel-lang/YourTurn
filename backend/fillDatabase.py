@@ -10,8 +10,12 @@ notifications = initial_data.notifications
 
 
 def main():
-    mongo_client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
+
+    if os.getenv("USR_") is not None and os.getenv("PWD_") is not None and os.getenv("AUTH_DB") is not None:
+        mongo_client = MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
                        f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
+    else:
+        mongo_client = MongoClient(f'mongodb://{os.getenv("REMOTE_HOST")}:{os.getenv("REMOTE_PORT")}')[os.getenv("MAIN_DB")]
 
     mongo_client['users'].delete_many({})
     mongo_client['users'].insert_many(users)
