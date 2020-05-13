@@ -58,7 +58,7 @@ const CustomButton = (props) => {
 // Variable that stores current scroll y-position
 let _listViewOffset = 0
 
-function FeedScreen() {
+function FeedScreen({navigation}) {
     const [fetchedData, setfetchedData] = useState([])
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -189,7 +189,10 @@ function FeedScreen() {
                 {isActionButtonVisible &&
                 <ActionButton
                     buttonColor={Colors.highlightColor}
-                    onPress={() => { console.log("hi")}}
+                    onPress={() => {
+                        navigation.navigate('CreateChallenge')
+                    }
+                    }
                 />
                 }
 

@@ -145,11 +145,11 @@ const ChallengeDetails = ( props) => {
                         backgroundColor: Colors.tabColor,
                         borderRadius: 25,
                         width: 150,
-                        height: 50
+                        height: 50,
                     }}>
                         <Image
                             source={require('../assets/images/Logo.png')}
-                            style={{width: 130, height: 40, marginTop: 10, marginLeft: 20}}
+                            style={{width: 110, height: 35, marginTop: 5, marginLeft: 20}}
                             onPress={props.onPressDone}/>
                     </View>
                 </TouchableHighlight>
@@ -455,13 +455,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: "flex-start",
-        margin: 10
+        margin: 10,
     },
 
     proofStyle: {
         width: 150,
         height: 30,
         marginLeft: 10,
+
     },
 
     progressContainer: {
