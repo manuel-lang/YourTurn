@@ -1,6 +1,6 @@
-<img width="40%" align="right" src="demo.gif">
-
 # YourTurn
+
+<img width="40%" align="right" src="demo.gif">
 
 YourTurn enables everyone to stay connected during the Corona crisis. In our app, people can create challenge, invite their friends, find challenges in their neighborhood and win prizes. Do you have it to show everyone you're the best in removing trash in the forest or to show a bike champion that you can do a wheelie while wearing a face mask?
 
