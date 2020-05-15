@@ -23,7 +23,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const Details = () => {
     return (
-        <Text>ChallengeDetails</Text>
+        <View>
+            <FeedItem />
+        </View>
     )
 }
 

@@ -12,7 +12,7 @@ import { Badge, Icon, Avatar } from 'react-native-material-ui';
 import { RadioButton } from 'react-native-material-ui';
 import { ActionButton } from 'react-native-material-ui';
 
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 export default function OwnScreen() {
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.backgroundColorLight,
-  },  
+  },
   contentContainer: {
     paddingTop: 15,
   },

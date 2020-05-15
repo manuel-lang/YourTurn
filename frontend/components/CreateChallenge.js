@@ -2,10 +2,12 @@ import * as React from 'react';
 import { StyleSheet, View, TouchableOpacity, Switch, Image, ImageBackground, TextInput } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Colors from "../constants/Colors"
-import { Input, Text } from 'galio-framework';
+import { Input, Text, Button } from 'galio-framework';
 import DatePicker from 'react-native-datepicker'
 import Tags from "./CustomTags";
-
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Dialog, {DialogContent} from 'react-native-popup-dialog';
 const baseMargin = 10;
 const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
 
@@ -20,7 +22,9 @@ export default function CreateChallenge (props) {
   const [deadline, setDeadline] = React.useState(new Date().toISOString().slice(0,10));  
   const [costs, setCosts] = React.useState();  
   const [bet, setBet] = React.useState("Bet");  
-  const [proof, setProof] = React.useState("Proof");  
+  const [proof, setProof] = React.useState("Proof");
+  const [imageChallenge, setImageChallenge] = React.useState(undefined);
+  const [dialogState, setDialogState] = React.useState([]);
 
   const onTextInputChange = (event, changeMethod) => {
     changeMethod(event.nativeEvent.text);
@@ -76,10 +80,59 @@ export default function CreateChallenge (props) {
     //         }
     //     )
   };
-
   
+  const pickImage = async () => {
+    try {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        if (!result.cancelled) {
+            setImageChallenge(result.uri);
+            setDialogState({ visible: false });
+        }
+
+        console.log(result);
+    } catch (E) {
+        console.log(E);
+    }
+}
+
+const takeImage = async () => {
+    try {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+        if (!result.cancelled) {
+            setImageChallenge(result.uri);
+            setDialogState({ visible: false });
+        }
+
+        console.log(result);
+    } catch (E) {
+        console.log(E);
+    }
+}
+
+const getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+      const { status2 } = await Permissions.askAsync(Permissions.CAMERA);
+      if (status2 !== 'granted') {
+        alert('Sorry, we need camera permissions to make this work!');
+      }
+    }
+  };
+
   return (
-      
       <View style={styles.wrapper}>
 
           <ScrollView>
@@ -91,16 +144,71 @@ export default function CreateChallenge (props) {
                     style={styles.backgroundimage}
                     imageStyle={{ borderRadius: 20 }}
                     // source={{uri: `${base_url}/static/images/challenges/challenge1.png`}}
-                    source={require('../assets/images/challenges/challenge2.png')}
+                    source={imageChallenge==undefined? require('../assets/images/challenges/challenge2.png') : {uri: imageChallenge}}
                 >
                 </ImageBackground>
-
                 <View style={styles.imagetextContainer}>
                     <TextInput
                       value={name}
                       onChangeText={text => setName(text)}
                       style={{fontSize: 20, fontWeight: "bold", color: Colors.textPrimary}}
                     />
+                </View>
+                <View style={{flexDirection: 'row', justifyContent:'flex-end', paddingRight: 10, marginTop: -50}}>
+                  <Button onlyIcon icon="plus" 
+                          iconFamily="Entypo"
+                          iconSize={30}
+                          color={Colors.highlightColor}
+                          iconColor={Colors.elementWhite}
+                          style={{ width: 40, height: 40 }}
+                          onPress={() => {
+                            setDialogState({ visible: true });
+                          }}>
+                  </Button>
+                  <Dialog 
+                    visible={dialogState.visible}
+                    onTouchOutside={() => {
+                      setDialogState({ visible: false });
+                    }}
+                    onHardwareBackPress={() => {
+                      setDialogState({ visible: false });
+                    }}
+                  >
+                  <DialogContent style={{width: 400, backgroundColor: Colors.tabColor}}>
+                    <View style={{marginRight: -15, flexDirection: 'row', justifyContent:'flex-end'}}>
+                      <Button 
+                        onlyIcon icon="close" 
+                        iconFamily="antdesign" 
+                        iconSize={15}
+                        color={Colors.elementRed}
+                        iconColor={Colors.elementWhite}
+                        style={{ width: 25, height: 25, marginTop: 10, marginRight: 10}} 
+                        onPress={() => {
+                          setDialogState({ visible: false });
+                        }}>
+                          warning
+                      </Button>
+                    </View>
+                    <View style ={{marginTop: 20, marginBottom: 20, flexDirection: 'row', justifyContent: 'space-around'}}>
+                      <Button onlyIcon icon="camera" 
+                              iconFamily="Feather"
+                              iconSize={70}
+                              color={Colors.highlightColor}
+                              iconColor={Colors.elementWhite}
+                              style={{ width: 100, height: 100 }}
+                              onPress={takeImage}>
+                      </Button>
+                      <Button onlyIcon icon="image" 
+                            iconFamily="Feather"
+                            iconSize={70}
+                            color={Colors.highlightColor}
+                            iconColor={Colors.elementWhite}
+                            style={{ width: 100, height: 100 }}
+                            onPress={pickImage}>
+                    </Button>
+                  </View>
+                  </DialogContent>
+                  </Dialog>
                 </View>
               </View>
 
