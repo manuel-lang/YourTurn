@@ -25,6 +25,9 @@ class Challenge(BaseModel):
 
 class User(BaseModel):
     name: str
+    email: str = None
+    full_name: str = None
+    disabled: bool = None
     user_id: int = None
     friends_ids: list = []
     bookmarks: list = []
@@ -36,6 +39,10 @@ class User(BaseModel):
         return self.__dict__
 
 
+class UserInDB(User):
+    hashed_password: str
+
+
 class Notification(BaseModel):
     content: str
     notification_id: int = None
@@ -44,3 +51,12 @@ class Notification(BaseModel):
 
     def to_dict(self):
         return self.__dict__
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str = None
