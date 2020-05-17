@@ -8,6 +8,9 @@ import Tags from "./CustomTags";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Dialog, {DialogContent} from 'react-native-popup-dialog';
+
+import { Video } from 'expo-av';
+
 const baseMargin = 10;
 const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
 
@@ -84,10 +87,10 @@ export default function CreateChallenge (props) {
   const pickImage = async () => {
     try {
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
+            mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+            //allowsEditing: true,
+            //aspect: [4, 3],
+            //quality: 1,
         });
         if (!result.cancelled) {
             setImageChallenge(result.uri);
@@ -103,10 +106,10 @@ export default function CreateChallenge (props) {
 const takeImage = async () => {
     try {
         let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
+            mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+            //allowsEditing: true,
+            //aspect: [4, 3],
+            //quality: 1,
         });
         if (!result.cancelled) {
             setImageChallenge(result.uri);
@@ -140,13 +143,18 @@ const getPermissionAsync = async () => {
             <View style={styles.itemWrapper}>
 
               <View style={styles.imagepart}>
-                <ImageBackground
-                    style={styles.backgroundimage}
-                    imageStyle={{ borderRadius: 20 }}
-                    // source={{uri: `${base_url}/static/images/challenges/challenge1.png`}}
-                    source={imageChallenge==undefined? require('../assets/images/challenges/challenge2.png') : {uri: imageChallenge}}
-                >
-                </ImageBackground>
+                <Video
+                  style={styles.backgroundimage}
+                  //imageStyle={{ borderRadius: 20 }}
+                  // source={{uri: `${base_url}/static/images/challenges/challenge1.png`}}
+                  rate={1.0}
+                  volume={1.0}
+                  isMuted={true}
+                  resizeMode="cover"
+                  shouldPlay
+                  isLooping
+                  source={imageChallenge==undefined? require('../assets/videos/YourTurn.mp4') : {uri: imageChallenge}}
+                />
                 <View style={styles.imagetextContainer}>
                     <TextInput
                       value={name}
