@@ -4,7 +4,7 @@ import {View, StyleSheet} from "react-native";
 import {Button, Icon, Text} from "galio-framework";
 import Colors from "../constants/Colors";
 
-const UploadScreen = (props) => {
+const UploadScreen = ({navigation}) => {
 
     const [image, setImage] = React.useState([]);
 
@@ -18,9 +18,10 @@ const UploadScreen = (props) => {
             });
             if (!result.cancelled) {
                 setImage({image: result.uri});
+                navigation.navigate('finishChallenge')
             }
 
-            console.log(result);
+            //console.log(result);
         } catch (E) {
             console.log(E);
         }
@@ -36,9 +37,10 @@ const UploadScreen = (props) => {
             });
             if (!result.cancelled) {
                 setImage({image: result.uri});
+                navigation.navigate('finishChallenge')
             }
 
-            console.log(result);
+            //console.log(result);
         } catch (E) {
             console.log(E);
         }
@@ -111,11 +113,11 @@ const UploadScreen = (props) => {
 
 const styles = StyleSheet.create({
         center: {
-        // flex: 1,
-        // flexDirection: 'row',
-        justifyContent: "center",
-        alignItems: "center"
-    },
+            backgroundColor: Colors.backgroundColorLight,
+            justifyContent: "center",
+            alignItems: "center",
+            height: '100%'
+        },
 })
 
 export default UploadScreen;

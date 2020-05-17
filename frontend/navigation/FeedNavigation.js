@@ -8,7 +8,10 @@ import FeedScreen from '../screens/FeedScreen';
 const FeedStack = createStackNavigator()
 const FeedNavigation = () => {
     return (
-        <FeedStack.Navigator initalRouteName="Feed">
+        <FeedStack.Navigator
+            initalRouteName="Feed"
+            screenOptions={{headerShown: false}}
+        >
             <FeedStack.Screen
                 name="Feed"
                 component={FeedScreen}
@@ -18,6 +21,7 @@ const FeedNavigation = () => {
                 name="ChallengeNavigation"
                 component={ChallengeNavigation}
                 initialParams={{}}
+
             />
 
             <FeedStack.Screen

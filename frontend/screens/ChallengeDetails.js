@@ -1,9 +1,37 @@
 import * as React from "react";
-import {ScrollView} from "react-native";
+import {ScrollView, View, Text, StyleSheet } from "react-native";
 import FeedItem from "./FeedItem";
-import Minhkha from "./Minhkha";
+import FeedItemDetails from "./FeedItemDetails";
+import Modal from 'react-native-modal';
 
 const ChallengeDetails = ({route}) => {
+
+    const [isModalVisible, setModalVisible] = React.useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
+
+
+    const ModalComponent = () => {
+        return (
+            <View>
+              <Modal
+                  isVisible={ isModalVisible }
+                  onBackdropPress={() => toggleModal()}
+                  backdropColor='None'
+                  onModalShow = {() => {
+                      setTimeout(toggleModal, 3000);
+                  }}
+              >
+                <View style={styles.friendsAddedModal}>
+                  <Text>Freunde wurden hinzugefügt!</Text>
+                </View>
+              </Modal>
+            </View>
+        )
+    }
+
     return (
         <ScrollView>
             <FeedItem
@@ -27,7 +55,7 @@ const ChallengeDetails = ({route}) => {
                 bet={route.params.data.bet}
                 deadline={route.params.data.deadline}
             />
-            <Minhkha
+            <FeedItemDetails
                 baseUrl={route.params.data.baseUrl}
                 userId={route.params.data.userId}
                 description={route.params.data.description}
@@ -38,10 +66,19 @@ const ChallengeDetails = ({route}) => {
                 deadline={route.params.data.deadline}
                 participantImages={route.params.data.participantImages}
                 participantNames={route.params.data.participantNames}
-                onPressDetails={() => []}
+                onPressBackTest={toggleModal}
             />
+            <ModalComponent />
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    friendsAddedModal: {
+        backgroundColor: 'orange',
+        height: 20,
+        width: '80%'
+    }
+})
 
 export default ChallengeDetails;

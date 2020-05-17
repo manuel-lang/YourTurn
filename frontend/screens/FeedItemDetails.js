@@ -12,10 +12,10 @@ const API_URL_CHALLENGE = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws
 const API_URL_USER = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080/users/"
 
 const ChallengeDetails = ( props) => {
-
     const navigation = useNavigation();
 
     return (
+
         <View>
             <View style={styles.tagContainer}>
                 {
@@ -118,7 +118,7 @@ const ChallengeDetails = ( props) => {
                     iconColor={Colors.highlightColor}
                     style={styles.secondaryButtonStyle}
                     onPress={() => {
-                        navigation.navigate('addUserToChallenge')
+                        navigation.navigate('addUserToChallenge', {test: props.onPressBackTest})
                     }}
                 />
 
@@ -137,7 +137,9 @@ const ChallengeDetails = ( props) => {
                 */}
 
                 <TouchableHighlight
-                    onPress={props.onPressDone}>
+                    onPress={() => {
+                        navigation.navigate('uploadScreen')
+                    }}>
                     {/* <View style={{backgroundColor: Colors.tabColor, borderRadius:25, width: 150, height: 50}}> */}
                     <View style={{
                         borderWidth: 1,
@@ -162,174 +164,16 @@ const ChallengeDetails = ( props) => {
                     color={Colors.tabColor}
                     iconColor={Colors.highlightColor}
                     style={styles.secondaryButtonStyle}
+                    onPress={() => {
+                        navigation.navigate('shareChallenge')
+                    }}
                 />
             </View>
         </View>
     )
 }
 
-const Done = (props) => {
-
-    return (
-        <View style={styles.center}>
-            <Icon
-                name="check-circle"
-                family="Feather"
-                color={Colors.highlightColor}
-                size={200}
-                style={{marginTop: 40}}
-            />
-
-            <View style={{marginTop: 40, marginBottom: 10}}>
-                <Text p bold color={Colors.textPrimary}>Congrats! You mastered this challenge.</Text>
-            </View>
-
-            <Text p color={Colors.textPrimary}>Let your friends know who is the greatest.</Text>
-
-            <View style={styles.buttonContainer}>
-                {/* <Button
-            color={Colors.highlightColor}
-            style={{ width: 100, height: 50 }}
-            onPress={props.onPressDoneFinished}
-          > Back </Button> */}
-
-                <Button
-                    onlyIcon
-                    icon="instagram"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 50, height: 50, margin: 10}}
-                />
-
-                <Button
-                    onlyIcon
-                    icon="facebook"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 50, height: 50, margin: 10}}
-                />
-
-                <Button
-                    onlyIcon
-                    icon="twitter"
-                    iconFamily="Feather"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 50, height: 50, margin: 10}}
-                />
-
-                <Button
-                    onlyIcon
-                    icon="social-snapchat"
-                    iconFamily="Foundation"
-                    iconSize={25}
-                    color={Colors.tabColor}
-                    iconColor={Colors.highlightColor}
-                    style={{width: 50, height: 50, margin: 10}}
-                />
-
-
-                {/* <Button
-            onlyIcon
-            icon="upload"
-            iconFamily="Entypo"
-            iconSize={30}
-            color={Colors.highlightColor}
-            iconColor={Colors.elementWhite}
-            style={{ width: 100, height: 50, margin: 10  }}
-            onPress={props.onPressDoneFinished}
-          /> */}
-
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <Button
-                    color={Colors.highlightColor}
-                    style={{width: 100, height: 50}}
-                    onPress={props.onPressDoneFinished}
-                > Back </Button>
-
-
-                {/* <Button
-            onlyIcon
-            icon="upload"
-            iconFamily="Entypo"
-            iconSize={30}
-            color={Colors.highlightColor}
-            iconColor={Colors.elementWhite}
-            style={{ width: 100, height: 50, margin: 10  }}
-            onPress={props.onPressDoneFinished}
-          /> */}
-
-            </View>
-
-        </View>
-    )
-}
-
-
-
-const AddUserDone = (props) => {
-
-    return (
-        <View style={styles.center}>
-            <Icon
-                name="check-circle"
-                family="Feather"
-                color={Colors.highlightColor}
-                size={200}
-                style={{marginTop: 40}}
-            />
-
-            <View style={{marginTop: 40}}>
-                <Text p bold color={Colors.textPrimary}>Your friends have been invited!</Text>
-            </View>
-
-            <View style={styles.buttonContainer}>
-
-                <Button
-                    color={Colors.highlightColor}
-                    style={{width: 100, height: 50}}
-                    onPress={props.onPressAddUserDoneFinished}
-                > Back </Button>
-
-            {/*
-            <Button
-                onlyIcon
-                icon="upload"
-                iconFamily="Entypo"
-                iconSize={30}
-                color={Colors.highlightColor}
-                iconColor={Colors.elementWhite}
-                style={{ width: 100, height: 50, margin: 10  }}
-                onPress={props.onPressDoneFinished}
-            />
-            */}
-
-            </View>
-        </View>
-    )
-}
-
-export default function Minhkha(props) {
-
-    const onPressDone = (event) => {
-        setUploadOpen(true);
-    }
-
-    const onPressUploadFinished = (event) => {
-        setUploadOpen(false);
-        setDoneOpen(true);
-    }
-
-    const onPressDoneFinished = (event) => {
-        setDoneOpen(false);
-    }
+export default function FeedItemDetails(props) {
 
     const parseDate = (date) => {
         const parsedDate = new Date(date["$date"])
@@ -338,9 +182,6 @@ export default function Minhkha(props) {
 
         return (dateDif.getUTCDate()).toString() + " days left"
     }
-
-    const [uploadOpen, setUploadOpen] = React.useState(false);
-    const [doneOpen, setDoneOpen] = React.useState(false);
 
     return (
             <View style={styles.card} >
@@ -355,30 +196,8 @@ export default function Minhkha(props) {
                         voting={props.voting}
                         bet={props.bet}
                         deadline={parseDate(props.deadline)}
-                        onPressDone={onPressDone}
+                        onPressBackTest={props.onPressBackTest}
                     />
-
-                    {/*
-                    {addUserDoneOpen &&
-                    <AddUserDone
-                        friendsNames={props.friendsNames}
-                        friendsImages={props.friendsImages}
-                        onPressAddUserDoneFinished={onPressAddUserDoneFinished}
-                    />
-                    }
-                    */}
-
-                    {doneOpen &&
-                    <Done
-                        onPressDoneFinished={onPressDoneFinished}
-                    />
-                    }
-
-                    {uploadOpen &&
-                    <Upload
-                        onPressUploadFinished={onPressUploadFinished}
-                    />
-                    }
                 </View>
             </View>
     );

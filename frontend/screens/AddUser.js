@@ -33,7 +33,6 @@ class AddUser extends React.Component {
     constructor(props) {
         super(props);
         this.params = this.props.route.params
-        console.log(props)
         this.state = {data: []};
     }
 
@@ -88,6 +87,7 @@ class AddUser extends React.Component {
                         iconColor={Colors.elementWhite}
                         style={{width: 100, height: 50}}
                         onPress={() => {
+                            this.props.route.params.test()
                             this.props.navigation.goBack()
                         }}
                     />
