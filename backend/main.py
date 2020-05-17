@@ -2,8 +2,9 @@ import shutil
 from typing import List
 from bson.json_util import dumps
 from dotenv import load_dotenv
-from fastapi import FastAPI, status, Query, File, UploadFile
+from fastapi import Depends, FastAPI, status, Query, File, UploadFile
 from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.staticfiles import StaticFiles
 from login import authenticate_user, get_current_active_user
 from models import Challenge, Notification, Token, User
@@ -18,8 +19,8 @@ app.mount("/static", StaticFiles(directory="../static"), name="static")
 
 
 def _get_db():
-    return MongoClient(f'mongodb://{os.getenv("USR_")}:{os.getenv("PWD_")}@{os.getenv("REMOTE_HOST")}:'
-                       f'{os.getenv("REMOTE_PORT")}/{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
+    return MongoClient(f'mongodb+srv://{os.getenv("DB_USR_")}:{os.getenv("DB_PWD_")}@{os.getenv("DB_HOST")}/'
+                       f'{os.getenv("AUTH_DB")}')[os.getenv("MAIN_DB")]
 
 
 @app.get("/challenges")

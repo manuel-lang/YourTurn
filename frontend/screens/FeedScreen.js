@@ -68,8 +68,7 @@ function FeedScreen({navigation}) {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
-    //const base_url = "http://ec2-3-122-224-7.eu-central-1.compute.amazonaws.com:8080";
-    const base_url='http://10.0.2.2:8000';
+    const base_url=process.env.BACKEND_URL;
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
