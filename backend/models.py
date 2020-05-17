@@ -5,6 +5,7 @@ from datetime import datetime
 class Challenge(BaseModel):
     name: str
     owner: dict
+    hashtag: str
     challenge_id: int = None
     description: str = ""
     private: bool = False
