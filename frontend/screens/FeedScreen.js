@@ -5,6 +5,7 @@ import { Button } from 'react-native-material-ui';
 import FeedItem  from '../screens/FeedItem';
 import Colors from '../constants/Colors';
 import ActionButton from 'react-native-action-button';
+import { BACKEND_URL } from 'react-native-dotenv'
 
 
 const CustomButton = (props) => {
@@ -68,7 +69,8 @@ function FeedScreen({navigation}) {
     const [isActive3, setIsActive3] = useState(false)
     const [isActive4, setIsActive4] = useState(false)
 
-    const base_url=process.env.BACKEND_URL;
+    const base_url = BACKEND_URL;
+    console.log(base_url);
     const user_id = 1;  // change to real value once we have multiple users
     const challenges_url = `${base_url}/challenges?user_id=${user_id}`
     const [isActionButtonVisible, setIsActionButtonVisible] = useState(true);
