@@ -5,14 +5,16 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, status, Query, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
-from models import Challenge, Notification, User
+from login import authenticate_user, get_current_active_user
+from models import Challenge, Notification, Token, User
 import os
 from pymongo import MongoClient, ASCENDING
 import random
 
+
+load_dotenv()
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="../static"), name="static")
-load_dotenv()
 
 
 def _get_db():
@@ -195,4 +197,30 @@ def upload_file(file: UploadFile = File(...)):
                             content=dumps(f"User file {file.filename} uploaded successfully."))
     else:
         return JSONResponse(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                            content=dumps(f"Mode {mode} not accepted. Select either challenge or user."))
+                            content=dumps(f"Mode not accepted. Select either challenge or user."))
+
+
+@app.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(fake_users_db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/users/me/", response_model=User)
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
+
+
+@app.get("/users/me/items/")
+async def read_own_items(current_user: User = Depends(get_current_active_user)):
+    return [{"item_id": "Foo", "owner": current_user.username}]
